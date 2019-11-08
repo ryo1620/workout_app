@@ -36,6 +36,7 @@ gem 'uglifier', '~> 4.2'
 gem 'coffee-rails', '~> 5.0'
 gem 'jquery-rails', '~> 4.3', '>= 4.3.5'
 gem 'devise', '~> 4.7', '>= 4.7.1'
+gem 'webpacker', github: 'rails/webpacker'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
