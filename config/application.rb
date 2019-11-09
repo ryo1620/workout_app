@@ -24,5 +24,7 @@ module WorkoutApp
                        routing_specs: false,
                        request_specs: true
     end
+    
+    config.i18n.default_locale = :ja
   end
 end
