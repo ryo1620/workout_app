@@ -37,6 +37,9 @@ gem 'coffee-rails', '~> 5.0'
 gem 'jquery-rails', '~> 4.3', '>= 4.3.5'
 gem 'devise', '~> 4.7', '>= 4.7.1'
 gem 'webpacker', github: 'rails/webpacker'
+gem 'rails-i18n', '~> 6.0'
+gem 'devise-i18n', '~> 1.8', '>= 1.8.2'
+gem 'devise-i18n-views', '~> 0.3.7'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
