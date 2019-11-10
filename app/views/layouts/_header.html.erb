@@ -15,7 +15,7 @@
               <li><%= link_to "メニュー管理", "#" %></li>
               <li><%= link_to "種目管理", "#" %></li>
               <li><%= link_to "マイページ", current_user %></li>
-              <li><%= link_to "アカウント設定", edit_user_registration_path(current_user) %></li>
+              <li><%= link_to "アカウントの編集", edit_user_registration_path(current_user) %></li>
               <li class="divider"></li>
               <li>
                 <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>

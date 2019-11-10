@@ -4,6 +4,12 @@
 /* mixins, variables, etc. */
 
 $gray-medium-light: #eaeaea;
+$ng_alert_bg_color: #f2dede;
+$ng_alert_border_color: #ebccd1;
+$ng_alert_color: #a94442;
+$ok_alert_bg_color: #dff0d8;
+$ok_alert_border_color: #d6e9c6;
+$ok_alert_color: #468847;
 
 @mixin box_sizing {
   -moz-box-sizing:    border-box;
@@ -178,4 +184,25 @@ div.form-check {
     padding: 10px 0;
     border-bottom: 1px solid $gray-lighter;
   }
+}
+
+/* flash */
+
+.alert {
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+
+.alert-alert {
+  background-color: $ng_alert_bg_color;
+  border-color: $ng_alert_border_color;
+  color: $ng_alert_color;
+}
+
+.alert-notice {
+  background-color: $ok_alert_bg_color;
+  border-color: $ok_alert_border_color;
+  color: $ok_alert_color;
 }

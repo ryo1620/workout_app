@@ -1,37 +1,81 @@
+<% provide(:title, "アカウントの編集") %>
 <h1><%= t('.title', resource: resource_name.to_s.humanize) %></h1>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-  <%= bootstrap_devise_error_messages! %>
-
-  <div class="form-group">
-    <%= f.label :email %>
-    <%= f.email_field :email, autofocus: true, autocomplete: 'email', class: 'form-control' %>
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+      <%= bootstrap_devise_error_messages! %>
+      
+      <div class="form-group">
+        <%= f.label :name %>
+        <%= f.text_field :name, autofocus: true, autocomplete: 'name', class: 'form-control' %>
+      </div>
+      
+      <div class="form-group">
+        <%= f.label :email %>
+        <%= f.email_field :email, autocomplete: 'email', class: 'form-control' %>
+      </div>
+    
+      <div class="form-group">
+        <%= f.label :password %>
+        <small class="form-text text-muted">（<%= t('.leave_blank_if_you_don_t_want_to_change_it') %>）</small>
+        <%= f.password_field :password, autocomplete: 'new-password', class: 'form-control' %>
+    
+      </div>
+    
+      <div class="form-group">
+        <%= f.label :password_confirmation %>
+        <%= f.password_field :password_confirmation, autocomplete: 'new-password', class: 'form-control'  %>
+      </div>
+      
+      <div class="form-group">
+        <%= f.label :height %>
+        <small class="form-text text-muted">（cm）</small>
+        <%= f.number_field :height, min: '0', max: '999', step: '0.1', class: 'form-control' %>
+      </div>
+      
+      <div class="form-group">
+        <%= f.label :body_weight %>
+        <small class="form-text text-muted">（kg）</small>
+        <%= f.number_field :body_weight, min: '0', max: '999', step: '0.1', class: 'form-control' %>
+      </div>
+      
+      <div class="form-group">
+        <%= f.label :body_fat %>
+        <small class="form-text text-muted">（%）</small>
+        <%= f.number_field :body_fat, min: '0', max: '99', step: '0.1', class: 'form-control' %>
+      </div>
+      
+      <div class="form-group">
+        <%= f.label :bench_press %>
+        <small class="form-text text-muted">（MAX / kg）</small>
+        <%= f.number_field :bench_press, min: '0', max: '999', class: 'form-control' %>
+      </div>
+      
+      <div class="form-group">
+        <%= f.label :squat %>
+        <small class="form-text text-muted">（MAX / kg）</small>
+        <%= f.number_field :squat, min: '0', max: '999', class: 'form-control' %>
+      </div>
+      
+      <div class="form-group">
+        <%= f.label :deadlift %>
+        <small class="form-text text-muted">（MAX / kg）</small>
+        <%= f.number_field :deadlift, min: '0', max: '999', class: 'form-control' %>
+      </div>
+    
+      <div class="form-group">
+        <%= f.label :current_password %>
+        <small class="form-text text-muted">（<%= t('.we_need_your_current_password_to_confirm_your_changes') %>）</small>
+        <%= f.password_field :current_password, autocomplete: 'current-password', class: 'form-control' %>
+    
+      </div>
+    
+      <div class="form-group">
+        <%= f.submit t('.update'), class: 'btn btn-primary' %>
+      </div>
+    <% end %>
+    
+    <!-- <p><%= t('.unhappy') %> <%= link_to t('.cancel_my_account'), registration_path(resource_name), data: { confirm: t('.are_you_sure') }, method: :delete %></p> -->
   </div>
-
-  <div class="form-group">
-    <%= f.label :password %>
-    <%= f.password_field :password, autocomplete: 'new-password', class: 'form-control' %>
-
-    <small class="form-text text-muted"><%= t('.leave_blank_if_you_don_t_want_to_change_it') %></small>
-  </div>
-
-  <div class="form-group">
-    <%= f.label :password_confirmation %>
-    <%= f.password_field :password_confirmation, autocomplete: 'new-password', class: 'form-control'  %>
-  </div>
-
-  <div class="form-group">
-    <%= f.label :current_password %>
-    <%= f.password_field :current_password, autocomplete: 'current-password', class: 'form-control' %>
-
-    <small class="form-text text-muted"><%= t('.we_need_your_current_password_to_confirm_your_changes') %></small>
-  </div>
-
-  <div class="form-group">
-    <%= f.submit t('.update'), class: 'btn btn-primary' %>
-  </div>
-<% end %>
-
-<p><%= t('.unhappy') %>? <%= link_to t('.cancel_my_account'), registration_path(resource_name), data: { confirm: t('.are_you_sure') }, method: :delete %>.</p>
-
-<%= link_to t('.back'), :back %>
+</div>
