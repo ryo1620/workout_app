@@ -1,5 +1,6 @@
 class MenusController < ApplicationController
   def index
+    @week_menu = WeekMenu.new
   end
 
   def show
@@ -10,4 +11,11 @@ class MenusController < ApplicationController
 
   def edit
   end
+  
+  private
+
+    def menu_params
+      params.require(:menu).permit(:name)
+    end
+    
 end

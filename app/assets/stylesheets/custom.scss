@@ -206,3 +206,33 @@ div.form-check {
   border-color: $ok_alert_border_color;
   color: $ok_alert_color;
 }
+
+/* flexbox */
+
+div.cont {
+  box-sizing: border-box;
+  display: flex;
+  /* flexboxレイアウトを使うための命令 */
+  flex-wrap: wrap;
+  /* 上記で囲われたflexアイテムを折り返すように設定する */
+}
+div.item {
+  box-sizing: border-box;
+  width: 14.28%;
+  /* 100%を1行当たりのカラム数（今回は7）で割った数値 */
+  border: 1px solid black;
+  /* 飾り */
+  margin: 0;
+  /* widthの計算簡単にするため（marginも使うための拡張は後で） */
+}
+@media (max-width: 767px) {
+  /*レスポンシブ用*/
+  div.cont {
+    box-sizing: border-box;
+    display: block;
+  }
+  div.item {
+    box-sizing: border-box;
+    width: 100%;
+  }
+}

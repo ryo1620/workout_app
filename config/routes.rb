@@ -1,11 +1,5 @@
 Rails.application.routes.draw do
   
-  get 'menus/index'
-  get 'menus/show'
-  get 'menus/new'
-  get 'menus/edit'
-  get 'users/index'
-  get 'users/show'
   devise_for :users
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   
@@ -14,4 +8,8 @@ Rails.application.routes.draw do
   get '/contact', to: 'static_pages#contact'
   
   resources :users, only: [:index, :show]
+  resources :users do
+    resources :menus
+    resources :week_menus, only: [:create, :destroy]
+  end
 end
