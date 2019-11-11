@@ -10,11 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_11_022018) do
+ActiveRecord::Schema.define(version: 2019_11_11_052915) do
 
   create_table "menus", force: :cascade do |t|
     t.string "name", null: false
-    t.integer "cwday"
     t.integer "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -46,5 +45,17 @@ ActiveRecord::Schema.define(version: 2019_11_11_022018) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  create_table "week_menus", force: :cascade do |t|
+    t.integer "cwday", null: false
+    t.integer "user_id", null: false
+    t.integer "menu_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["menu_id"], name: "index_week_menus_on_menu_id"
+    t.index ["user_id"], name: "index_week_menus_on_user_id"
+  end
+
   add_foreign_key "menus", "users"
+  add_foreign_key "week_menus", "menus"
+  add_foreign_key "week_menus", "users"
 end

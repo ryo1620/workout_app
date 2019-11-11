@@ -18,3 +18,13 @@ User.create!(name: "Example User",
              email: "example@example.com",
              password: "password",
              confirmed_at: Time.now)
+             
+#メニュー
+Menu.create!(name: "胸トレ",
+             user_id: "1")
+             
+Menu.create!(name: "脚トレ",
+             user_id: "1")
+             
+Menu.create!(name: "背中トレ",
+             user_id: "1")    

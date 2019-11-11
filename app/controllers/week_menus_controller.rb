@@ -1,0 +1,2 @@
+class WeekMenusController < ApplicationController
+end
