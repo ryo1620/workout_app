@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
   
+  get 'menus/index'
+  get 'menus/show'
+  get 'menus/new'
+  get 'menus/edit'
   get 'users/index'
   get 'users/show'
   devise_for :users

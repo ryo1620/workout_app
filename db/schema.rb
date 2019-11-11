@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_09_092322) do
+ActiveRecord::Schema.define(version: 2019_11_11_022018) do
+
+  create_table "menus", force: :cascade do |t|
+    t.string "name", null: false
+    t.integer "cwday"
+    t.integer "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_menus_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "name", null: false
@@ -37,4 +46,5 @@ ActiveRecord::Schema.define(version: 2019_11_09_092322) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "menus", "users"
 end
