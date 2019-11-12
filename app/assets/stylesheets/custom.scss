@@ -216,6 +216,7 @@ div.cont {
   flex-wrap: wrap;
   /* 上記で囲われたflexアイテムを折り返すように設定する */
 }
+
 div.item {
   box-sizing: border-box;
   width: 14.28%;
@@ -225,6 +226,21 @@ div.item {
   margin: 0;
   /* widthの計算簡単にするため（marginも使うための拡張は後で） */
 }
+
+div.item p {
+  margin: 0;
+  text-align: center
+}
+
+div.form-submit {
+  margin-top: 15px;
+  text-align : center ; 
+}
+
+div.form-submit input.btn {
+  width: 30%;
+}
+
 @media (max-width: 767px) {
   /*レスポンシブ用*/
   div.cont {
@@ -234,5 +250,8 @@ div.item {
   div.item {
     box-sizing: border-box;
     width: 100%;
+  }
+  div.form-submit input.btn {
+  width: 100%;
   }
 }

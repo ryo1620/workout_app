@@ -21,10 +21,10 @@ User.create!(name: "Example User",
              
 #メニュー
 Menu.create!(name: "胸トレ",
-             user_id: "1")
+             user_id: 1)
              
 Menu.create!(name: "脚トレ",
-             user_id: "1")
+             user_id: 1)
              
 Menu.create!(name: "背中トレ",
-             user_id: "1")    
+             user_id: 1)    
