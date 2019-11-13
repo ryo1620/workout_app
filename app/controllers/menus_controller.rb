@@ -2,6 +2,7 @@ class MenusController < ApplicationController
   before_action :week_menus_collection, only: [:index]
   
   def index
+    @menus = Menu.where(user_id: params[:user_id])
   end
 
   def show
@@ -21,7 +22,7 @@ class MenusController < ApplicationController
     
     # beforeアクション
     
-    # 曜日メニューのセレクトボックスを作成
+    # 曜日メニューのセレクトボックス（モデル）を作成
     def week_menus_collection
       attributes = []
       1.upto(7) do |i|

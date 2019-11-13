@@ -225,11 +225,15 @@ div.item {
   /* 飾り */
   margin: 0;
   /* widthの計算簡単にするため（marginも使うための拡張は後で） */
+  text-align: center
 }
 
 div.item p {
   margin: 0;
-  text-align: center
+}
+
+div.item select {
+  width: 90%;
 }
 
 div.form-submit {
