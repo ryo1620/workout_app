@@ -1,82 +1,85 @@
 <% provide(:title, "メニュー管理") %>
-<h1>メニュー管理</h1>
+<h2 class="text-reset mb-4"><small>メニュー管理</small></h2>
 
 <%= form_with model: @week_menus, url: user_week_menus_path(current_user), :html => {:class => "cont"}, local: true do |f| %>
   <div class="cont">
-    <div class="item">
+    <div class="item weekday">
       <p>月</p>
       <% @mon_menus.collection.each do |mon_menu| %>
         <%= fields_for 'mon_menus[]', mon_menu do |field| %>
           <%= f.hidden_field :'mon_menus[][cwday]', :value => 1 %>
           <%= f.hidden_field :'mon_menus[][user_id]', :value => params[:user_id] %>
-          <%= field.collection_select :menu_id, Menu.where(user_id: params[:user_id]), :id, :name, :include_blank => true %>
+          <%= field.collection_select :menu_id, Menu.where(user_id: params[:user_id]), :id, :name, {:include_blank => true}, {:class => "custom-select"} %>
         <% end %>
       <% end %>
     </div>
-    <div class="item">
+    <div class="item weekday">
       <p>火</p>
       <% @tue_menus.collection.each do |tue_menu| %>
         <%= fields_for 'tue_menus[]', tue_menu do |field| %>
           <%= f.hidden_field :'tue_menus[][cwday]', :value => 2 %>
           <%= f.hidden_field :'tue_menus[][user_id]', :value => params[:user_id] %>
-          <%= field.collection_select :menu_id, Menu.where(user_id: params[:user_id]), :id, :name, :include_blank => true %>
+          <%= field.collection_select :menu_id, Menu.where(user_id: params[:user_id]), :id, :name, {:include_blank => true}, {:class => "custom-select"} %>
         <% end %>
       <% end %>
     </div>
-    <div class="item">
+    <div class="item weekday">
       <p>水</p>
       <% @wed_menus.collection.each do |wed_menu| %>
         <%= fields_for 'wed_menus[]', wed_menu do |field| %>
           <%= f.hidden_field :'wed_menus[][cwday]', :value => 3 %>
           <%= f.hidden_field :'wed_menus[][user_id]', :value => params[:user_id] %>
-          <%= field.collection_select :menu_id, Menu.where(user_id: params[:user_id]), :id, :name, :include_blank => true %>
+          <%= field.collection_select :menu_id, Menu.where(user_id: params[:user_id]), :id, :name, {:include_blank => true}, {:class => "custom-select"} %>
         <% end %>
       <% end %>
     </div>
-    <div class="item">
+    <div class="item weekday">
       <p>木</p>
       <% @thu_menus.collection.each do |thu_menu| %>
         <%= fields_for 'thu_menus[]', thu_menu do |field| %>
           <%= f.hidden_field :'thu_menus[][cwday]', :value => 4 %>
           <%= f.hidden_field :'thu_menus[][user_id]', :value => params[:user_id] %>
-          <%= field.collection_select :menu_id, Menu.where(user_id: params[:user_id]), :id, :name, :include_blank => true %>
+          <%= field.collection_select :menu_id, Menu.where(user_id: params[:user_id]), :id, :name, {:include_blank => true}, {:class => "custom-select"} %>
         <% end %>
       <% end %>
     </div>
-    <div class="item">
+    <div class="item weekday">
       <p>金</p>
       <% @fri_menus.collection.each do |fri_menu| %>
         <%= fields_for 'fri_menus[]', fri_menu do |field| %>
           <%= f.hidden_field :'fri_menus[][cwday]', :value => 5 %>
           <%= f.hidden_field :'fri_menus[][user_id]', :value => params[:user_id] %>
-          <%= field.collection_select :menu_id, Menu.where(user_id: params[:user_id]), :id, :name, :include_blank => true %>
+          <%= field.collection_select :menu_id, Menu.where(user_id: params[:user_id]), :id, :name, {:include_blank => true}, {:class => "custom-select"} %>
         <% end %>
       <% end %>
     </div>
-    <div class="item">
+    <div class="item saturday">
       <p>土</p>
       <% @sat_menus.collection.each do |sat_menu| %>
         <%= fields_for 'sat_menus[]', sat_menu do |field| %>
           <%= f.hidden_field :'sat_menus[][cwday]', :value => 6 %>
           <%= f.hidden_field :'sat_menus[][user_id]', :value => params[:user_id] %>
-          <%= field.collection_select :menu_id, Menu.where(user_id: params[:user_id]), :id, :name, :include_blank => true %>
+          <%= field.collection_select :menu_id, Menu.where(user_id: params[:user_id]), :id, :name, {:include_blank => true}, {:class => "custom-select"} %>
         <% end %>
       <% end %>
     </div>
-    <div class="item">
+    <div class="item sunday">
       <p>日</p>
       <% @sun_menus.collection.each do |sun_menu| %>
         <%= fields_for 'sun_menus[]', sun_menu do |field| %>
           <%= f.hidden_field :'sun_menus[][cwday]', :value => 7 %>
           <%= f.hidden_field :'sun_menus[][user_id]', :value => params[:user_id] %>
-          <%= field.collection_select :menu_id, Menu.where(user_id: params[:user_id]), :id, :name, :include_blank => true %>
+          <%= field.collection_select :menu_id, Menu.where(user_id: params[:user_id]), :id, :name, {:include_blank => true}, {:class => "custom-select"} %>
         <% end %>
       <% end %>
     </div>
   </div>
   <div class="form-submit">
-    <%= f.submit "更新", class: 'btn btn-success' %>
+    <%= f.submit "更新", class: 'btn btn-primary' %>
   </div>
 <% end %>
 
-<h1>メニュー一覧</h1>
+<h2 class="text-reset mt-3 mb-4"><small>メニュー一覧</small></h2>
+
+<% @menus.each do |menu| %>
+<% end %>

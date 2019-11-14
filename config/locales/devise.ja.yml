@@ -71,7 +71,7 @@ ja:
         title: アカウントの編集
         unhappy: 気に入りませんでしたか？
         update: 更新
-        we_need_your_current_password_to_confirm_your_changes: 変更を反映するには現在のパスワードを入力してください
+        we_need_your_current_password_to_confirm_your_changes: 変更を反映するには入力が必要です
       new:
         sign_up: アカウント作成
       signed_up: アカウント作成が完了しました。
