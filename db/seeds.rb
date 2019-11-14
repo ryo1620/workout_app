@@ -26,6 +26,68 @@ Menu.create!(name: "脚トレ",
              user_id: 1)
 Menu.create!(name: "背中トレ",
              user_id: 1)
+Menu.create!(name: "腹トレ",
+             user_id: 1)
+Menu.create!(name: "上腕トレ",
+             user_id: 1)
+Menu.create!(name: "肩トレ",
+             user_id: 1)
+Menu.create!(name: "前腕トレ",
+             user_id: 1) 
+Menu.create!(name: "ふくらはぎトレ",
+             user_id: 1)   
+Menu.create!(name: "僧帽トレ",
+             user_id: 1)               
+Menu.create!(name: "自重トレ",
+             user_id: 1)
+Menu.create!(name: "ダンベルトレ",
+             user_id: 1)  
+             
+Menu.create!(name: "胸トレ",
+             user_id: 1)
+Menu.create!(name: "脚トレ",
+             user_id: 1)
+Menu.create!(name: "背中トレ",
+             user_id: 1)
+Menu.create!(name: "腹トレ",
+             user_id: 1)
+Menu.create!(name: "上腕トレ",
+             user_id: 1)
+Menu.create!(name: "肩トレ",
+             user_id: 1)
+Menu.create!(name: "前腕トレ",
+             user_id: 1) 
+Menu.create!(name: "ふくらはぎトレ",
+             user_id: 1)   
+Menu.create!(name: "僧帽トレ",
+             user_id: 1)               
+Menu.create!(name: "自重トレ",
+             user_id: 1)
+Menu.create!(name: "ダンベルトレ",
+             user_id: 1)  
+             
+Menu.create!(name: "胸トレ",
+             user_id: 1)
+Menu.create!(name: "脚トレ",
+             user_id: 1)
+Menu.create!(name: "背中トレ",
+             user_id: 1)
+Menu.create!(name: "腹トレ",
+             user_id: 1)
+Menu.create!(name: "上腕トレ",
+             user_id: 1)
+Menu.create!(name: "肩トレ",
+             user_id: 1)
+Menu.create!(name: "前腕トレ",
+             user_id: 1) 
+Menu.create!(name: "ふくらはぎトレ",
+             user_id: 1)   
+Menu.create!(name: "僧帽トレ",
+             user_id: 1)               
+Menu.create!(name: "自重トレ",
+             user_id: 1)
+Menu.create!(name: "ダンベルトレ",
+             user_id: 1)               
              
 #部位
 Part.create!(name: "僧帽筋") #1 

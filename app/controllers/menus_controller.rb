@@ -2,13 +2,14 @@ class MenusController < ApplicationController
   before_action :week_menus_collection, only: [:index]
   
   def index
-    @menus = Menu.where(user_id: params[:user_id])
+    @menus = Menu.where(user_id: params[:user_id]).page(params[:page]).per(5)
   end
 
   def show
   end
 
   def new
+    @menu = Menu.new
   end
 
   def edit

@@ -244,12 +244,12 @@ div.item select {
 }
 
 div.form-submit {
-  margin-top: 15px;
+  margin-top: 1rem;
   text-align : center; 
 }
 
 div.form-submit input.btn {
-  width: 30%;
+  width: 40%;
 }
 
 @media (max-width: 767px) {
@@ -287,5 +287,24 @@ div.form-submit input.btn {
   }
   div.item:nth-child(7) {
     border-radius: 0 .25rem .25rem 0;
+  }
+}
+
+/* メニュー一覧 */
+div.border-top {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border-top: 1px solid #eaeaea;
+  text-align: center;
+}
+
+.menu-btn, div.menu-list {
+  width: 40%;
+  margin: auto;
+}
+
+@media (max-width: 767px) {
+  .menu-btn, div.menu-list {
+    width: 100%;
   }
 }

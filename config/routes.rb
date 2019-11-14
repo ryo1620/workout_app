@@ -9,7 +9,11 @@ Rails.application.routes.draw do
   
   resources :users, only: [:index, :show]
   resources :users do
+    resources :items
     resources :menus
+    resources :menus do
+      resources :menu_items, only: [:create, :destroy]
+    end
     resources :week_menus, only: [:create, :destroy]
   end
 end

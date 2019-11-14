@@ -79,7 +79,13 @@
   </div>
 <% end %>
 
-<h2 class="text-reset mt-3 mb-4"><small>メニュー一覧</small></h2>
-
-<% @menus.each do |menu| %>
-<% end %>
+<div class="border-top">
+  <h2 class="text-reset pt-3 mb-4"><small>メニュー一覧</small></h2>
+  <%= link_to "＋新規作成", new_user_menu_path, class: "btn btn-light menu-btn" %>
+</div>
+<div class="list-group menu-list">
+  <% @menus.each do |menu| %>
+   <%= link_to menu.name, user_menu_path(current_user, menu), class: "list-group-item list-group-item-action" %>
+  <% end %>
+</div>
+<%= paginate @menus %>

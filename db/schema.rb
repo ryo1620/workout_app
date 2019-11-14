@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_13_054516) do
+ActiveRecord::Schema.define(version: 2019_11_14_095532) do
 
   create_table "items", force: :cascade do |t|
     t.string "name", null: false
@@ -23,6 +23,21 @@ ActiveRecord::Schema.define(version: 2019_11_13_054516) do
     t.index ["part_id"], name: "index_items_on_part_id"
     t.index ["type_id"], name: "index_items_on_type_id"
     t.index ["user_id"], name: "index_items_on_user_id"
+  end
+
+  create_table "menu_items", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "menu_id", null: false
+    t.integer "item_id", null: false
+    t.integer "weight"
+    t.integer "reps"
+    t.integer "seconds"
+    t.integer "sets"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["item_id"], name: "index_menu_items_on_item_id"
+    t.index ["menu_id"], name: "index_menu_items_on_menu_id"
+    t.index ["user_id"], name: "index_menu_items_on_user_id"
   end
 
   create_table "menus", force: :cascade do |t|
@@ -83,6 +98,9 @@ ActiveRecord::Schema.define(version: 2019_11_13_054516) do
   add_foreign_key "items", "parts"
   add_foreign_key "items", "types"
   add_foreign_key "items", "users"
+  add_foreign_key "menu_items", "items"
+  add_foreign_key "menu_items", "menus"
+  add_foreign_key "menu_items", "users"
   add_foreign_key "menus", "users"
   add_foreign_key "week_menus", "menus"
   add_foreign_key "week_menus", "users"

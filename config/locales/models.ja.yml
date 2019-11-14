@@ -2,6 +2,12 @@ ja:
   activerecord:
     models:
       user: ユーザー
+      menu: メニュー
+      item: 種目
+      week_menu: 曜日メニュー
+      menu_item: メニュー種目
+      part: 部位
+      type: タイプ
     attributes:
       user:
         confirmation_sent_at: パスワード確認送信時刻
@@ -35,3 +41,16 @@ ja:
         bench_press: ベンチプレス
         squat: スクワット
         deadlift: デッドリフト
+      menu:
+        name: メニュー名
+      item:
+        name: 種目名
+      menu_item:
+        weight: 重量
+        reps: 回数 
+        seconds: 秒数
+        sets: セット数
+      part:
+        name: 部位名
+      type:
+        name: タイプ名
