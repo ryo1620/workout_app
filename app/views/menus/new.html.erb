@@ -1,11 +1,11 @@
 <% provide(:title, "メニュー作成") %>
-<h2 class="text-reset mb-4"><small>メニュー作成</small></h2>
-
+<h2 class="text-reset mb-3"><small>メニュー作成</small></h2>
 
 <div class="row">
   <div class="col-md-6 offset-md-3">
     <p class="text-center">まずはメニュー名を決めてください。</p>
     <%= form_with model: @menu, url: user_menus_path(current_user), local: true do |f| %>
+      <%= render 'shared/error_messages', object: f.object %>
       <div class="form-group">
         <%= f.label :name %>
         <%= f.text_field :name, autofocus: true, autocomplete: 'name', class: 'form-control' %>

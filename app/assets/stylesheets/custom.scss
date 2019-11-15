@@ -207,7 +207,7 @@ div.item {
   box-sizing: border-box;
   width: 14.28%;
   /* 100%を1行当たりのカラム数（今回は7）で割った数値 */
-  border: 1px solid black;
+  border: 1px solid #ced4da;
   /* 飾り */
   margin: 0;
   /* widthの計算簡単にするため（marginも使うための拡張は後で） */
@@ -215,21 +215,15 @@ div.item {
 }
 
 div.item.weekday {
-  color: #5a645f;
-  background-color: #e2fbee;
-  border-color: #b4c8be;
+  border-color: $secondary;
 }
 
 div.item.saturday {
-  color: #5a6464;
-  background-color: #e2fbfb;
-  border-color: #b4c8c8;
+  border-color: $info;
 }
 
 div.item.sunday {
-  color: #645a5f;
-  background-color: #fbe2ef;
-  border-color: #c8b4bf;
+  border-color: $danger;
 }
 
 div.item p {
@@ -306,5 +300,68 @@ div.border-top {
 @media (max-width: 767px) {
   .menu-btn, div.menu-list {
     width: 100%;
+  }
+}
+
+/* メニュー作成 */
+div.link-center {
+  text-align: center;
+}
+
+.tbl-r05 {
+  width: 100%;
+}
+
+td {
+  padding-right: 2rem;
+}
+
+td:first-child {
+  padding-right: 1rem;
+}
+
+td:last-child {
+  padding-right: 2.5rem;
+}
+
+td.relative {
+  position: relative;
+}
+
+.tbl-r05 td input {
+  display: inline-block; 
+}
+
+small.bottom {
+  position: absolute;
+	bottom: 0;
+}
+
+@media screen and (max-width: 767px) {
+  .tbl-r05 {
+    width: 100%;
+  }
+  .tbl-r05 .thead {
+    display: none;
+  }
+  .tbl-r05 tr {
+    width: 100%;
+  }
+  .tbl-r05 td {
+    display: block;
+    text-align: right;
+    width: 100%;
+  }
+  .tbl-r05 td:first-child {
+    background: $secondary;
+    color: #fff;
+    font-weight: bold;
+    text-align: center;
+  }
+  .tbl-r05 td:before {
+    content: attr(data-label);
+    float: left;
+    font-weight: bold;
+    margin-right: 10px;
   }
 }

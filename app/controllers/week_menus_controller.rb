@@ -51,7 +51,7 @@ class WeekMenusController < ApplicationController
     end
     
     def initialize_week_menus
-      @week_menus = WeekMenu.where(user_id: params[:user_id])
+      @week_menus = current_user.week_menus
       if @week_menus.any? 
         @week_menus.destroy_all
       end

@@ -1,15 +1,32 @@
 class MenusController < ApplicationController
-  before_action :week_menus_collection, only: [:index]
+  before_action :week_menu_collections, only: [:index]
   
   def index
-    @menus = Menu.where(user_id: params[:user_id]).page(params[:page]).per(5)
+    @menus = current_user.menus.page(params[:page]).per(5)
   end
 
   def show
+    @menu = Menu.find(params[:id])
+    attributes = []
+    attributes = current_user.menus.find(params[:id]).menu_items
+    if attributes.any?
+      @menu_items = MenuItemCollection.new(attributes)
+    else
+      @menu_items = MenuItemCollection.new
+    end
   end
 
   def new
     @menu = Menu.new
+  end
+  
+  def create
+    @menu = current_user.menus.build(menu_params)
+    if @menu.save
+      redirect_to user_menu_url(current_user, @menu)
+    else
+      render 'new'
+    end
   end
 
   def edit
@@ -24,10 +41,10 @@ class MenusController < ApplicationController
     # beforeアクション
     
     # 曜日メニューのセレクトボックス（モデル）を作成
-    def week_menus_collection
+    def week_menu_collections
       attributes = []
       1.upto(7) do |i|
-        attributes[i] = WeekMenu.where(cwday: i, user_id: params[:user_id])
+        attributes[i] = current_user.week_menus.where(cwday: i)
       end
       if attributes[1].any?
         @mon_menus = WeekMenuCollection.new(attributes[1])
