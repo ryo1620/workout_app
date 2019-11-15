@@ -308,11 +308,17 @@ div.link-center {
   text-align: center;
 }
 
+table.menu-items {
+  margin-top: 1rem;
+}
+
 .tbl-r05 {
   width: 100%;
 }
 
 td {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
   padding-right: 2rem;
 }
 
@@ -332,9 +338,20 @@ td.relative {
   display: inline-block; 
 }
 
-small.bottom {
+small.unit {
+  margin-left: 1px;
   position: absolute;
-	bottom: 0;
+	top: 50%;
+	transform : translateY(-50%);
+}
+
+td input[type="number"] {
+  text-align: right;
+  padding-right: 3px;
+}
+
+td input[type="number"]:focus {
+  text-align: left;
 }
 
 @media screen and (max-width: 767px) {

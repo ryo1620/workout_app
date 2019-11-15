@@ -5,7 +5,7 @@
 </div>
 
 
-<table class="tbl-r05">
+<table class="tbl-r05 menu-items">
   <%= form_with model: @menu_items, url: user_menu_menu_items_path(current_user, @menu), local: true do |f| %>
   <tr class="thead">
     <th>種目</th>
@@ -22,18 +22,18 @@
     </td>
     <td class="relative" data-label="重量">
       <%= f.number_field :weight, min: '0', max: '999', class: 'form-control' %>
-      <small class="bottom"><b>kg</b></small>
+      <small class="unit"><b>kg</b></small>
     </td>
     <td class="relative" data-label="回数">
       <%= f.number_field :weight, min: '0', max: '999', class: 'form-control' %>
-      <small class="bottom"><b>回</b></small>
+      <small class="unit"><b>回</b></small>
     </td>
     <td class="relative" data-label="秒数">
       <%= f.number_field :weight, min: '0', max: '999', class: 'form-control' %>
-      <small class="bottom"><b>秒</b></small>
+      <small class="unit"><b>秒</b></small>
     <td class="relative" data-label="セット数">
       <%= f.number_field :weight, min: '0', max: '999', class: 'form-control' %>
-      <small class="bottom"><b>セット</b></small>
+      <small class="unit"><b>セット</b></small>
     </td>
   <% end %>
     <% end %>
