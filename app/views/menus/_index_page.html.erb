@@ -1,0 +1,6 @@
+<div class="list-group menu-list">
+  <% @menus.each do |menu| %>
+   <%= link_to menu.name, user_menu_path(current_user, menu), class: "list-group-item list-group-item-action" %>
+  <% end %>
+</div>
+<%= paginate @menus, remote: true %>
