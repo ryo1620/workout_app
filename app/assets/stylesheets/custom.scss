@@ -214,18 +214,6 @@ div.item {
   text-align: center;
 }
 
-div.item.weekday {
-  border-color: $secondary;
-}
-
-div.item.saturday {
-  border-color: $info;
-}
-
-div.item.sunday {
-  border-color: $danger;
-}
-
 div.item p {
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
@@ -316,22 +304,33 @@ table.menu-items {
   width: 100%;
 }
 
-td {
+table, th, td {
+  border: 1px solid #ced4da;
+}
+
+tr.thead {
+  text-align: center;
+}
+
+th {
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
-  padding-right: 2rem;
 }
 
-td:first-child {
-  padding-right: 1rem;
-}
-
-td:last-child {
-  padding-right: 2.5rem;
-}
-
-td.relative {
-  position: relative;
+td {
+  padding-top: 0.5rem;
+  padding-right: 1.5rem;
+  padding-bottom: 0.5rem;
+  padding-left: 0.5rem;
+  &:first-child {
+    padding-right: 0.5rem;
+  }
+  &:last-child {
+    padding-right: 3rem;
+  }
+  &.relative {
+    position: relative;
+  }
 }
 
 .tbl-r05 td input {
@@ -347,11 +346,20 @@ small.unit {
 
 td input[type="number"] {
   text-align: right;
-  padding-right: 3px;
+  padding-right: 1px;
 }
 
 td input[type="number"]:focus {
   text-align: left;
+}
+
+div.toggle-button {
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.toggle-show {
+  display: none;
 }
 
 @media screen and (max-width: 767px) {

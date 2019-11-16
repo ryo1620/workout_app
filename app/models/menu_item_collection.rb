@@ -4,7 +4,7 @@ class MenuItemCollection
   extend ActiveModel::Translation
   include ActiveModel::AttributeMethods
   include ActiveModel::Validations
-  NUM = 10  # 同時にモデルを作成する数
+  NUM = 20  # 同時にモデルを作成する数
   attr_accessor :collection  # ここに作成したモデルが格納される
 
   # 初期化メソッド

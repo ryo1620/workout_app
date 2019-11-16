@@ -30,6 +30,17 @@ class MenusController < ApplicationController
   end
 
   def edit
+    @menu = Menu.find(params[:id])
+  end
+  
+  def update
+    @menu = Menu.find(params[:id])
+    if @menu.update_attributes(menu_params)
+      flash[:success] = "メニュー名を更新しました。"
+      redirect_to user_menu_url(current_user)
+    else
+      render 'edit'
+    end
   end
   
   private
