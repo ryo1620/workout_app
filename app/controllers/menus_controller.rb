@@ -1,5 +1,5 @@
 class MenusController < ApplicationController
-  before_action :week_menu_collections, only: [:index]
+  before_action :week_menus_collection, only: [:index]
   
   def index
     @menus = current_user.menus.page(params[:page]).per(5)
@@ -52,45 +52,18 @@ class MenusController < ApplicationController
     # beforeアクション
     
     # 曜日メニューのセレクトボックス（モデル）を作成
-    def week_menu_collections
-      attributes = []
+    def week_menus_collection
+      @week_menus = WeekMenuCollection.new
+      @week_menus.collection = []
       1.upto(7) do |i|
+        attributes = []
         attributes[i] = current_user.week_menus.where(cwday: i)
-      end
-      if attributes[1].any?
-        @mon_menus = WeekMenuCollection.new(attributes[1])
-      else
-        @mon_menus = WeekMenuCollection.new
-      end
-      if attributes[2].any?
-        @tue_menus = WeekMenuCollection.new(attributes[2])
-      else
-        @tue_menus = WeekMenuCollection.new
-      end
-      if attributes[3].any?
-        @wed_menus = WeekMenuCollection.new(attributes[3])
-      else
-        @wed_menus = WeekMenuCollection.new
-      end
-      if attributes[4].any?
-        @thu_menus = WeekMenuCollection.new(attributes[4])
-      else
-        @thu_menus = WeekMenuCollection.new
-      end
-      if attributes[5].any?
-        @fri_menus = WeekMenuCollection.new(attributes[5])
-      else
-        @fri_menus = WeekMenuCollection.new
-      end
-      if attributes[6].any?
-        @sat_menus = WeekMenuCollection.new(attributes[6])
-      else
-        @sat_menus = WeekMenuCollection.new
-      end
-      if attributes[7].any?
-        @sun_menus = WeekMenuCollection.new(attributes[7])
-      else
-        @sun_menus = WeekMenuCollection.new
+        if attributes[i].any?
+          day_menus = WeekMenuCollection.new(attributes[i])
+        else
+          day_menus = WeekMenuCollection.new
+        end
+        @week_menus.collection.concat(day_menus.collection)
       end
     end
 end

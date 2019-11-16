@@ -3,76 +3,39 @@
 
 <%= form_with model: @week_menus, url: user_week_menus_path(current_user), :html => {:class => "cont"}, local: true do |f| %>
   <div class="cont">
-    <div class="item">
-      <p class="bg-secondary text-white mb-3">月</p>
-      <% @mon_menus.collection.each do |mon_menu| %>
-        <%= fields_for 'mon_menus[]', mon_menu do |field| %>
-          <%= f.hidden_field :'mon_menus[][cwday]', :value => 1 %>
-          <%= f.hidden_field :'mon_menus[][user_id]', :value => params[:user_id] %>
-          <%= field.collection_select :menu_id, current_user.menus, :id, :name, {:include_blank => true}, {:class => "custom-select"} %>
-        <% end %>
+    <% day = ["月", "火", "水", "木", "金", "土", "日"] %>
+    <% count = 0 %>
+    <% @week_menus.collection.each_slice(3) do |day_menus| %>
+      <% count += 1 %>
+      <% if count <= 5 %>
+        <div class="item">
+          <p class="bg-secondary text-white mb-3"><%= day[(count - 1)] %></p>
+          <% day_menus.each do |day_menu| %>
+            <%= fields_for 'week_menus[]', day_menu do |field| %>
+              <%= field.collection_select :menu_id, current_user.menus, :id, :name, {:include_blank => true}, {:class => "custom-select"} %>
+            <% end %>
+          <% end %>
+        </div>
+      <% elsif count == 6 %>
+        <div class="item">
+          <p class="bg-info text-white mb-3"><%= day[(count - 1)] %></p>
+          <% day_menus.each do |day_menu| %>
+            <%= fields_for 'week_menus[]', day_menu do |field| %>
+              <%= field.collection_select :menu_id, current_user.menus, :id, :name, {:include_blank => true}, {:class => "custom-select"} %>
+            <% end %>
+          <% end %>
+        </div>
+      <% else %>
+        <div class="item">
+          <p class="bg-danger text-white mb-3"><%= day[(count - 1)] %></p>
+          <% day_menus.each do |day_menu| %>
+            <%= fields_for 'week_menus[]', day_menu do |field| %>
+              <%= field.collection_select :menu_id, current_user.menus, :id, :name, {:include_blank => true}, {:class => "custom-select"} %>
+            <% end %>
+          <% end %>
+        </div>
       <% end %>
-    </div>
-    <div class="item">
-      <p class="bg-secondary text-white mb-3">火</p>
-      <% @tue_menus.collection.each do |tue_menu| %>
-        <%= fields_for 'tue_menus[]', tue_menu do |field| %>
-          <%= f.hidden_field :'tue_menus[][cwday]', :value => 2 %>
-          <%= f.hidden_field :'tue_menus[][user_id]', :value => params[:user_id] %>
-          <%= field.collection_select :menu_id, current_user.menus, :id, :name, {:include_blank => true}, {:class => "custom-select"} %>
-        <% end %>
-      <% end %>
-    </div>
-    <div class="item">
-      <p class="bg-secondary text-white mb-3">水</p>
-      <% @wed_menus.collection.each do |wed_menu| %>
-        <%= fields_for 'wed_menus[]', wed_menu do |field| %>
-          <%= f.hidden_field :'wed_menus[][cwday]', :value => 3 %>
-          <%= f.hidden_field :'wed_menus[][user_id]', :value => params[:user_id] %>
-          <%= field.collection_select :menu_id, current_user.menus, :id, :name, {:include_blank => true}, {:class => "custom-select"} %>
-        <% end %>
-      <% end %>
-    </div>
-    <div class="item">
-      <p class="bg-secondary text-white mb-3">木</p>
-      <% @thu_menus.collection.each do |thu_menu| %>
-        <%= fields_for 'thu_menus[]', thu_menu do |field| %>
-          <%= f.hidden_field :'thu_menus[][cwday]', :value => 4 %>
-          <%= f.hidden_field :'thu_menus[][user_id]', :value => params[:user_id] %>
-          <%= field.collection_select :menu_id, current_user.menus, :id, :name, {:include_blank => true}, {:class => "custom-select"} %>
-        <% end %>
-      <% end %>
-    </div>
-    <div class="item">
-      <p class="bg-secondary text-white mb-3">金</p>
-      <% @fri_menus.collection.each do |fri_menu| %>
-        <%= fields_for 'fri_menus[]', fri_menu do |field| %>
-          <%= f.hidden_field :'fri_menus[][cwday]', :value => 5 %>
-          <%= f.hidden_field :'fri_menus[][user_id]', :value => params[:user_id] %>
-          <%= field.collection_select :menu_id, current_user.menus, :id, :name, {:include_blank => true}, {:class => "custom-select"} %>
-        <% end %>
-      <% end %>
-    </div>
-    <div class="item">
-      <p class="bg-info text-white mb-3">土</p>
-      <% @sat_menus.collection.each do |sat_menu| %>
-        <%= fields_for 'sat_menus[]', sat_menu do |field| %>
-          <%= f.hidden_field :'sat_menus[][cwday]', :value => 6 %>
-          <%= f.hidden_field :'sat_menus[][user_id]', :value => params[:user_id] %>
-          <%= field.collection_select :menu_id, current_user.menus, :id, :name, {:include_blank => true}, {:class => "custom-select"} %>
-        <% end %>
-      <% end %>
-    </div>
-    <div class="item">
-      <p class="bg-danger text-white mb-3">日</p>
-      <% @sun_menus.collection.each do |sun_menu| %>
-        <%= fields_for 'sun_menus[]', sun_menu do |field| %>
-          <%= f.hidden_field :'sun_menus[][cwday]', :value => 7 %>
-          <%= f.hidden_field :'sun_menus[][user_id]', :value => params[:user_id] %>
-          <%= field.collection_select :menu_id, current_user.menus, :id, :name, {:include_blank => true}, {:class => "custom-select"} %>
-        <% end %>
-      <% end %>
-    </div>
+    <% end %>
   </div>
   <div class="form-submit">
     <%= f.submit "更新", class: 'btn btn-primary' %>
