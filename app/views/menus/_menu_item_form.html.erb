@@ -1,0 +1,21 @@
+<td>
+  <%= select_tag "parts_types", options_for_select(@parts_types),
+  :class => "custom-select select-parent" %>
+  <%= field.collection_select :item_id, current_user.items, :id, :name,
+  {:include_blank => true}, {:class => "custom-select select-children"} %>
+</td>
+<td class="relative" data-label="重量">
+  <%= field.number_field :weight, min: '0', max: '999', class: 'form-control' %>
+  <small class="unit"><b>kg</b></small>
+</td>
+<td class="relative" data-label="回数">
+  <%= field.number_field :reps, min: '1', max: '9999', class: 'form-control' %>
+  <small class="unit"><b>回</b></small>
+</td>
+<td class="relative" data-label="秒数">
+  <%= field.number_field :seconds, min: '1', max: '9999', class: 'form-control' %>
+  <small class="unit"><b>秒</b></small>
+<td class="relative" data-label="セット数">
+  <%= field.number_field :sets, min: '1', max: '9999', class: 'form-control' %>
+  <small class="unit"><b>セット</b></small>
+</td>

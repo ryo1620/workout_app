@@ -19,58 +19,17 @@
         <% count += 1 %>
         <% if count <= 10 %>
           <tr>
-            <td>
-              <%= field.collection_select :item_id, current_user.items, :id, :name, {:include_blank => true}, {:class => "custom-select"} %>
-            </td>
-            <td class="relative" data-label="重量">
-              <%= field.number_field :weight, min: '0', max: '999', class: 'form-control' %>
-              <small class="unit"><b>kg</b></small>
-            </td>
-            <td class="relative" data-label="回数">
-              <%= field.number_field :reps, min: '1', max: '9999', class: 'form-control' %>
-              <small class="unit"><b>回</b></small>
-            </td>
-            <td class="relative" data-label="秒数">
-              <%= field.number_field :seconds, min: '1', max: '9999', class: 'form-control' %>
-              <small class="unit"><b>秒</b></small>
-            <td class="relative" data-label="セット数">
-              <%= field.number_field :sets, min: '1', max: '9999', class: 'form-control' %>
-              <small class="unit"><b>セット</b></small>
-            </td>
+            <%= render 'menu_item_form', field: field %>
           </tr>
         <% else %>
           <tr class="toggle-show">
-            <td>
-              <%= field.collection_select :item_id, current_user.items, :id, :name, {:include_blank => true}, {:class => "custom-select"} %>
-            </td>
-            <td class="relative" data-label="重量">
-              <%= field.number_field :weight, min: '0', max: '999', class: 'form-control' %>
-              <small class="unit"><b>kg</b></small>
-            </td>
-            <td class="relative" data-label="回数">
-              <%= field.number_field :reps, min: '1', max: '9999', class: 'form-control' %>
-              <small class="unit"><b>回</b></small>
-            </td>
-            <td class="relative" data-label="秒数">
-              <%= field.number_field :seconds, min: '1', max: '9999', class: 'form-control' %>
-              <small class="unit"><b>秒</b></small>
-            <td class="relative" data-label="セット数">
-              <%= field.number_field :sets, min: '1', max: '9999', class: 'form-control' %>
-              <small class="unit"><b>セット</b></small>
-            </td>
+            <%= render 'menu_item_form', field: field %>
           </tr>
         <% end %>
       <% end %>
     <% end %>
   </table>
   <div class="toggle-button">
-    <script>
-      $(function(){
-        $('.toggle-button').click(function(){
-          $('.toggle-show, .toggle-hide').toggle();
-        })
-      })
-    </script>
     <button type="button" class="btn btn-outline-secondary btn-sm">
       <span class="toggle-hide">次の１０件を表示する</span>
       <span class="toggle-show">１０件を非表示にする</span>
@@ -79,4 +38,4 @@
   <div class="form-submit">
     <%= f.submit "保存", class: 'btn btn-primary' %>
   </div>
-<% end %>  
+<% end %>
