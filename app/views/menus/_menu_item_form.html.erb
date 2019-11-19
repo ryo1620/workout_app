@@ -1,11 +1,15 @@
 <td>
-  <%= select_tag "parts_types", options_for_select(@parts_types),
-  :class => "custom-select select-parent" %>
-  <%= field.collection_select :item_id, current_user.items, :id, :name,
-  {:include_blank => true}, {:class => "custom-select select-children"} %>
+  <div class="parts-types">
+    <%= select_tag "parts_types", options_for_select(@parts_types),
+    :class => "custom-select select-parent" %>
+  </div>
+  <div class="items">
+    <%= field.collection_select :item_id, current_user.items, :id, :name,
+    {:include_blank => true}, {:class => "custom-select select-children"} %>
+  </div>
 </td>
 <td class="relative" data-label="重量">
-  <%= field.number_field :weight, min: '0', max: '999', class: 'form-control' %>
+  <%= field.number_field :weight, min: '0', max: '9999', class: 'form-control' %>
   <small class="unit"><b>kg</b></small>
 </td>
 <td class="relative" data-label="回数">

@@ -1,7 +1,19 @@
 <% provide(:title, @menu.name) %>
-<h2 class="text-reset mb-2 text-center"><small><%= @menu.name %></small></h2>
+<h1 class="text-reset mb-3 text-center"><%= @menu.name %></h1>
 <div class="link-center">
-  <%= link_to "メニュー名を変更する", edit_user_menu_path(current_user, @menu), class: "link-center" %>
+  <i class="fas fa-pencil-alt"></i>
+  <%= link_to "メニュー名を変更",
+    edit_user_menu_path(current_user, @menu),
+    class: "link-center icon-edit"
+  %>
+  &nbsp;&nbsp;/&nbsp;
+  <i class="fas fa-eraser"></i>
+  <%= link_to "メニュー内容をリセット",
+    user_menu_menu_items_path(current_user, @menu),
+    class: "link-center icon-reset",
+    method: :delete,
+    data: { confirm: "本当にメニュー内容をリセットしますか？" }
+  %>
 </div>
 
 <%= form_with model: @menu_items, url: user_menu_menu_items_path(current_user, @menu), local: true do |f| %>
@@ -31,8 +43,8 @@
   </table>
   <div class="toggle-button">
     <button type="button" class="btn btn-outline-secondary btn-sm">
-      <span class="toggle-hide">次の１０件を表示する</span>
-      <span class="toggle-show">１０件を非表示にする</span>
+      <span class="toggle-hide icon plus">&nbsp;次の１０件を表示</span>
+      <span class="toggle-show icon minus">&nbsp;１０件を非表示</span>
     </button>
   </div>
   <div class="form-submit">

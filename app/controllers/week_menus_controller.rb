@@ -16,6 +16,13 @@ class WeekMenusController < ApplicationController
     redirect_to user_menus_url(current_user)
   end
   
+  def destroy_all
+    week_menus = current_user.week_menus
+    week_menus.destroy_all if week_menus.any? 
+    flash[:success] = "リセットしました。"
+    redirect_to user_menus_url(current_user)
+  end
+  
   private
 
     def week_menus_params
@@ -23,9 +30,7 @@ class WeekMenusController < ApplicationController
     end
     
     def initialize_week_menus
-      @week_menus = current_user.week_menus
-      if @week_menus.any? 
-        @week_menus.destroy_all
-      end
+      week_menus = current_user.week_menus
+      week_menus.destroy_all if week_menus.any? 
     end
 end

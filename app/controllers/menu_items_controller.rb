@@ -13,6 +13,17 @@ class MenuItemsController < ApplicationController
     redirect_to user_menu_url(current_user, menu)
   end
   
+  def destroy
+  end
+  
+  def destroy_all
+    menu = current_user.menus.find(params[:menu_id])
+    menu_items = menu.menu_items
+    menu_items.destroy_all if menu_items.any? 
+    flash[:success] = "メニュー内容をリセットしました。"
+    redirect_to user_menu_url(current_user, menu)
+  end
+  
   private
   
     def menu_items_params
@@ -20,10 +31,8 @@ class MenuItemsController < ApplicationController
     end
   
     def initialize_menu_items
-      @menu_items = current_user.menus.find(params[:menu_id]).menu_items
-      if @menu_items.any? 
-        @menu_items.destroy_all
-      end
+      menu_items = current_user.menus.find(params[:menu_id]).menu_items
+      menu_items.destroy_all if menu_items.any? 
     end
   
 end

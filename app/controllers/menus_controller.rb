@@ -70,6 +70,12 @@ class MenusController < ApplicationController
     end
   end
   
+  def destroy
+    Menu.find(params[:id]).destroy
+    flash[:success] = "メニューを削除しました。"
+    redirect_to user_menus_url(current_user)
+  end
+  
   private
 
     def menu_params

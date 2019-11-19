@@ -1,0 +1,434 @@
+@import "bootstrap";
+
+/* mixins, variables, etc. */
+
+$gray-medium-light: #eaeaea;
+$ng_alert_bg_color: #f2dede;
+$ng_alert_border_color: #ebccd1;
+$ng_alert_color: #a94442;
+$ok_alert_bg_color: #dff0d8;
+$ok_alert_border_color: #d6e9c6;
+$ok_alert_color: #468847;
+
+@mixin box_sizing {
+  -moz-box-sizing:    border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing:         border-box;
+}
+
+/* universal */
+
+body {
+  padding-top:4.5rem;
+}
+
+section {
+  overflow: auto;
+}
+
+textarea {
+  resize: vertical;
+}
+
+.center {
+  text-align: center;
+  h1 {
+    margin-bottom: 10px;
+  }
+}
+
+/* typography */
+
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1;
+}
+
+h1 {
+  font-size: 1.4em;
+  letter-spacing: -1px;
+  text-align: center;
+}
+
+h2 {
+  font-size: 1.2em;
+  letter-spacing: -1px;
+  margin-bottom: 30px;
+  text-align: center;
+  font-weight: normal;
+  color: $gray-600;
+}
+
+p {
+  line-height: 1.7em;
+}
+
+
+/* header */
+
+
+
+/* footer */
+
+footer {
+  margin-top: 45px;
+  padding-top: 5px;
+  border-top: 1px solid $gray-medium-light;
+  color: $gray-600;
+  a {
+    color: $gray-700;
+    &:hover {
+      color: $gray-800;
+    }
+  }
+  small {
+    float: left;
+  }
+  ul {
+    float: right;
+    list-style: none;
+    li {
+      float: left;
+      margin-left: 15px;
+    }
+  }
+}
+
+/* miscellaneous */
+
+.debug_dump {
+  clear: both;
+  float: left;
+  width: 100%;
+  margin-top: 45px;
+  @include box_sizing;
+}
+
+/* forms */
+
+input, textarea, select, .uneditable-input {
+  border: 1px solid #bbb;
+  width: 100%;
+  @include box_sizing;
+}
+
+input {
+  height: auto !important;
+}
+
+div.form-check {
+  margin-top: -10px;
+  margin-bottom: 10px;
+}
+
+#user_remember_me {
+  width: auto;
+  margin-left: 0;
+}
+
+.form-check-label {
+  font-weight: normal;
+}
+
+#error_explanation {
+  color: red;
+  ul {
+    color: red;
+    margin: 0 0 30px 0;
+  }
+}
+
+.field_with_errors {
+  @extend .is-invalid;
+  .form-control {
+    color: $form-feedback-invalid-color;
+  }
+}
+
+.checkbox {
+  margin-top: -10px;
+  margin-bottom: 10px;
+  span {
+    margin-left: 20px;
+    font-weight: normal;
+  }
+}
+
+#session_remember_me {
+  width: auto;
+  margin-left: 0;
+}
+
+/* Users index */
+
+.users {
+  list-style: none;
+  margin: 0;
+  li {
+    overflow: auto;
+    padding: 10px 0;
+    border-bottom: 1px solid $gray-200;
+  }
+}
+
+/* flash */
+
+.alert {
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+
+.alert-alert {
+  background-color: $ng_alert_bg_color;
+  border-color: $ng_alert_border_color;
+  color: $ng_alert_color;
+}
+
+.alert-notice {
+  background-color: $ok_alert_bg_color;
+  border-color: $ok_alert_border_color;
+  color: $ok_alert_color;
+}
+
+/* flexbox */
+
+div.cont {
+  box-sizing: border-box;
+  display: flex;
+  /* flexboxレイアウトを使うための命令 */
+  flex-wrap: wrap;
+  /* 上記で囲われたflexアイテムを折り返すように設定する */
+}
+
+div.item {
+  box-sizing: border-box;
+  width: 14.28%;
+  /* 100%を1行当たりのカラム数（今回は7）で割った数値 */
+  border: 1px solid #ced4da;
+  /* 飾り */
+  margin: 0;
+  /* widthの計算簡単にするため（marginも使うための拡張は後で） */
+  text-align: center;
+}
+
+div.item p {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  margin-bottom: 0;
+}
+
+div.item select {
+  width: 90%;
+  margin-bottom: 1rem;
+}
+
+div.form-submit {
+  margin-top: 1rem;
+  text-align : center; 
+}
+
+div.form-submit input.btn {
+  width: 40%;
+}
+
+@media (max-width: 767px) {
+  /*レスポンシブ用*/
+  div.cont {
+    box-sizing: border-box;
+    display: block;
+  }
+  div.item {
+    box-sizing: border-box;
+    width: 100%;
+    border-top-width: 0;
+  }
+  div.item:nth-child(1) {
+    border-top-width: 1px;
+    border-radius: .25rem .25rem 0 0;
+  }
+  div.item:nth-child(7) {
+    border-radius: 0 0 .25rem .25rem;
+  }
+  div.form-submit input.btn {
+  width: 100%;
+  }
+}
+
+@media (min-width: 768px) {
+  /*ボーダーの重なりを調整*/
+  div.item {
+    border-left-width: 0;
+  }
+  /*ボーダーの角を丸く*/
+  div.item:nth-child(1) {
+    border-left-width: 1px;
+    border-radius: .25rem 0 0 .25rem;
+  }
+  div.item:nth-child(7) {
+    border-radius: 0 .25rem .25rem 0;
+  }
+}
+
+/* メニュー一覧 */
+
+div.border-top {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border-top: 1px solid #eaeaea;
+  text-align: center;
+}
+
+.menu-btn, div.menu-list {
+  width: 40%;
+  margin: auto;
+}
+
+@media (max-width: 767px) {
+  .menu-btn, div.menu-list {
+    width: 100%;
+  }
+}
+
+/* メニュー作成 */
+div.link-center {
+  text-align: center;
+}
+
+table.menu-items {
+  margin-top: 1rem;
+}
+
+.tbl-r05 {
+  width: 100%;
+}
+
+table, th, td {
+  border: 1px solid #ced4da;
+}
+
+tr.thead {
+  text-align: center;
+}
+
+th {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.tbl-r05 td {
+  /* 画面幅変更時の単位の表示崩れを防ぐため */
+  text-align: right;
+}
+
+td {
+  padding-top: 0.5rem;
+  padding-right: 1.5rem;
+  padding-bottom: 0.5rem;
+  padding-left: 0.5rem;
+  &:first-child {
+    padding-right: 0.5rem;
+  }
+  &:last-child {
+    padding-right: 3rem;
+  }
+  &.relative {
+    position: relative;
+  }
+  div.parts-types {
+    display: inline;
+    float: left;
+    width: 40%;
+    padding-right: 0.5rem;
+  }
+  div.items {
+    float: right;
+    width: 60%;
+  }
+}
+
+.tbl-r05 td input {
+  display: inline-block; 
+}
+
+small.unit {
+  margin-left: 1px;
+  position: absolute;
+	top: 50%;
+	transform : translateY(-50%);
+}
+
+td input[type="number"] {
+  text-align: right;
+  padding-right: 1px;
+}
+
+td input[type="number"]:focus {
+  text-align: left;
+}
+
+div.toggle-button {
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.toggle-show {
+  display: none;
+}
+
+@media screen and (max-width: 767px) {
+  .tbl-r05 {
+    width: 100%;
+  }
+  .tbl-r05 .thead {
+    display: none;
+  }
+  .tbl-r05 tr {
+    width: 100%;
+  }
+  .tbl-r05 td {
+    display: block;
+    width: 100%;
+  }
+  .tbl-r05 td:first-child {
+    background: $secondary;
+    color: #fff;
+    font-weight: bold;
+    text-align: center;
+  }
+  .tbl-r05 td:before {
+    content: attr(data-label);
+    float: left;
+    font-weight: bold;
+    margin-right: 10px;
+  }
+}
+
+
+/* Font Awesome */
+
+.icon::before {
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+}
+
+.create::before {
+  content: "\f0fe";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 400;
+}
+
+.plus::before {
+  content: "\f067";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+}
+
+.minus::before {
+  content: "\f068";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+}

@@ -1,0 +1,5 @@
+<% day_menus.each do |day_menu| %>
+  <%= fields_for 'week_menus[]', day_menu do |field| %>
+    <%= field.collection_select :menu_id, current_user.menus, :id, :name, {:include_blank => true}, {:class => "custom-select"} %>
+  <% end %>
+<% end %>
