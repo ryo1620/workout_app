@@ -62,11 +62,6 @@ p {
   line-height: 1.7em;
 }
 
-
-/* header */
-
-
-
 /* footer */
 
 footer {
@@ -357,17 +352,16 @@ td {
       text-align: left;
     }
   }
+  small.unit {
+    margin-left: 1px;
+    position: absolute;
+  	top: 50%;
+  	transform : translateY(-50%);
+  }
 }
 
 .tbl-r05 td input {
   display: inline-block; 
-}
-
-small.unit {
-  margin-left: 1px;
-  position: absolute;
-	top: 50%;
-	transform : translateY(-50%);
 }
 
 div.toggle-button {
@@ -403,10 +397,44 @@ div.toggle-button {
     content: attr(data-label);
     float: left;
     font-weight: bold;
-    margin-right: 10px;
+    margin-top: 7px;
+  }
+  td {
+    border-top-width: 0;
+    &:first-child {
+      border-top-width: 1px;
+      border-color: #6c757d;;
+    }
+    &:nth-child(5) {
+      input.form-control {
+        width: calc(60% - 0.7rem + 1px);
+      }
+    }
+    &:nth-child(6) {
+      text-align: center;
+    }
+    div.parts-types {
+      display: inline-block;
+      float: none;
+      width: 100%;
+      padding-right: 0;
+      padding-bottom: 0.5rem;
+      select {
+        height: calc(1.3em + 0.65rem);
+        font-size: 0.9rem;
+        padding-top: 0.2rem;
+        padding-bottom: 0.2rem;
+      }
+    }
+    div.items {
+      float: none;
+      width: 100%;
+    }
+    input.form-control {
+      width: 60%;
+    }
   }
 }
-
 
 /* Font Awesome */
 
