@@ -13,9 +13,6 @@ class MenuItemsController < ApplicationController
     redirect_to user_menu_url(current_user, menu)
   end
   
-  def destroy
-  end
-  
   def destroy_all
     menu = current_user.menus.find(params[:menu_id])
     menu_items = menu.menu_items

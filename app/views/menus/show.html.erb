@@ -5,9 +5,7 @@
   <%= link_to "メニュー名を変更",
     edit_user_menu_path(current_user, @menu),
     class: "link-center icon-edit"
-  %>
-  &nbsp;&nbsp;/&nbsp;
-  <i class="fas fa-eraser"></i>
+  %>&nbsp;&nbsp;/&nbsp;<i class="fas fa-eraser"></i>
   <%= link_to "メニュー内容をリセット",
     user_menu_menu_items_path(current_user, @menu),
     class: "link-center icon-reset",
@@ -16,7 +14,10 @@
   %>
 </div>
 
-<%= form_with model: @menu_items, url: user_menu_menu_items_path(current_user, @menu), local: true do |f| %>
+<%= form_with model: @menu_items,
+  url: user_menu_menu_items_path(current_user, @menu),
+  local: true do |f|
+%>
   <table class="tbl-r05 menu-items">
     <tr class="thead bg-light">
       <th>種目</th>
@@ -31,11 +32,17 @@
         <% count += 1 %>
         <% if count <= 10 %>
           <tr>
-            <%= render 'menu_item_form', field: field %>
+            <%= render 'menu_item_form',
+              parts_types: @parts_types,
+              field: field
+            %>
           </tr>
         <% else %>
           <tr class="toggle-show">
-            <%= render 'menu_item_form', field: field %>
+            <%= render 'menu_item_form',
+              parts_types: @parts_types,
+              field: field
+            %>
           </tr>
         <% end %>
       <% end %>

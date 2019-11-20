@@ -13,7 +13,7 @@ Rails.application.routes.draw do
     resources :menus
     resources :menus do
       get '/dynamic_items', to: 'menus#dynamic_items'
-      resources :menu_items, only: [:create, :destroy]
+      resources :menu_items, only: [:create]
       delete '/menu_items', to: 'menu_items#destroy_all'
     end
     resources :week_menus, only: [:create]

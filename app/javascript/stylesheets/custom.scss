@@ -303,7 +303,7 @@ table.menu-items {
   width: 100%;
 }
 
-table, th, td {
+th, td {
   border: 1px solid #ced4da;
 }
 
@@ -329,8 +329,13 @@ td {
   &:first-child {
     padding-right: 0.5rem;
   }
-  &:last-child {
+  &:nth-child(5) {
     padding-right: 3rem;
+  }
+  &:nth-child(6) {
+    border: 0;
+    padding: 0;
+    text-align: left;
   }
   &.relative {
     position: relative;
@@ -345,6 +350,13 @@ td {
     float: right;
     width: 60%;
   }
+  input[type="number"] {
+    text-align: right;
+    padding-right: 1px;
+    &:focus {
+      text-align: left;
+    }
+  }
 }
 
 .tbl-r05 td input {
@@ -356,15 +368,6 @@ small.unit {
   position: absolute;
 	top: 50%;
 	transform : translateY(-50%);
-}
-
-td input[type="number"] {
-  text-align: right;
-  padding-right: 1px;
-}
-
-td input[type="number"]:focus {
-  text-align: left;
 }
 
 div.toggle-button {
