@@ -1,24 +1,32 @@
 /* global $ */
 require('jquery');
 
-//関数定義
+// 関数定義
+
+// 種目・重量・回数・秒数・セット数が空欄であればボタンを隠す
+// それ以外は表示する。
 function toggle() {
   var $button = $(this).closest('tr').find('.btn-reset');
+  var $selectChildren = $(this).closest('tr').find('.select-children');
   var $input = $(this).closest('tr').find('input');
-  if($(this).val().length){
+  // 部位・タイプを変更してもボタンは表示しないようにする
+  if($(this).attr('id') != 'parts_types' && $(this).val().length){
     if($button.css('display') == 'none'){
       $button.show();
     }
   } else{
-    var data = [];
-    $input.each(function(index, dom){
-      if($(dom).val() !== ''){
-    	  data.push($(dom).val());
+      var data = [];
+      $input.each(function(index, dom){
+        if($(dom).val() !== ''){
+      	  data.push($(dom).val());
+        }
+      });
+      // 部位・タイプの場合、種目は自動的に空欄になるため、inputのみ検証する
+      if($(this).attr('id') == 'parts_types' && !data.length){
+        $button.hide();
+      } else if(!$selectChildren.val().length && !data.length){
+        $button.hide();
       }
-    });
-    if(!data.length){
-      $button.hide();
-    }
   }
 }
 
@@ -53,6 +61,7 @@ $(document).on('turbolinks:load', function(){
 
   // フォームの入力・消去に応じてリセットボタンを表示・非表示にする
   $(function(){
+    $('.select-parent').change(toggle);
     $('.select-children').change(toggle);
     $('input').change(toggle);
   });
