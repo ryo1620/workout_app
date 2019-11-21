@@ -18,8 +18,9 @@
                 <%= current_user.name %>
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <%= link_to "メニュー管理", user_menus_path(current_user), class: "dropdown-item" %>
-                <%= link_to "種目管理", "#", class: "dropdown-item" %>
+                <%= link_to "スケジュール管理", user_week_menus_path(current_user), class: "dropdown-item" %>
+                <%= link_to "メニュー一覧", user_menus_path(current_user), class: "dropdown-item" %>
+                <%= link_to "種目一覧", user_items_path(current_user), class: "dropdown-item" %>
                 <%= link_to "マイページ", current_user, class: "dropdown-item" %>
                 <%= link_to "アカウントの編集", edit_user_registration_path(current_user), class: "dropdown-item" %>
                 <div class="dropdown-divider"></div>

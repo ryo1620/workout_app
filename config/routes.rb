@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
   
+  get 'items/index'
+  get 'items/new'
+  get 'items/edit'
   devise_for :users
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   
@@ -16,7 +19,7 @@ Rails.application.routes.draw do
       resources :menu_items, only: [:create]
       delete '/menu_items', to: 'menu_items#destroy_all'
     end
-    resources :week_menus, only: [:create]
+    resources :week_menus, only: [:index, :create]
     delete '/week_menus', to: 'week_menus#destroy_all'
   end
 end

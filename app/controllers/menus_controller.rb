@@ -1,8 +1,7 @@
 class MenusController < ApplicationController
-  before_action :week_menus_collection, only: [:index]
   
   def index
-    @menus = current_user.menus.page(params[:page]).per(5)
+    @menus = current_user.menus.page(params[:page]).per(12)
     respond_to do |format|
       format.html
       format.js
@@ -80,23 +79,5 @@ class MenusController < ApplicationController
 
     def menu_params
       params.require(:menu).permit(:name)
-    end
-    
-    # beforeアクション
-    
-    # 曜日メニューのセレクトボックス（モデル）を作成
-    def week_menus_collection
-      @week_menus = WeekMenuCollection.new
-      @week_menus.collection = []
-      1.upto(7) do |i|
-        attributes = []
-        attributes[i] = current_user.week_menus.where(cwday: i)
-        if attributes[i].any?
-          day_menus = WeekMenuCollection.new(attributes[i])
-        else
-          day_menus = WeekMenuCollection.new
-        end
-        @week_menus.collection.concat(day_menus.collection)
-      end
     end
 end

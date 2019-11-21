@@ -62,10 +62,14 @@ p {
   line-height: 1.7em;
 }
 
+.mt-2rem {
+  margin-top: 2rem;
+}
+
 /* footer */
 
 footer {
-  margin-top: 45px;
+  margin-top: 2rem;
   padding-top: 5px;
   border-top: 1px solid $gray-medium-light;
   color: $gray-600;
@@ -186,7 +190,7 @@ div.form-check {
   color: $ok_alert_color;
 }
 
-/* flexbox */
+/* flexbox（メニュー管理） */
 
 div.cont {
   box-sizing: border-box;
@@ -219,7 +223,7 @@ div.item select {
 }
 
 div.form-submit {
-  margin-top: 1rem;
+  margin-top: 2rem;
   text-align : center; 
 }
 
@@ -232,18 +236,24 @@ div.form-submit input.btn {
   div.cont {
     box-sizing: border-box;
     display: block;
-  }
-  div.item {
-    box-sizing: border-box;
-    width: 100%;
-    border-top-width: 0;
-  }
-  div.item:nth-child(1) {
-    border-top-width: 1px;
-    border-radius: .25rem .25rem 0 0;
-  }
-  div.item:nth-child(7) {
-    border-radius: 0 0 .25rem .25rem;
+    div.item {
+      box-sizing: border-box;
+      width: 100%;
+      border-top-width: 0;
+      p {
+        margin: 0 -1px;
+      }
+      &:first-child {
+        border-top-width: 1px;
+        border-radius: .25rem .25rem 0 0;
+        p {
+          border-radius: .25rem .25rem 0 0;
+        }
+      }
+      &:last-child {
+        border-radius: 0 0 .25rem .25rem;
+      }
+    }
   }
   div.form-submit input.btn {
   width: 100%;
@@ -251,6 +261,17 @@ div.form-submit input.btn {
 }
 
 @media (min-width: 768px) {
+  /*薄いボーダーと濃い背景によるズレを調整*/
+  div.cont {
+    div:first-child p {
+      margin-left: -1px;
+      border-top-left-radius: .25rem;
+    }
+    div:last-child p {
+      margin-right: -1px;
+      border-top-right-radius: .25rem;
+    }
+  }
   /*ボーダーの重なりを調整*/
   div.item {
     border-left-width: 0;
@@ -267,20 +288,13 @@ div.form-submit input.btn {
 
 /* メニュー一覧 */
 
-div.border-top {
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-  border-top: 1px solid #eaeaea;
-  text-align: center;
-}
-
-.menu-btn, div.menu-list {
+.new-btn, div.menu-list {
   width: 40%;
   margin: auto;
 }
 
 @media (max-width: 767px) {
-  .menu-btn, div.menu-list {
+  .new-btn, div.menu-list {
     width: 100%;
   }
 }
@@ -292,6 +306,9 @@ div.link-center {
 
 table.menu-items {
   margin-top: 1rem;
+  border-collapse: separate;
+  border-spacing: 0;
+  overflow: hidden;
 }
 
 .tbl-r05 {
@@ -373,31 +390,86 @@ div.toggle-button {
   display: none;
 }
 
+div.menu-items-submit {
+  margin-bottom: 2rem;
+}
+
+@media (min-width: 768px) {
+  /*テーブルの角に丸みをもたせる*/
+  table.menu-items {
+    tr:first-child {
+      th:first-child {
+        border-top-left-radius: .25rem;
+      }
+      th:nth-child(5) {
+        border-top-right-radius: .25rem;
+      }
+    }
+    tr.toggle-radius {
+      td:first-child {
+        border-bottom-left-radius: .25rem;
+      }
+      td:nth-child(5) {
+        border-bottom-right-radius: .25rem;
+      }
+    }
+    tr:last-child {
+      td:first-child {
+        border-bottom-left-radius: .25rem;
+      }
+      td:nth-child(5) {
+        border-bottom-right-radius: .25rem;
+      }
+    }
+    th {
+      border-left-width: 0;
+      &:first-child {
+        border-left-width: 1px;
+      }
+    }
+    td {
+      border-top-width: 0;
+      border-left-width: 0;
+      &:first-child {
+        border-left-width: 1px;
+      }
+    }
+  }
+}
+
 @media screen and (max-width: 767px) {
+  table.menu-items {
+    td:first-child {
+      border-radius: .25rem .25rem 0 0;
+    }
+    td:nth-child(5) {
+      border-radius: 0 0 .25rem .25rem;
+    }
+  }
   .tbl-r05 {
     width: 100%;
-  }
-  .tbl-r05 .thead {
-    display: none;
-  }
-  .tbl-r05 tr {
-    width: 100%;
-  }
-  .tbl-r05 td {
-    display: block;
-    width: 100%;
-  }
-  .tbl-r05 td:first-child {
-    background: $secondary;
-    color: #fff;
-    font-weight: bold;
-    text-align: center;
-  }
-  .tbl-r05 td:before {
-    content: attr(data-label);
-    float: left;
-    font-weight: bold;
-    margin-top: 7px;
+    .thead {
+      display: none;
+    }
+    tr {
+      width: 100%;
+    }
+    td {
+      display: block;
+      width: 100%;
+      &:first-child {
+        background: $secondary;
+        color: #fff;
+        font-weight: bold;
+        text-align: center;
+      }
+      &:before {
+        content: attr(data-label);
+        float: left;
+        font-weight: bold;
+        margin-top: 7px;
+      }
+    }
   }
   td {
     border-top-width: 0;
@@ -434,6 +506,9 @@ div.toggle-button {
       width: 60%;
     }
   }
+  div.menu-items-submit {
+    margin-top: 1.5rem;
+  }
 }
 
 /* Font Awesome */
@@ -462,4 +537,119 @@ div.toggle-button {
   content: "\f068";
   font-family: "Font Awesome 5 Free";
   font-weight: 900;
+}
+
+/* 種目一覧 */
+
+div {
+  .new-item-btn {
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+  .item-list {
+    width: 40%;
+    margin: auto;
+  }
+}
+
+@media (max-width: 767px) {
+  div.item-list {
+    width: 100%;
+  }
+}
+
+/* 種目個別ページ */
+
+table.tbl-r02 {
+  margin: 1rem auto 2rem;
+  border-collapse: separate;
+  border-spacing: 0;
+  overflow: hidden;
+  p {
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    margin: 60px auto 40px;
+  }
+  th {
+    background: $gray-100;
+    border: solid 1px $gray-400;
+    padding: 10px;
+  }
+  td {
+  　border: solid 1px $gray-400;
+    padding: 10px;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  /*テーブルの角に丸みをもたせる*/
+  table.tbl-r02 {
+    th {
+      border-top-width: 0;
+    }
+    td {
+      border-top-width: 0;
+      border-left-width: 0;
+    }
+    tr:first-child {
+      th {
+        border-top-left-radius: .25rem;
+        border-top-width: 1px;
+      }
+      td {
+        border-top-right-radius: .25rem;
+        border-top-width: 1px;
+      }
+    }
+    tr:last-child {
+      th {
+        border-bottom-left-radius: .25rem;
+      }
+      td {
+        border-bottom-right-radius: .25rem;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 767px) {
+  table.tbl-r02 {
+    width: 80%;
+    .last td:last-child {
+      border-bottom: solid 1px #ccc;
+      width: 100%;
+    }
+    tr {
+      text-align: center;
+      &:first-child th {
+        border-radius: .25rem .25rem 0 0;
+      }
+      &:last-child td {
+        border-radius: 0 0 .25rem .25rem;
+      }
+    }
+    th, td {
+      border-bottom: none;
+      display: block;
+      width: 100%;
+    }
+  }
+}
+
+// フォームの横幅を変更する
+.row-original {
+  padding: 0 15px;
+}
+
+.col-md-6-original {
+    padding: 0;
+}
+
+@media (min-width: 768px) {
+  .col-md-6-original {
+      flex: 0 0 40%;
+      max-width: 40%;
+      margin-left: 30%;
+  }
 }

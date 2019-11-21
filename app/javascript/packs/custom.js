@@ -33,10 +33,17 @@ function toggle() {
 // turbolinksとjqueryの共存
 $(document).on('turbolinks:load', function(){
   
+  // フラッシュメッセージをフェードアウトさせる
+  $(function(){
+    setTimeout("$('.alert').fadeOut('slow')", 3000);
+  });
+
   // メニュー種目10件分の表示・非表示をボタンで切り替える
   $(function(){
     $('.toggle-button').click(function(){
       $('.toggle-show, .toggle-hide').toggle();
+      // メニュー種目10件目の角の丸みをボタンで切り替える
+      $('tbody tr:nth-child(11)').toggleClass('toggle-radius');
     });
   });
 

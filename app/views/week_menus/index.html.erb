@@ -1,0 +1,44 @@
+<% provide(:title, "スケジュール管理") %>
+<h1 class="mb-3">スケジュール管理</h1>
+<div class="link-center mb-3">
+  <i class="fas fa-eraser"></i>
+  <%= link_to "リセット",
+    user_week_menus_path(current_user),
+    class: "link-center icon-reset",
+    method: :delete,
+    data: { confirm: "本当にリセットしますか？" }
+  %>
+</div>
+
+<%= form_with model: @week_menus,
+  url: user_week_menus_path(current_user),
+  :html => {:class => "cont"},
+  local: true do |f|
+%>
+  <div class="cont">
+    <% day = ["月", "火", "水", "木", "金", "土", "日"] %>
+    <% count = 0 %>
+    <% @week_menus.collection.each_slice(3) do |day_menus| %>
+      <% count += 1 %>
+      <% if count <= 5 %>
+        <div class="item">
+          <p class="bg-secondary text-white mb-3"><%= day[(count - 1)] %></p>
+          <%= render 'week_menu_form', day_menus: day_menus %>
+        </div>
+      <% elsif count == 6 %>
+        <div class="item">
+          <p class="bg-info text-white mb-3"><%= day[(count - 1)] %></p>
+          <%= render 'week_menu_form', day_menus: day_menus %>
+        </div>
+      <% else %>
+        <div class="item">
+          <p class="bg-danger text-white mb-3"><%= day[(count - 1)] %></p>
+          <%= render 'week_menu_form', day_menus: day_menus %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+  <div class="form-submit">
+    <%= f.submit "更新", class: 'btn btn-primary' %>
+  </div>
+<% end %>

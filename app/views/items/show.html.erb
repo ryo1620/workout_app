@@ -1,0 +1,36 @@
+<% provide(:title, @item.name) %>
+<h1 class="mb-3 text-center"><%= @item.name %></h1>
+
+<% if @item.user_id == current_user.id %>
+  <div class="link-center">
+    <i class="fas fa-pencil-alt"></i>
+    <%= link_to "編集",
+      edit_user_item_path(current_user, @item),
+      class: "link-center icon-edit"
+    %>
+  </div>
+<% end %>
+
+<table class="tbl-r02">
+  <tr>
+    <th>種目名</th>
+    <td><%= @item.name %></td>
+  </tr>
+  <tr>
+    <th>メイン部位</th>
+    <td><%= @part.name %></td>
+  </tr>
+  <tr class="last">
+    <th>タイプ</th>
+    <td><%= @type.name %></td>
+  </tr>
+</table>
+
+<div class="link-center">
+  <i class="fas fa-angle-double-left"></i>
+  <%= 
+    link_to "種目一覧へ戻る",
+    user_items_path(current_user),
+    class: "link-center icon-edit"
+  %>
+</div>
