@@ -57,11 +57,24 @@ $(document).on('turbolinks:load', function(){
     });
   });
 
-  // フォームの入力状態に応じてリセットボタンを表示させる（ページ読み込み時）
+  // フォームの入力状態に応じてリセットボタンの表示・非表示を切り替える
+  // （ページ読み込み時）
   $(function(){
     $('.select-children').each(function(){
+      var $button = $(this).closest('tr').find('.btn-reset');
       if($(this).val().length){
-        $(this).closest('tr').find('.btn-reset').show();
+        $button.show();
+      } else{
+          var $input = $(this).closest('tr').find('input');
+          var data = [];
+          $input.each(function(index, dom){
+            if($(dom).val() !== ''){
+          	  data.push($(dom).val());
+            }
+          });
+          if(!data.length){
+            $button.hide();
+          }
       }
     });
   });

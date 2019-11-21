@@ -16,13 +16,14 @@ class ItemsController < ApplicationController
 
   def new
     @item = Item.new
-    @part = Part.all
-    @type = Type.all
+    @parts = Part.all
+    @types = Type.all
   end
   
   def create
     @item = current_user.items.build(item_params)
     if @item.save
+      flash[:success] = "種目を作成しました。"
       redirect_to user_item_url(current_user, @item)
     else
       render 'new'
@@ -31,8 +32,8 @@ class ItemsController < ApplicationController
 
   def edit
     @item = Item.find(params[:id])
-    @part = Part.all
-    @type = Type.all
+    @parts = Part.all
+    @types = Type.all
   end
   
   def update
@@ -54,6 +55,6 @@ class ItemsController < ApplicationController
   private
   
     def item_params
-      params.reqire(:item).permit(:name, :part, :type)
+      params.require(:item).permit(:name, :part_id, :type_id)
     end
 end

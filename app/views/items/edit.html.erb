@@ -31,7 +31,7 @@
       <div class="form-group">
         <%= f.label "メイン部位" %>
         <%= 
-          f.collection_select :part_id, @part, :id, :name,
+          f.collection_select :part_id, @parts, :id, :name,
           {:include_blank => true},
           {:class => "custom-select"}
         %>
@@ -39,7 +39,7 @@
       <div class="form-group">
         <%= f.label "タイプ" %>
         <%= 
-          f.collection_select :type_id, @type, :id, :name,
+          f.collection_select :type_id, @types, :id, :name,
           {:include_blank => true},
           {:class => "custom-select"}
         %>
