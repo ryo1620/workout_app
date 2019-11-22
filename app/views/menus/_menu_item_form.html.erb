@@ -1,10 +1,13 @@
 <td>
   <div class="parts-types">
-    <%= select_tag "parts_types", options_for_select(parts_types),
-    :class => "custom-select select-parent" %>
+    <%= 
+      select_tag "parts_types",
+      options_for_select(parts_types),
+      :class => "custom-select select-parent"
+    %>
   </div>
   <div class="items">
-    <%= field.collection_select :item_id, current_user.items, :id, :name,
+    <%= field.collection_select :item_id, items, :id, :name,
     {:include_blank => true}, {:class => "custom-select select-children"} %>
   </div>
 </td>

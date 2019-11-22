@@ -8,6 +8,24 @@
     role: "button"
   %>
 </div>
+
+<div class="parts-types select-search">
+  <%=
+    form_tag(
+      user_items_search_path(current_user),
+      method: :get,
+      remote: true,
+      :class => "search-form"
+    ) do
+  %>
+    <%= 
+      select_tag "parts_types", 
+      options_for_select(@parts_types),
+      :class => "custom-select select-parts-types"
+    %>
+  <% end %>
+</div>
+
 <div id="items">
 <div class="list-group item-list">
   <% @items.each do |item| %>

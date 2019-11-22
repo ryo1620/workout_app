@@ -1,4 +1,5 @@
 /* global $ */
+/* global Event */
 require('jquery');
 
 // 関数定義
@@ -130,6 +131,14 @@ $(document).on('turbolinks:load', function(){
         'change': replaceChildrenOptions
       });
     })();
+  });
+  
+  // 種目一覧のプルダウンを選択時にフォーム情報を送信
+  $(function(){
+    $('.select-parts-types').change(function(){
+      var form = document.querySelector('.search-form');
+      form.dispatchEvent(new Event('submit', {bubbles: true}));
+    });
   });
 
 });

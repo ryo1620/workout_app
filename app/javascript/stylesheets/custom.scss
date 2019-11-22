@@ -550,11 +550,23 @@ div {
     width: 40%;
     margin: auto;
   }
+  &.select-search {
+    text-align: center;
+    margin-bottom: 1rem;
+    select.select-parts-types {
+      width: 40%;
+    }
+  }
 }
 
 @media (max-width: 767px) {
-  div.item-list {
-    width: 100%;
+  div {
+    .item-list {
+      width: 100%;
+    }
+    &.select-search select.select-parts-types {
+      width: 100%;
+    }
   }
 }
 
