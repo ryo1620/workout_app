@@ -10,7 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_14_095532) do
+ActiveRecord::Schema.define(version: 2019_11_22_121821) do
+
+  create_table "item_records", force: :cascade do |t|
+    t.string "name", null: false
+    t.integer "weight"
+    t.integer "reps"
+    t.integer "seconds"
+    t.integer "sets"
+    t.boolean "checked", default: false
+    t.date "date", null: false
+    t.integer "user_id", null: false
+    t.integer "menu_record_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["menu_record_id"], name: "index_item_records_on_menu_record_id"
+    t.index ["user_id"], name: "index_item_records_on_user_id"
+  end
 
   create_table "items", force: :cascade do |t|
     t.string "name", null: false
@@ -38,6 +54,16 @@ ActiveRecord::Schema.define(version: 2019_11_14_095532) do
     t.index ["item_id"], name: "index_menu_items_on_item_id"
     t.index ["menu_id"], name: "index_menu_items_on_menu_id"
     t.index ["user_id"], name: "index_menu_items_on_user_id"
+  end
+
+  create_table "menu_records", force: :cascade do |t|
+    t.string "name", null: false
+    t.boolean "checked", default: false
+    t.date "date", null: false
+    t.integer "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_menu_records_on_user_id"
   end
 
   create_table "menus", force: :cascade do |t|
@@ -95,12 +121,15 @@ ActiveRecord::Schema.define(version: 2019_11_14_095532) do
     t.index ["user_id"], name: "index_week_menus_on_user_id"
   end
 
+  add_foreign_key "item_records", "menu_records"
+  add_foreign_key "item_records", "users"
   add_foreign_key "items", "parts"
   add_foreign_key "items", "types"
   add_foreign_key "items", "users"
   add_foreign_key "menu_items", "items"
   add_foreign_key "menu_items", "menus"
   add_foreign_key "menu_items", "users"
+  add_foreign_key "menu_records", "users"
   add_foreign_key "menus", "users"
   add_foreign_key "week_menus", "menus"
   add_foreign_key "week_menus", "users"

@@ -9,7 +9,7 @@ class ItemsController < ApplicationController
       format.js
     end
     # 部位・タイプのプルダウンに使う配列を生成する
-    prompt = [["部位・タイプで検索する"], ["全て"]]
+    prompt = [["部位・タイプで探す"], ["全て"]]
     parts = [["---- 部位 ----"]] + Part.order(:id).map { |p| [p.name] }
     types = [["---- タイプ ----"]] + Type.order(:id).map { |t| [t.name] }
     @parts_types = prompt + parts + types

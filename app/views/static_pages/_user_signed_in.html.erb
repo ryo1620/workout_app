@@ -1,0 +1,7 @@
+<h1 class="mb-2 text-center">今日のメニュー</h1>
+
+<% if @menu_records.any? %>
+  <%= render 'static_pages/records_exist' %>
+<% else %>
+  <%= render 'static_pages/records_not_exist' %>
+<% end %>

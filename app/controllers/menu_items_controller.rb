@@ -1,5 +1,5 @@
 class MenuItemsController < ApplicationController
-  before_action :initialize_menu_items, only: [:create]
+  before_action :initialize_menu_items, only: :create
   
   def create
     menu = Menu.find(params[:menu_id])

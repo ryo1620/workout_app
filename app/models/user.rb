@@ -8,4 +8,6 @@ class User < ApplicationRecord
   has_many :items, dependent: :destroy
   has_many :week_menus, dependent: :destroy
   has_many :menu_items, dependent: :destroy
+  has_many :menu_records, dependent: :destroy
+  has_many :item_records, dependent: :destroy
 end

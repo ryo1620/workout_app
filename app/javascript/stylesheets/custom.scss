@@ -1,4 +1,5 @@
 @import "bootstrap";
+@import url(https://fonts.googleapis.com/css?family=Lato:400,700|Noto+Sans+JP:400,700);
 
 /* mixins, variables, etc. */
 
@@ -20,6 +21,10 @@ $ok_alert_color: #468847;
 
 body {
   padding-top:4.5rem;
+  font-family: 'Lato', 'Noto Sans JP', '游ゴシック Medium', '游ゴシック体',
+               'Yu Gothic Medium', YuGothic, 'ヒラギノ角ゴ ProN',
+               'Hiragino Kaku Gothic ProN', 'メイリオ', Meiryo,
+               'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif;
 }
 
 section {
@@ -55,7 +60,7 @@ h2 {
   margin-bottom: 30px;
   text-align: center;
   font-weight: normal;
-  color: $gray-600;
+  color: $gray-700;
 }
 
 p {
@@ -64,6 +69,10 @@ p {
 
 .mt-2rem {
   margin-top: 2rem;
+}
+
+.mb-2rem {
+  margin-bottom: 2rem;
 }
 
 /* footer */
@@ -649,7 +658,7 @@ table.tbl-r02 {
   }
 }
 
-// フォームの横幅を変更する
+/*フォームの横幅を変更する*/
 .row-original {
   padding: 0 15px;
 }
@@ -665,3 +674,107 @@ table.tbl-r02 {
       margin-left: 30%;
   }
 }
+
+/*TOPぺージ*/
+
+div.top-menu {
+  margin: auto;
+  padding: 40px 1rem;
+  background: #484848;
+  border-radius: .25rem;
+  box-shadow: 0px 0px 5px silver;
+  text-align: center;
+  div.top-itemlist {
+    display: inline-block;
+    text-align: left;
+  }
+  div.item-details {
+    padding-left: 2rem;
+    color: #ddd;
+  }
+}
+
+div.check-uncheck {
+  margin-top: 0.5rem;
+  text-align: center;
+}
+
+/*チェックボックス*/
+
+input[type="checkbox"] { display: none; }
+input[type="checkbox"] + label {
+  display: block;
+  position: relative;
+  padding-left: 2rem;
+  margin-top: 1rem;
+  margin-bottom: 0;
+  color: #ddd;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+div.top-menu form:first-child input[type="checkbox"] + label { margin-top: 0; }
+input[type="checkbox"] + label:before {
+  content: '';
+  display: block;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #6cc0e5;
+  position: absolute;
+  left: 0;
+  top: 2px;
+  opacity: .6;
+  -webkit-transition: all .12s, border-color .08s;
+  transition: all .12s, border-color .08s;
+}
+input[type="checkbox"]:checked + label:before {
+  width: 10px;
+  top: -3px;
+  left: 5px;
+  border-radius: 0;
+  opacity: 1;
+  border-top-color: transparent;
+  border-left-color: transparent;
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+/*メニュー名のみの場合*/
+div.menu-only {
+  top: 0;
+  font-size: 1.2em;
+  letter-spacing: -1px;
+  margin-bottom: 2rem;
+  font-weight: normal;
+  text-align: center;
+  div.menu-label {
+    display: inline-block;
+  }
+  input[type="checkbox"] + label.menu-only-label {
+    margin-top: 0;
+    padding-bottom: 0.5rem;
+    color: $gray-700;
+  }
+  input[type="checkbox"] + label.menu-only-label:before {
+    top: 1px;
+  }
+  input[type="checkbox"] + label.menu-only-label:before {
+    top: -4px;
+  }
+  span {
+    line-height: 1;
+    vertical-align: top;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  div.check-uncheck {
+    margin-bottom: 2rem;
+  }
+  div.row div.col-sm-12:last-child div.check-uncheck {
+    margin-bottom: 0;
+  }
+}
+  
+  

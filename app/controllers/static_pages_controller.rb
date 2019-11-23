@@ -1,5 +1,13 @@
 class StaticPagesController < ApplicationController
+  before_action :initialize_records, only: :home
+  
   def home
+    if user_signed_in?
+      date = Date.today
+      @menu_records = current_user.menu_records.where(date: date)
+    else
+      
+    end
   end
 
   def about
@@ -7,4 +15,33 @@ class StaticPagesController < ApplicationController
 
   def contact
   end
+  
+  private
+    
+    # メニュー記録が存在しない場合、曜日メニューをもとに作成する
+    def initialize_records
+      if user_signed_in?
+        date = Date.today
+        cwday = date.cwday
+        @menu_records = current_user.menu_records.where(date: date)
+        @week_menus = current_user.week_menus.where(cwday: cwday)
+        if @menu_records.blank? && @week_menus.present?
+          @week_menus.each do |week_menu|
+            menu = week_menu.menu
+            @menu_record = current_user.menu_records.build(name: menu.name, date: date)
+            @menu_record.save
+            if (attributes = menu.menu_items).present?
+              @item_records = ItemRecordCollection.new(attributes)
+              @item_records.collection.each do |item_record|
+                item_record.date = date
+                item_record.menu_record_id = @menu_record.id
+              end
+              @item_records.save
+            end
+          end
+        elsif @menu_records.blank? && @week_menus.blank?
+          @message = "今日はお休みです。"
+        end
+      end
+    end
 end
