@@ -80,7 +80,7 @@ $(document).on('turbolinks:load', function(){
     });
   });
 
-  // フォームの入力・消去に応じてリセットボタンを表示・非表示にする
+  // フォームの入力・消去に応じてリセットボタンを表示・非表示にする（随時）
   $(function(){
     $('.select-parent').change(toggle);
     $('.select-children').change(toggle);
@@ -130,7 +130,7 @@ $(document).on('turbolinks:load', function(){
       return $('.select-parent').on({
         'change': replaceChildrenOptions
       });
-    })();
+    });
   });
   
   // 種目一覧のプルダウンを選択時にフォーム情報を送信
@@ -138,6 +138,84 @@ $(document).on('turbolinks:load', function(){
     $('.select-parts-types').change(function(){
       var form = document.querySelector('.search-form');
       form.dispatchEvent(new Event('submit', {bubbles: true}));
+    });
+  });
+  
+  // TOPページ
+  
+  // チェック状況に応じてボタンを非表示にする（TOP・ページ読み込み時）
+  $(function(){
+    $('.top-menu').each(function(){
+      var checkCount = $(this).find('form :checked').length;
+      var formCount = $(this).find('form').length;
+      var $allCheck = $(this).find('.all-check');
+      var $allUncheck = $(this).find('.all-uncheck');
+      if(checkCount == formCount){
+        $allCheck.hide();
+      }
+      else if(checkCount == 0){
+        $allUncheck.hide();
+      }
+      else{
+        $allCheck.show();
+        $allUncheck.show();
+      }
+    });
+  });
+  
+  // チェックの操作時にフォーム情報を送信し、ボタンの表示・非表示を切り替える
+  $(function(){
+    $('input[name="item_record[checked]"]').click(function(){
+      $(this).closest('form').submit();
+      var checkCount = $(this).closest('.top-menu').find('form :checked').length;
+      var formCount = $(this).closest('.top-menu').find('form').length;
+      var $allCheck = $(this).closest('.top-menu').find('.all-check');
+      var $allUncheck = $(this).closest('.top-menu').find('.all-uncheck');
+      if(checkCount == formCount){
+        $allCheck.hide();
+      }
+      else if(checkCount == 0){
+        $allUncheck.hide();
+      }
+      else{
+        $allCheck.show();
+        $allUncheck.show();
+      }
+    });
+  });
+  
+  // メニュー名のチェック時にフォーム情報を送信
+  $(function(){
+    $('input[name="menu_record[checked]"]').click(function(){
+      $(this).closest('form').submit();
+    });
+  });
+  
+  // 全てのチェックを入れるボタン・外すボタン
+  $(function(){
+    $('.all-check').click(function(){
+      var $checkBoxes = $(this).closest('.top-menu')
+                        .find('input[name="item_record[checked]"]:not(:checked)');
+      $checkBoxes.each(function(index, checkBox){
+        setTimeout(function(){
+          $(checkBox).prop('checked', true);
+          $(checkBox).closest('form').submit();
+        }, 40 * ++index);
+      });
+      $(this).hide();
+      $(this).closest('.check-uncheck').find('.all-uncheck').show();
+    });
+    $('.all-uncheck').click(function(){
+      var $checkBoxes = $(this).closest('.top-menu')
+                        .find('input[name="item_record[checked]"]:checked');
+      $checkBoxes.each(function(index, checkBox){
+        setTimeout(function(){
+          $(checkBox).prop('checked', false);
+          $(checkBox).closest('form').submit();
+        }, 40 * ++index);
+      });
+      $(this).hide();
+      $(this).closest('.check-uncheck').find('.all-check').show();
     });
   });
 

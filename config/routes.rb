@@ -19,9 +19,8 @@ Rails.application.routes.draw do
     end
     resources :week_menus, only: [:index, :create]
     delete '/week_menus', to: 'week_menus#destroy_all'
-    resources :menu_records, only: [:create, :update]
+    resources :menu_records, only: [:update]
     delete '/menu_records', to: 'menu_records#destroy_all'
-    resources :item_records, only: [:create, :update]
-    delete '/item_records', to: 'item_records#destroy_all'
+    resources :item_records, only: [:update]
   end
 end

@@ -1,11 +1,14 @@
 class ItemRecordsController < ApplicationController
   
-  def create
-  end
-  
   def update
+    @item_record = ItemRecord.find(params[:id])
+    @item_record.update_attributes(item_record_params)
   end
   
-  def destroy_all
-  end
+  private
+  
+    def item_record_params
+      params.require(:item_record).permit(:checked)
+    end
+    
 end

@@ -3,5 +3,5 @@
 <% if @menu_records.any? %>
   <%= render 'static_pages/records_exist' %>
 <% else %>
-  <%= render 'static_pages/records_not_exist' %>
+  <%= @message %>
 <% end %>

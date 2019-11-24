@@ -68,11 +68,11 @@ p {
 }
 
 .mt-2rem {
-  margin-top: 2rem;
+  margin-top: 2rem !important;
 }
 
 .mb-2rem {
-  margin-bottom: 2rem;
+  margin-bottom: 2rem !important;
 }
 
 /* footer */
@@ -677,7 +677,7 @@ table.tbl-r02 {
 
 /*TOPぺージ*/
 
-div.top-menu {
+div.top-itembox {
   margin: auto;
   padding: 40px 1rem;
   background: #484848;
@@ -694,9 +694,45 @@ div.top-menu {
   }
 }
 
-div.check-uncheck {
+div.all-check, div.all-uncheck {
   margin-top: 0.5rem;
   text-align: center;
+  font-size: 60%;
+  font-weight: 400;
+}
+
+.check-btn {
+  display: inline-block;
+	width: 160px;
+	padding: 0.4em;
+	text-align: center;
+	text-decoration: none;
+	color: #484848;;
+	border: 2px solid #484848;;
+	border-radius: .25rem;
+	transition: .4s;
+	background: #fff;
+	&:hover {
+	  background: #484848;;
+	  color: #ddd;
+	}
+}
+
+.uncheck-btn {
+  display: inline-block;
+	width: 160px;
+	padding: 0.4em;
+	text-align: center;
+	text-decoration: none;
+	color: #484848;;
+	border: 2px solid #484848;;
+	border-radius: .25rem;
+	transition: .4s;
+	background: #fff;
+	&:hover {
+	  background: #484848;;
+	  color: #ddd;
+	}
 }
 
 /*チェックボックス*/
@@ -714,7 +750,7 @@ input[type="checkbox"] + label {
   -moz-user-select: none;
   -ms-user-select: none;
 }
-div.top-menu form:first-child input[type="checkbox"] + label { margin-top: 0; }
+div.top-itembox form:first-child input[type="checkbox"] + label { margin-top: 0; }
 input[type="checkbox"] + label:before {
   content: '';
   display: block;
@@ -742,10 +778,10 @@ input[type="checkbox"]:checked + label:before {
 
 /*メニュー名のみの場合*/
 div.menu-only {
+  height: 27px;
   top: 0;
   font-size: 1.2em;
   letter-spacing: -1px;
-  margin-bottom: 2rem;
   font-weight: normal;
   text-align: center;
   div.menu-label {
@@ -757,10 +793,10 @@ div.menu-only {
     color: $gray-700;
   }
   input[type="checkbox"] + label.menu-only-label:before {
-    top: 1px;
+    top: 0;
   }
-  input[type="checkbox"] + label.menu-only-label:before {
-    top: -4px;
+  input[type="checkbox"]:checked + label.menu-only-label:before {
+    top: -5px;
   }
   span {
     line-height: 1;
@@ -768,11 +804,27 @@ div.menu-only {
   }
 }
 
+div.menu-message {
+  display: inline-block;
+  text-align: left;
+  color: #ddd;
+}
+div.update-schedule {
+  margin-top: 2rem;
+  text-align: center;
+}
+
 @media screen and (max-width: 767px) {
   div.check-uncheck {
     margin-bottom: 2rem;
   }
   div.row div.col-sm-12:last-child div.check-uncheck {
+    margin-bottom: 0;
+  }
+  div.message-box {
+    margin-bottom: 2rem;
+  }
+  div.row div.col-sm-12:last-child div.message-box {
     margin-bottom: 0;
   }
 }
