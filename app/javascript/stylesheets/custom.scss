@@ -318,7 +318,33 @@ div.menu-list {
   }
 }
 
-/* メニュー作成 */
+/* メニュー詳細 */
+
+div.menu-items-list {
+  width: 40%;
+  margin: 1rem auto;
+  padding: 0.5rem 1rem;
+  background: #484848;
+  border-radius: .25rem;
+  box-shadow: 0px 0px 5px silver;
+  text-align: center;
+  color: #ddd;
+  ul {
+    display: inline-block;
+    text-align: left;
+  }
+  li {
+    margin-top: 1rem;
+  }
+}
+
+@media (max-width: 767px) {
+  div.menu-items-list {
+    width: 100%;
+  }
+}
+
+/* メニュー内容の編集 */
 div.link-center {
   text-align: center;
 }

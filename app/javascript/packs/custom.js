@@ -211,7 +211,7 @@ $(document).on('turbolinks:load', function(){
           $(checkBox).prop('checked', true);
           $(checkBox).closest('form').submit();
           calculateRate();
-        }, 40 * ++index);
+        }, 50 * ++index);
       });
       $(this).hide();
       $(this).closest('.check-uncheck').find('.all-uncheck').show();
@@ -224,7 +224,7 @@ $(document).on('turbolinks:load', function(){
           $(checkBox).prop('checked', false);
           $(checkBox).closest('form').submit();
           calculateRate();
-        }, 40 * ++index);
+        }, 50 * ++index);
       });
       $(this).hide();
       $(this).closest('.check-uncheck').find('.all-check').show();

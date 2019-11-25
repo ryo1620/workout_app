@@ -3,77 +3,53 @@
 <div class="link-center">
   <i class="fas fa-pencil-alt"></i>
   <%= 
-    link_to "メニュー名を変更",
+    link_to "メニュー名を編集",
     edit_user_menu_path(current_user, @menu),
     class: "link-center icon-edit"
-  %>&nbsp;&nbsp;/&nbsp;<i class="fas fa-eraser"></i>
+  %>&nbsp;&nbsp;/&nbsp;<i class="fas fa-pencil-alt"></i>
   <%= 
-    link_to "メニュー内容をリセット",
+    link_to "メニュー内容を編集",
     user_menu_menu_items_path(current_user, @menu),
-    class: "link-center icon-reset",
-    method: :delete,
-    data: { confirm: "本当にメニュー内容をリセットしますか？" }
+    class: "link-center icon-reset"
   %>
 </div>
 
-<%= 
-  form_with model: @menu_items,
-  url: user_menu_menu_items_path(current_user, @menu),
-  local: true do |f|
-%>
-  <table class="tbl-r05 menu-items">
-    <tr class="thead">
-      <th>種目</th>
-      <th>重量</th>
-      <th>回数</th>
-      <th>秒数</th>
-      <th>セット数</th>
-    </tr>
-    <% count = 0 %>
-    <% @menu_items.collection.each do |menu_item|%>
-      <%= fields_for 'menu_items[]', menu_item do |field| %>
-        <% count += 1 %>
-        <% if count <= 9 %>
-          <tr>
-            <%= 
-              render 'menu_item_form',
-              parts_types: @parts_types,
-              field: field,
-              items: @items
-            %>
-          </tr>
-        <% elsif count == 10 %>
-          <tr class="toggle-radius">
-            <%= 
-              render 'menu_item_form',
-              parts_types: @parts_types,
-              field: field,
-              items: @items
-            %>
-          </tr>
-        <% else %>
-          <tr class="toggle-show">
-            <%= 
-              render 'menu_item_form',
-              parts_types: @parts_types,
-              field: field,
-              items: @items
-            %>
-          </tr>
-        <% end %>
+<div class="menu-items-list">
+  <% if @menu_items.present? %>
+    <ul>
+      <% @menu_items.each do |menu_item| %>
+        <li><%= menu_item.item.name %>
+          <div class="item-details">
+            <% if menu_item.weight.present? %>
+              <span>
+                <%= menu_item.weight %><small class="unit">kg</small>
+              </span>
+            <% end %>
+            <% if menu_item.reps.present? %>
+              <span>
+                <%= menu_item.reps %><small class="unit">回</small>
+              </span>
+            <% end %>
+            <% if menu_item.seconds.present? %>
+              <span>
+                <%= menu_item.seconds %><small class="unit">秒</small>
+              </span>
+            <% end %>
+            <% if menu_item.sets.present? %>
+              <span>
+                <%= menu_item.sets %><small class="unit">セット</small>
+              </span>
+            <% end %>
+          </div>
+        </li>
       <% end %>
-    <% end %>
-  </table>
-  <div class="toggle-button">
-    <button type="button" class="btn-outline-original btn-sm">
-      <span class="toggle-hide icon plus">&nbsp;次の10件を表示</span>
-      <span class="toggle-show icon minus">&nbsp;10件を非表示</span>
-    </button>
-  </div>
-  <div class="form-submit menu-items-submit mt-4">
-    <%= f.submit "保存", class: 'btn btn-primary' %>
-  </div>
-<% end %>
+    </ul>
+  <% else %>
+    <div class="menu-message my-3">
+      <span>メニュー内容は未登録です。</span>
+    </div>
+  <% end %>
+</div>
 
 <div class="link-center">
   <i class="fas fa-angle-double-left"></i>

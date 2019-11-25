@@ -50,3 +50,12 @@
     <% end %>
   </div>
 </div>
+
+<div class="link-center mt-2rem">
+  <i class="fas fa-angle-double-left"></i>
+  <%= 
+    link_to "種目へ戻る",
+    user_item_path(current_user, @item),
+    class: "link-center icon-edit"
+  %>
+</div>

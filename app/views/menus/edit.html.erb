@@ -34,3 +34,12 @@
     <% end %>
   </div>
 </div>
+
+<div class="link-center mt-2rem">
+  <i class="fas fa-angle-double-left"></i>
+  <%= 
+    link_to "メニューへ戻る",
+    user_menu_path(current_user, @menu),
+    class: "link-center icon-edit"
+  %>
+</div>
