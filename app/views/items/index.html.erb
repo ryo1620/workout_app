@@ -1,11 +1,12 @@
 <% provide(:title, "種目一覧") %>
 <h1 class="mb-3">種目一覧</h1>
 
-<div class="new-item-btn">
-  <%= link_to " 新規作成",
+<div class="link-center mb-3">
+  <i class="far fa-plus-square"></i>
+  <%= 
+    link_to "新規作成",
     new_user_item_path,
-    class: "btn btn-light new-btn icon create",
-    role: "button"
+    class: "link-center icon-edit"
   %>
 </div>
 

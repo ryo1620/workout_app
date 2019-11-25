@@ -31,6 +31,13 @@ function toggle() {
   }
 }
 
+function calculateRate() {
+  var checkCount = $('input[type="checkbox"]:checked').length;
+  var formCount = $('form').length;
+  var rate = Math.round(checkCount / formCount * 100);
+  $('#rate').html(rate);
+}
+
 // turbolinksとjqueryの共存
 $(document).on('turbolinks:load', function(){
   
@@ -130,7 +137,7 @@ $(document).on('turbolinks:load', function(){
       return $('.select-parent').on({
         'change': replaceChildrenOptions
       });
-    });
+    })();
   });
   
   // 種目一覧のプルダウンを選択時にフォーム情報を送信
@@ -145,6 +152,7 @@ $(document).on('turbolinks:load', function(){
   
   // チェック状況に応じてボタンを非表示にする（TOP・ページ読み込み時）
   $(function(){
+    calculateRate();
     $('.top-menu').each(function(){
       var checkCount = $(this).find('form :checked').length;
       var formCount = $(this).find('form').length;
@@ -167,6 +175,7 @@ $(document).on('turbolinks:load', function(){
   $(function(){
     $('input[name="item_record[checked]"]').click(function(){
       $(this).closest('form').submit();
+      calculateRate();
       var checkCount = $(this).closest('.top-menu').find('form :checked').length;
       var formCount = $(this).closest('.top-menu').find('form').length;
       var $allCheck = $(this).closest('.top-menu').find('.all-check');
@@ -188,6 +197,7 @@ $(document).on('turbolinks:load', function(){
   $(function(){
     $('input[name="menu_record[checked]"]').click(function(){
       $(this).closest('form').submit();
+      calculateRate();
     });
   });
   
@@ -195,11 +205,12 @@ $(document).on('turbolinks:load', function(){
   $(function(){
     $('.all-check').click(function(){
       var $checkBoxes = $(this).closest('.top-menu')
-                        .find('input[name="item_record[checked]"]:not(:checked)');
+                        .find('input[type="checkbox"]:not(:checked)');
       $checkBoxes.each(function(index, checkBox){
         setTimeout(function(){
           $(checkBox).prop('checked', true);
           $(checkBox).closest('form').submit();
+          calculateRate();
         }, 40 * ++index);
       });
       $(this).hide();
@@ -207,11 +218,12 @@ $(document).on('turbolinks:load', function(){
     });
     $('.all-uncheck').click(function(){
       var $checkBoxes = $(this).closest('.top-menu')
-                        .find('input[name="item_record[checked]"]:checked');
+                        .find('input[type="checkbox"]:checked');
       $checkBoxes.each(function(index, checkBox){
         setTimeout(function(){
           $(checkBox).prop('checked', false);
           $(checkBox).closest('form').submit();
+          calculateRate();
         }, 40 * ++index);
       });
       $(this).hide();

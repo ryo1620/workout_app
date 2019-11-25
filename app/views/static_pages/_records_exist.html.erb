@@ -54,12 +54,12 @@
         </div>
         <div class="check-uncheck">
           <div class="all-check">
-            <button type="button" class="check-btn btn-sm">
+            <button type="button" class="btn-outline-original btn-sm">
               <i class="fas fa-check"></i>&nbsp;全てチェック
             </button>
           </div>
           <div class="all-uncheck">
-            <button type="button" class="uncheck-btn btn-sm">
+            <button type="button" class="btn-outline-original btn-sm">
               <i class="far fa-square"></i>&nbsp;全てアンチェック
             </button>
           </div>
@@ -101,7 +101,7 @@
 <div class="col- update-schedule">
   <i class="fas fa-sync-alt"></i>
   <%= 
-    link_to "現在のスケジュールで上書きする",
+    link_to "現在のスケジュールで上書き",
     user_menu_records_path(current_user),
     class: "link-center icon-edit",
     method: :delete,

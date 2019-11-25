@@ -22,7 +22,7 @@
   local: true do |f|
 %>
   <table class="tbl-r05 menu-items">
-    <tr class="thead bg-light">
+    <tr class="thead">
       <th>種目</th>
       <th>重量</th>
       <th>回数</th>
@@ -65,12 +65,12 @@
     <% end %>
   </table>
   <div class="toggle-button">
-    <button type="button" class="btn btn-outline-secondary btn-sm">
-      <span class="toggle-hide icon plus">&nbsp;次の１０件を表示</span>
-      <span class="toggle-show icon minus">&nbsp;１０件を非表示</span>
+    <button type="button" class="btn-outline-original btn-sm">
+      <span class="toggle-hide icon plus">&nbsp;次の10件を表示</span>
+      <span class="toggle-show icon minus">&nbsp;10件を非表示</span>
     </button>
   </div>
-  <div class="form-submit menu-items-submit">
+  <div class="form-submit menu-items-submit mt-4">
     <%= f.submit "保存", class: 'btn btn-primary' %>
   </div>
 <% end %>

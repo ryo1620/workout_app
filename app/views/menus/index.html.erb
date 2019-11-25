@@ -1,13 +1,15 @@
 <% provide(:title, "メニュー一覧") %>
 <h1 class="mb-3">メニュー一覧</h1>
 
-<div class="new-item-btn">
-  <%= link_to " 新規作成",
+<div class="link-center mb-3">
+  <i class="far fa-plus-square"></i>
+  <%= 
+    link_to "新規作成",
     new_user_menu_path,
-    class: "btn btn-light new-btn icon create",
-    role: "button"
+    class: "link-center icon-edit"
   %>
 </div>
+
 <div id="menus">
   <div class="list-group menu-list">
     <% @menus.each do |menu| %>

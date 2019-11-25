@@ -199,7 +199,7 @@ div.form-check {
   color: $ok_alert_color;
 }
 
-/* flexbox（メニュー管理） */
+/* flexbox（スケジュール管理） */
 
 div.cont {
   box-sizing: border-box;
@@ -221,9 +221,19 @@ div.item {
 }
 
 div.item p {
+  margin-top: -1px;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
   margin-bottom: 0;
+  &.weekday {
+    background-color: #343a40;
+  }
+  &.saturday {
+    background-color: #3F8AAE;
+  }
+  &.sunday {
+    background-color: #BD300A;
+  }
 }
 
 div.item select {
@@ -250,7 +260,7 @@ div.form-submit input.btn {
       width: 100%;
       border-top-width: 0;
       p {
-        margin: 0 -1px;
+        margin: -1px -1px 0;
       }
       &:first-child {
         border-top-width: 1px;
@@ -297,13 +307,13 @@ div.form-submit input.btn {
 
 /* メニュー一覧 */
 
-.new-btn, div.menu-list {
+div.menu-list {
   width: 40%;
   margin: auto;
 }
 
 @media (max-width: 767px) {
-  .new-btn, div.menu-list {
+  div.menu-list {
     width: 100%;
   }
 }
@@ -330,11 +340,17 @@ th, td {
 
 tr.thead {
   text-align: center;
+  background-color: #343a40;
+  color: #fff;
+  th {
+    font-weight: normal;
+  }
 }
 
 th {
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
+  border-top-color: #343a40;
 }
 
 .tbl-r05 td {
@@ -391,7 +407,7 @@ td {
 }
 
 div.toggle-button {
-  margin-top: 1rem;
+  margin-top: 1.5rem;
   text-align: center;
 }
 
@@ -408,9 +424,11 @@ div.menu-items-submit {
   table.menu-items {
     tr:first-child {
       th:first-child {
+        border-left-color: #343a40;
         border-top-left-radius: .25rem;
       }
       th:nth-child(5) {
+        border-right-color: #343a40;
         border-top-right-radius: .25rem;
       }
     }
@@ -467,7 +485,7 @@ div.menu-items-submit {
       display: block;
       width: 100%;
       &:first-child {
-        background: $secondary;
+        background: #343a40;
         color: #fff;
         font-weight: bold;
         text-align: center;
@@ -475,7 +493,6 @@ div.menu-items-submit {
       &:before {
         content: attr(data-label);
         float: left;
-        font-weight: bold;
         margin-top: 7px;
       }
     }
@@ -484,7 +501,7 @@ div.menu-items-submit {
     border-top-width: 0;
     &:first-child {
       border-top-width: 1px;
-      border-color: #6c757d;;
+      border-color: #343a40;
     }
     &:nth-child(5) {
       input.form-control {
@@ -593,9 +610,11 @@ table.tbl-r02 {
     margin: 60px auto 40px;
   }
   th {
-    background: $gray-100;
+    background: #343a40;
     border: solid 1px $gray-400;
     padding: 10px;
+    font-weight: normal;
+    color: #fff;
   }
   td {
   　border: solid 1px $gray-400;
@@ -608,6 +627,7 @@ table.tbl-r02 {
   table.tbl-r02 {
     th {
       border-top-width: 0;
+      border-left-color: #343a40;
     }
     td {
       border-top-width: 0;
@@ -617,6 +637,7 @@ table.tbl-r02 {
       th {
         border-top-left-radius: .25rem;
         border-top-width: 1px;
+        border-top-color: #343a40;
       }
       td {
         border-top-right-radius: .25rem;
@@ -626,6 +647,7 @@ table.tbl-r02 {
     tr:last-child {
       th {
         border-bottom-left-radius: .25rem;
+        border-bottom-color: #343a40;
       }
       td {
         border-bottom-right-radius: .25rem;
@@ -640,6 +662,9 @@ table.tbl-r02 {
     .last td:last-child {
       border-bottom: solid 1px #ccc;
       width: 100%;
+    }
+    th {
+      border-color: #343a40;
     }
     tr {
       text-align: center;
@@ -697,41 +722,24 @@ div.top-itembox {
 div.all-check, div.all-uncheck {
   margin-top: 0.5rem;
   text-align: center;
-  font-size: 60%;
   font-weight: 400;
 }
 
-.check-btn {
+.btn-outline-original {
   display: inline-block;
 	width: 160px;
-	padding: 0.4em;
+	padding: 0.5em;
 	text-align: center;
 	text-decoration: none;
-	color: #484848;;
-	border: 2px solid #484848;;
+	color: #343a40;
+	border: 2px solid #343a40;
 	border-radius: .25rem;
 	transition: .4s;
 	background: #fff;
+	font-size: 80%;
 	&:hover {
-	  background: #484848;;
-	  color: #ddd;
-	}
-}
-
-.uncheck-btn {
-  display: inline-block;
-	width: 160px;
-	padding: 0.4em;
-	text-align: center;
-	text-decoration: none;
-	color: #484848;;
-	border: 2px solid #484848;;
-	border-radius: .25rem;
-	transition: .4s;
-	background: #fff;
-	&:hover {
-	  background: #484848;;
-	  color: #ddd;
+	  background: #343a40;
+	  color: #fff;
 	}
 }
 

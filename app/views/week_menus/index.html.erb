@@ -22,17 +22,17 @@
       <% count += 1 %>
       <% if count <= 5 %>
         <div class="item">
-          <p class="bg-secondary text-white mb-3"><%= day[(count - 1)] %></p>
+          <p class="weekday text-white mb-3"><%= day[(count - 1)] %></p>
           <%= render 'week_menu_form', day_menus: day_menus %>
         </div>
       <% elsif count == 6 %>
         <div class="item">
-          <p class="bg-info text-white mb-3"><%= day[(count - 1)] %></p>
+          <p class="saturday text-white mb-3"><%= day[(count - 1)] %></p>
           <%= render 'week_menu_form', day_menus: day_menus %>
         </div>
       <% else %>
         <div class="item">
-          <p class="bg-danger text-white mb-3"><%= day[(count - 1)] %></p>
+          <p class="sunday text-white mb-3"><%= day[(count - 1)] %></p>
           <%= render 'week_menu_form', day_menus: day_menus %>
         </div>
       <% end %>
