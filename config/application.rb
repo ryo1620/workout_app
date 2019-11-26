@@ -31,5 +31,7 @@ module WorkoutApp
 
     #　#　以下の記述を追記する(設定必須)
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}').to_s]
+    
+    config.assets.enabled = false
   end
 end
