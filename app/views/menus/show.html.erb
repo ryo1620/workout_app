@@ -14,48 +14,50 @@
   %>
 </div>
 
-<div class="menu-items-list">
-  <% if @menu_items.present? %>
-    <ul>
-      <% @menu_items.each do |menu_item| %>
-        <li><%= menu_item.item.name %>
-          <div class="item-details">
-            <% if menu_item.weight.present? %>
-              <span>
-                <%= menu_item.weight %><small class="unit">kg</small>
-              </span>
-            <% end %>
-            <% if menu_item.reps.present? %>
-              <span>
-                <%= menu_item.reps %><small class="unit">回</small>
-              </span>
-            <% end %>
-            <% if menu_item.seconds.present? %>
-              <span>
-                <%= menu_item.seconds %><small class="unit">秒</small>
-              </span>
-            <% end %>
-            <% if menu_item.sets.present? %>
-              <span>
-                <%= menu_item.sets %><small class="unit">セット</small>
-              </span>
-            <% end %>
-          </div>
-        </li>
-      <% end %>
-    </ul>
-  <% else %>
-    <div class="menu-message my-3">
-      <span>メニュー内容は未登録です。</span>
-    </div>
-  <% end %>
-</div>
-
-<div class="link-center">
-  <i class="fas fa-angle-double-left"></i>
-  <%= 
-    link_to "メニュー一覧へ戻る",
-    user_menus_path(current_user),
-    class: "link-center icon-edit"
-  %>
+<div class="text-center">
+  <div class="menu-items-list">
+    <% if @menu_items.present? %>
+      <ul>
+        <% @menu_items.each do |menu_item| %>
+          <li><%= menu_item.item.name %>
+            <div class="item-details">
+              <% if menu_item.weight.present? %>
+                <span>
+                  <%= menu_item.weight %><small class="unit">kg</small>
+                </span>
+              <% end %>
+              <% if menu_item.reps.present? %>
+                <span>
+                  <%= menu_item.reps %><small class="unit">回</small>
+                </span>
+              <% end %>
+              <% if menu_item.seconds.present? %>
+                <span>
+                  <%= menu_item.seconds %><small class="unit">秒</small>
+                </span>
+              <% end %>
+              <% if menu_item.sets.present? %>
+                <span>
+                  <%= menu_item.sets %><small class="unit">セット</small>
+                </span>
+              <% end %>
+            </div>
+          </li>
+        <% end %>
+      </ul>
+    <% else %>
+      <div class="menu-message my-3">
+        <span>メニュー内容は未登録です。</span>
+      </div>
+    <% end %>
+  </div>
+  
+  <div class="link-center mt-3">
+    <i class="fas fa-angle-double-left"></i>
+    <%= 
+      link_to "メニュー一覧へ戻る",
+      user_menus_path(current_user),
+      class: "link-center icon-edit"
+    %>
+  </div>
 </div>

@@ -321,9 +321,9 @@ div.menu-list {
 /* メニュー詳細 */
 
 div.menu-items-list {
-  width: 40%;
+  display: inline-block;
   margin: 1rem auto;
-  padding: 0.5rem 1rem;
+  padding: 40px 2.5rem 40px 2rem;
   background: #484848;
   border-radius: .25rem;
   box-shadow: 0px 0px 5px silver;
@@ -332,9 +332,13 @@ div.menu-items-list {
   ul {
     display: inline-block;
     text-align: left;
+    margin-bottom: 0;
   }
   li {
     margin-top: 1rem;
+    &:first-child {
+      margin-top: 0;
+    }
   }
 }
 
@@ -573,12 +577,6 @@ div.menu-items-submit {
   -webkit-font-smoothing: antialiased;
 }
 
-.create::before {
-  content: "\f0fe";
-  font-family: "Font Awesome 5 Free";
-  font-weight: 400;
-}
-
 .plus::before {
   content: "\f067";
   font-family: "Font Awesome 5 Free";
@@ -587,6 +585,18 @@ div.menu-items-submit {
 
 .minus::before {
   content: "\f068";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+}
+
+.right::before {
+  content: "\f0da";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+}
+
+.left::before {
+  content: "\f0d9";
   font-family: "Font Awesome 5 Free";
   font-weight: 900;
 }
@@ -728,6 +738,14 @@ table.tbl-r02 {
 
 /*TOPぺージ*/
 
+div.homepage {
+  h1 a {
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}
+
 div.top-itembox {
   margin: auto;
   padding: 40px 1rem;
@@ -743,6 +761,18 @@ div.top-itembox {
     padding-left: 2rem;
     color: #ddd;
   }
+  ul {
+    color: #ddd;
+    display: inline-block;
+    text-align: left;
+    margin-bottom: 0;
+  }
+  li {
+    margin-top: 1rem;
+    &:first-child {
+      margin-top: 0;
+    }
+  } 
 }
 
 div.all-check, div.all-uncheck {
@@ -862,5 +892,3 @@ div.update-schedule {
     margin-bottom: 0;
   }
 }
-  
-  

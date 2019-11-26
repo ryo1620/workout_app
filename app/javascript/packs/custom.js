@@ -5,7 +5,7 @@ require('jquery');
 // 関数定義
 
 // 種目・重量・回数・秒数・セット数が空欄であればボタンを隠す
-// それ以外は表示する。
+// それ以外は表示する
 function toggle() {
   var $button = $(this).closest('tr').find('.btn-reset');
   var $selectChildren = $(this).closest('tr').find('.select-children');
@@ -31,6 +31,7 @@ function toggle() {
   }
 }
 
+// 達成率を計算する
 function calculateRate() {
   var checkCount = $('input[type="checkbox"]:checked').length;
   var formCount = $('form').length;

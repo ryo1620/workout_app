@@ -3,11 +3,22 @@ class StaticPagesController < ApplicationController
   
   def home
     if user_signed_in?
-      date = Date.today
-      @menu_records = current_user.menu_records.where(date: date)
+      @date = Date.today
+      @menu_records = current_user.menu_records.where(date: @date)
+      @message = "今日はお休みです。"
     else
       
     end
+  end
+  
+  def next_day
+    @date = params[:date].to_date + 1
+    data_to_render
+  end
+  
+  def previous_day
+    @date = params[:date].to_date - 1
+    data_to_render
   end
 
   def about
@@ -39,9 +50,24 @@ class StaticPagesController < ApplicationController
               @item_records.save
             end
           end
-        elsif @menu_records.blank? && @week_menus.blank?
-          @message = "今日はお休みです。"
         end
+      end
+    end
+    
+    def data_to_render
+      @cwday = @date.cwday
+      @week_menus = current_user.week_menus.where(cwday: @cwday)
+      @menu_records = current_user.menu_records.where(date: @date)
+      if @date > Date.today
+        @message = "この日はお休みです。"
+      elsif @date == Date.today
+        @message = "今日はお休みです。"
+      else
+        @message = "この日はお休みでした。"
+      end
+      respond_to do |format|
+        format.html
+        format.js
       end
     end
 end

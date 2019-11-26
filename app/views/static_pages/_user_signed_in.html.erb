@@ -1,7 +1,42 @@
-<h1 class="mb-2 text-center">今日のメニュー</h1>
-
-<% if @menu_records.any? %>
-  <%= render 'static_pages/records_exist' %>
-<% else %>
-  <%= @message %>
-<% end %>
+<div class="homepage">
+  <h1 class="mb-2 text-center">
+    <%= 
+      link_to "",
+      user_previous_day_path(current_user, date: @date),
+      class: "link-center icon-reset left fa-lg mr-3",
+      remote: true
+    %>
+    <% if @date == Date.today %>
+      今日のメニュー
+    <% else %>
+      <%= 
+        @date.strftime("%-m月%-d日") +
+        "(#{%w(日 月 火 水 木 金 土)[@date.wday]})"
+      %>のメニュー
+    <% end %>
+    <%= 
+      link_to "",
+      user_next_day_path(current_user, date: @date),
+      class: "link-center icon-reset right fa-lg ml-3",
+      remote: true
+    %>
+  </h1>
+  
+  <% if @date > Date.today && @week_menus.any? %>
+    <%= render 'static_pages/future_menus' %>
+  <% elsif @date <= Date.today && @menu_records.any? %>
+    <%= render 'static_pages/records_exist' %>
+  <% else %>
+    <p class="text-center mt-2rem"><%= @message %></p>
+    <% if @date != Date.today %>
+      <div class="link-center mt-2rem">
+        <i class="fas fa-angle-double-left"></i>
+        <%= 
+          link_to "今日のメニューへ戻る",
+          root_path,
+          class: "link-center icon-edit"
+        %>
+      </div>
+    <% end %>
+  <% end %>
+</div>  
