@@ -1,6 +1,6 @@
 /* global $ */
 /* global Event */
-require('jquery');
+
 
 // 関数定義
 
@@ -39,197 +39,195 @@ function calculateRate() {
   $('#rate').html(rate);
 }
 
-// turbolinksとjqueryの共存
-$(document).on('turbolinks:load', function(){
+
+// 即時関数
   
-  // フラッシュメッセージをフェードアウトさせる
-  $(function(){
-    setTimeout("$('.alert').fadeOut('slow')", 3000);
-  });
+// フラッシュメッセージをフェードアウトさせる
+$(function(){
+  setTimeout("$('.alert').fadeOut('slow')", 3000);
+});
 
-  // メニュー種目10件分の表示・非表示をボタンで切り替える
-  $(function(){
-    $('.toggle-button').click(function(){
-      $('.toggle-show, .toggle-hide').toggle();
-      // メニュー種目10件目の角の丸みをボタンで切り替える
-      $('tbody tr:nth-child(11)').toggleClass('toggle-radius');
-    });
+// メニュー種目10件分の表示・非表示をボタンで切り替える
+$(function(){
+  $('.toggle-button').click(function(){
+    $('.toggle-show, .toggle-hide').toggle();
+    // メニュー種目10件目の角の丸みをボタンで切り替える
+    $('tbody tr:nth-child(11)').toggleClass('toggle-radius');
   });
+});
 
-  // リセットボタンが押されるとフォームをリセットする
-  $(function(){
-    $('.btn-reset').click(function(){
-      $(this).hide().closest('tr').find('.select-parent')
-                                  .val('部位・タイプで選ぶ').end()
-                                  .find('.select-children, input')
-                                  .val('');
-    });
+// リセットボタンが押されるとフォームをリセットする
+$(function(){
+  $('.btn-reset').click(function(){
+    $(this).hide().closest('tr').find('.select-parent')
+                                .val('部位・タイプで選ぶ').end()
+                                .find('.select-children, input')
+                                .val('');
   });
+});
 
-  // フォームの入力状態に応じてリセットボタンの表示・非表示を切り替える
-  // （ページ読み込み時）
-  $(function(){
-    $('.select-children').each(function(){
-      var $button = $(this).closest('tr').find('.btn-reset');
-      if($(this).val().length){
-        $button.show();
-      } else{
-          var $input = $(this).closest('tr').find('input');
-          var data = [];
-          $input.each(function(index, dom){
-            if($(dom).val() !== ''){
-          	  data.push($(dom).val());
-            }
-          });
-          if(!data.length){
-            $button.hide();
+// フォームの入力状態に応じてリセットボタンの表示・非表示を切り替える
+// （ページ読み込み時）
+$(function(){
+  $('.select-children').each(function(){
+    var $button = $(this).closest('tr').find('.btn-reset');
+    if($(this).val().length){
+      $button.show();
+    } else{
+        var $input = $(this).closest('tr').find('input');
+        var data = [];
+        $input.each(function(index, dom){
+          if($(dom).val() !== ''){
+        	  data.push($(dom).val());
           }
-      }
-    });
-  });
-
-  // フォームの入力・消去に応じてリセットボタンを表示・非表示にする（随時）
-  $(function(){
-    $('.select-parent').change(toggle);
-    $('.select-children').change(toggle);
-    $('input').change(toggle);
-  });
-
-  // 部位・タイプの選択に応じて種目の選択肢を切り替える
-  $(function() {
-    return (function() {
-      var replaceChildrenOptions, replaceSelectOptions;
-      replaceSelectOptions = function($select, results) {
-        $select.html($('<option>'));
-        return $.each(results, function() {
-          var option;
-          option = $('<option>').val(this.id).text(this.name);
-          return $select.append(option);
         });
-      };
-      // 選択された部位・タイプのオプションから、data-children-pathの値を読み取る
-      replaceChildrenOptions = function() {
-        var $selectChildren, childrenPath;
-        childrenPath = $(this).find('option:selected').data().childrenPath;
-        $selectChildren = $(this).closest('td').find('.select-children');
-        // childrenPathが存在する = 部位・タイプが選択されている場合、
-        // ajaxでサーバーに種目の一覧を問い合わせる
-        if (childrenPath != null) {
-          return $.ajax({
-            url: childrenPath,
-            dataType: "json",
-            // サーバーから受け取った種目の一覧でセレクトボックスを置き換える
-            success: function(results) {
-              return replaceSelectOptions($selectChildren, results);
-            },
-            // 何らかのエラーが発生した場合
-            error: function(XMLHttpRequest, textStatus, errorThrown) {
-              console.error("Error occurred in replaceChildrenOptions");
-              console.log("XMLHttpRequest: " + XMLHttpRequest.status);
-              console.log("textStatus: " + textStatus);
-              return console.log("errorThrown: " + errorThrown);
-            }
-          });
-          // 部位・タイプが未選択になった場合、種目の選択肢をクリアする
-        } else {
-          return replaceSelectOptions($selectChildren, []);
+        if(!data.length){
+          $button.hide();
         }
-      };
-      return $('.select-parent').on({
-        'change': replaceChildrenOptions
-      });
-    })();
+    }
   });
-  
-  // 種目一覧のプルダウンを選択時にフォーム情報を送信
-  $(function(){
-    $('.select-parts-types').change(function(){
-      var form = document.querySelector('.search-form');
-      form.dispatchEvent(new Event('submit', {bubbles: true}));
-    });
-  });
-  
-  // TOPページ
-  
-  // チェック状況に応じてボタンを非表示にする（TOP・ページ読み込み時）
-  $(function(){
-    calculateRate();
-    $('.top-menu').each(function(){
-      var checkCount = $(this).find('form :checked').length;
-      var formCount = $(this).find('form').length;
-      var $allCheck = $(this).find('.all-check');
-      var $allUncheck = $(this).find('.all-uncheck');
-      if(checkCount == formCount){
-        $allCheck.hide();
-      }
-      else if(checkCount == 0){
-        $allUncheck.hide();
-      }
-      else{
-        $allCheck.show();
-        $allUncheck.show();
-      }
-    });
-  });
-  
-  // チェックの操作時にフォーム情報を送信し、ボタンの表示・非表示を切り替える
-  $(function(){
-    $('input[name="item_record[checked]"]').click(function(){
-      $(this).closest('form').submit();
-      calculateRate();
-      var checkCount = $(this).closest('.top-menu').find('form :checked').length;
-      var formCount = $(this).closest('.top-menu').find('form').length;
-      var $allCheck = $(this).closest('.top-menu').find('.all-check');
-      var $allUncheck = $(this).closest('.top-menu').find('.all-uncheck');
-      if(checkCount == formCount){
-        $allCheck.hide();
-      }
-      else if(checkCount == 0){
-        $allUncheck.hide();
-      }
-      else{
-        $allCheck.show();
-        $allUncheck.show();
-      }
-    });
-  });
-  
-  // メニュー名のチェック時にフォーム情報を送信
-  $(function(){
-    $('input[name="menu_record[checked]"]').click(function(){
-      $(this).closest('form').submit();
-      calculateRate();
-    });
-  });
-  
-  // 全てのチェックを入れるボタン・外すボタン
-  $(function(){
-    $('.all-check').click(function(){
-      var $checkBoxes = $(this).closest('.top-menu')
-                        .find('input[type="checkbox"]:not(:checked)');
-      $checkBoxes.each(function(index, checkBox){
-        setTimeout(function(){
-          $(checkBox).prop('checked', true);
-          $(checkBox).closest('form').submit();
-          calculateRate();
-        }, 50 * ++index);
-      });
-      $(this).hide();
-      $(this).closest('.check-uncheck').find('.all-uncheck').show();
-    });
-    $('.all-uncheck').click(function(){
-      var $checkBoxes = $(this).closest('.top-menu')
-                        .find('input[type="checkbox"]:checked');
-      $checkBoxes.each(function(index, checkBox){
-        setTimeout(function(){
-          $(checkBox).prop('checked', false);
-          $(checkBox).closest('form').submit();
-          calculateRate();
-        }, 50 * ++index);
-      });
-      $(this).hide();
-      $(this).closest('.check-uncheck').find('.all-check').show();
-    });
-  });
+});
 
+// フォームの入力・消去に応じてリセットボタンを表示・非表示にする（随時）
+$(function(){
+  $('.select-parent').change(toggle);
+  $('.select-children').change(toggle);
+  $('input').change(toggle);
+});
+
+// 部位・タイプの選択に応じて種目の選択肢を切り替える
+$(function() {
+  return (function() {
+    var replaceChildrenOptions, replaceSelectOptions;
+    replaceSelectOptions = function($select, results) {
+      $select.html($('<option>'));
+      return $.each(results, function() {
+        var option;
+        option = $('<option>').val(this.id).text(this.name);
+        return $select.append(option);
+      });
+    };
+    // 選択された部位・タイプのオプションから、data-children-pathの値を読み取る
+    replaceChildrenOptions = function() {
+      var $selectChildren, childrenPath;
+      childrenPath = $(this).find('option:selected').data().childrenPath;
+      $selectChildren = $(this).closest('td').find('.select-children');
+      // childrenPathが存在する = 部位・タイプが選択されている場合、
+      // ajaxでサーバーに種目の一覧を問い合わせる
+      if (childrenPath != null) {
+        return $.ajax({
+          url: childrenPath,
+          dataType: "json",
+          // サーバーから受け取った種目の一覧でセレクトボックスを置き換える
+          success: function(results) {
+            return replaceSelectOptions($selectChildren, results);
+          },
+          // 何らかのエラーが発生した場合
+          error: function(XMLHttpRequest, textStatus, errorThrown) {
+            console.error("Error occurred in replaceChildrenOptions");
+            console.log("XMLHttpRequest: " + XMLHttpRequest.status);
+            console.log("textStatus: " + textStatus);
+            return console.log("errorThrown: " + errorThrown);
+          }
+        });
+        // 部位・タイプが未選択になった場合、種目の選択肢をクリアする
+      } else {
+        return replaceSelectOptions($selectChildren, []);
+      }
+    };
+    return $('.select-parent').on({
+      'change': replaceChildrenOptions
+    });
+  })();
+});
+
+// 種目一覧のプルダウンを選択時にフォーム情報を送信
+$(function(){
+  $('.select-parts-types').change(function(){
+    var form = document.querySelector('.search-form');
+    form.dispatchEvent(new Event('submit', {bubbles: true}));
+  });
+});
+
+// TOPページ
+
+// チェック状況に応じてボタンを非表示にする（TOP・ページ読み込み時）
+$(function(){
+  calculateRate();
+  $('.top-menu').each(function(){
+    var checkCount = $(this).find('form :checked').length;
+    var formCount = $(this).find('form').length;
+    var $allCheck = $(this).find('.all-check');
+    var $allUncheck = $(this).find('.all-uncheck');
+    if(checkCount == formCount){
+      $allCheck.hide();
+    }
+    else if(checkCount == 0){
+      $allUncheck.hide();
+    }
+    else{
+      $allCheck.show();
+      $allUncheck.show();
+    }
+  });
+});
+
+// チェックの操作時にフォーム情報を送信し、ボタンの表示・非表示を切り替える
+$(function(){
+  $('input[name="item_record[checked]"]').click(function(){
+    $(this).closest('form').submit();
+    calculateRate();
+    var checkCount = $(this).closest('.top-menu').find('form :checked').length;
+    var formCount = $(this).closest('.top-menu').find('form').length;
+    var $allCheck = $(this).closest('.top-menu').find('.all-check');
+    var $allUncheck = $(this).closest('.top-menu').find('.all-uncheck');
+    if(checkCount == formCount){
+      $allCheck.hide();
+    }
+    else if(checkCount == 0){
+      $allUncheck.hide();
+    }
+    else{
+      $allCheck.show();
+      $allUncheck.show();
+    }
+  });
+});
+
+// メニュー名のチェック時にフォーム情報を送信
+$(function(){
+  $('input[name="menu_record[checked]"]').click(function(){
+    $(this).closest('form').submit();
+    calculateRate();
+  });
+});
+
+// 全てのチェックを入れるボタン・外すボタン
+$(function(){
+  $('.all-check').click(function(){
+    var $checkBoxes = $(this).closest('.top-menu')
+                      .find('input[type="checkbox"]:not(:checked)');
+    $checkBoxes.each(function(index, checkBox){
+      setTimeout(function(){
+        $(checkBox).prop('checked', true);
+        $(checkBox).closest('form').submit();
+        calculateRate();
+      }, 50 * ++index);
+    });
+    $(this).hide();
+    $(this).closest('.check-uncheck').find('.all-uncheck').show();
+  });
+  $('.all-uncheck').click(function(){
+    var $checkBoxes = $(this).closest('.top-menu')
+                      .find('input[type="checkbox"]:checked');
+    $checkBoxes.each(function(index, checkBox){
+      setTimeout(function(){
+        $(checkBox).prop('checked', false);
+        $(checkBox).closest('form').submit();
+        calculateRate();
+      }, 50 * ++index);
+    });
+    $(this).hide();
+    $(this).closest('.check-uncheck').find('.all-check').show();
+  });
 });

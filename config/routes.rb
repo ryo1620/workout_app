@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   resources :users do
     get '/next_day', to: 'static_pages#next_day'
     get '/previous_day', to: 'static_pages#previous_day'
+    get '/calendar', to: 'static_pages#calendar'
     resources :items
     get '/items_search', to: 'items#search'
     resources :menus

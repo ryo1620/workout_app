@@ -388,7 +388,7 @@ th {
   text-align: right;
 }
 
-td {
+.menu-items td {
   padding-top: 0.5rem;
   padding-right: 1.5rem;
   padding-bottom: 0.5rem;
@@ -446,6 +446,7 @@ div.toggle-button {
 }
 
 div.menu-items-submit {
+  margin-top: 1.5rem;
   margin-bottom: 2rem;
 }
 
@@ -527,7 +528,7 @@ div.menu-items-submit {
       }
     }
   }
-  td {
+  .menu-items td {
     border-top-width: 0;
     &:first-child {
       border-top-width: 1px;
@@ -563,7 +564,7 @@ div.menu-items-submit {
     }
   }
   div.menu-items-submit {
-    margin-top: 1.5rem;
+    margin-top: 2rem;
   }
 }
 
@@ -801,43 +802,45 @@ div.all-check, div.all-uncheck {
 
 /*チェックボックス*/
 
-input[type="checkbox"] { display: none; }
-input[type="checkbox"] + label {
-  display: block;
-  position: relative;
-  padding-left: 2rem;
-  margin-top: 1rem;
-  margin-bottom: 0;
-  color: #ddd;
-  cursor: pointer;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-}
-div.top-itembox form:first-child input[type="checkbox"] + label { margin-top: 0; }
-input[type="checkbox"] + label:before {
-  content: '';
-  display: block;
-  width: 20px;
-  height: 20px;
-  border: 2px solid #6cc0e5;
-  position: absolute;
-  left: 0;
-  top: 2px;
-  opacity: .6;
-  -webkit-transition: all .12s, border-color .08s;
-  transition: all .12s, border-color .08s;
-}
-input[type="checkbox"]:checked + label:before {
-  width: 10px;
-  top: -3px;
-  left: 5px;
-  border-radius: 0;
-  opacity: 1;
-  border-top-color: transparent;
-  border-left-color: transparent;
-  -webkit-transform: rotate(45deg);
-  transform: rotate(45deg);
+div.records {
+  input[type="checkbox"] { display: none; }
+  input[type="checkbox"] + label {
+    display: block;
+    position: relative;
+    padding-left: 2rem;
+    margin-top: 1rem;
+    margin-bottom: 0;
+    color: #ddd;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+  }
+  div.top-itembox form:first-child input[type="checkbox"] +
+  label { margin-top: 0; } input[type="checkbox"] + label:before {
+    content: '';
+    display: block;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #6cc0e5;
+    position: absolute;
+    left: 0;
+    top: 2px;
+    opacity: .6;
+    -webkit-transition: all .12s, border-color .08s;
+    transition: all .12s, border-color .08s;
+  }
+  input[type="checkbox"]:checked + label:before {
+    width: 10px;
+    top: -3px;
+    left: 5px;
+    border-radius: 0;
+    opacity: 1;
+    border-top-color: transparent;
+    border-left-color: transparent;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
 }
 
 /*メニュー名のみの場合*/
@@ -891,4 +894,9 @@ div.update-schedule {
   div.row div.col-sm-12:last-child div.message-box {
     margin-bottom: 0;
   }
+}
+
+/*カレンダー*/
+div.fc-day-grid {
+  height: 100%;
 }

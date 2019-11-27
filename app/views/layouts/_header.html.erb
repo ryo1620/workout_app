@@ -19,6 +19,7 @@
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <%= link_to "スケジュール管理", user_week_menus_path(current_user), class: "dropdown-item" %>
+                <%= link_to "カレンダー", user_calendar_path(current_user), class: "dropdown-item" %>
                 <%= link_to "メニュー一覧", user_menus_path(current_user), class: "dropdown-item" %>
                 <%= link_to "種目一覧", user_items_path(current_user), class: "dropdown-item" %>
                 <%= link_to "マイページ", current_user, class: "dropdown-item" %>

@@ -20,6 +20,14 @@ class StaticPagesController < ApplicationController
     @date = params[:date].to_date - 1
     data_to_render
   end
+  
+  def calendar
+    @menu_records = current_user.menu_records
+    respond_to do |format|
+     format.html
+     format.json { render 'calendar', handlers: 'jbuilder' }
+    end
+  end
 
   def about
   end
