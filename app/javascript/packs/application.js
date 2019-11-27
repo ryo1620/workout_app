@@ -26,11 +26,13 @@ import "../stylesheets/application";
 document.addEventListener('DOMContentLoaded', function() {
   var calendarEl = document.getElementById('calendar');
   
-  var calendar = new Calendar(calendarEl, {
-    plugins: [ dayGridPlugin ],
-    locale: jaLocale,
-    events: 'calendar.json',
-  });
+  if(calendarEl){
+    var calendar = new Calendar(calendarEl, {
+      plugins: [ dayGridPlugin ],
+      locale: jaLocale,
+      events: 'calendar.json',
+    });
   
-  calendar.render();
+    calendar.render();
+  }
 });
