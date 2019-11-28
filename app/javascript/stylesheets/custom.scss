@@ -358,9 +358,6 @@ table.menu-items {
   margin-top: 1rem;
   border-collapse: separate;
   border-spacing: 0;
-  border-top-right-radius: .25rem;
-  border-top-left-radius: .25rem;
-  overflow: hidden;
 }
 
 .tbl-r05 {
@@ -373,10 +370,7 @@ th, td {
 
 tr.thead {
   text-align: center;
-  background-color: #343a40;
   color: #fff;
-  border-radius: .25rem .25rem 0 0;
-  overflow: hidden;
   th {
     font-weight: normal;
     border-bottom-color: #343a40;
@@ -460,11 +454,16 @@ div.menu-items-submit {
   /*テーブルの角に丸みをもたせる*/
   table.menu-items {
     tr:first-child {
+      th {
+        
+      }
       th:first-child {
+        background-color: #343a40;
         border-left-color: #343a40;
         border-top-left-radius: .25rem;
       }
       th:nth-child(5) {
+        background-color: #343a40;
         border-right-color: #343a40;
         border-top-right-radius: .25rem;
       }
