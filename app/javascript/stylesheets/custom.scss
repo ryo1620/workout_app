@@ -450,7 +450,7 @@ div.menu-items-submit {
   text-align: right;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   /*テーブルの角に丸みをもたせる*/
   table.menu-items {
     tr:first-child {
@@ -499,7 +499,7 @@ div.menu-items-submit {
   }
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 991px) {
   table.menu-items {
     td:first-child {
       border-radius: .25rem .25rem 0 0;
@@ -904,4 +904,34 @@ div.update-schedule {
 /*カレンダー*/
 div.fc-day-grid {
   height: 100%;
+}
+
+div#calendar {
+  .fc-toolbar {
+    position: relative;
+    h2 {
+      font-size: 1.4em;
+      margin: 0;
+      position: absolute;
+      bottom: 0;
+    }
+  }
+  th, td {
+    &.fc-mon, &.fc-tue, &.fc-wed, &.fc-thu, &.fc-fri {
+      color: #212529;
+      
+    }
+    &.fc-sat {
+      color: #3F8AAE;
+      
+    }
+    &.fc-sun {
+      color: #BD300A;
+      
+    }
+  }
+  .fc-day-grid-event .fc-content {
+    white-space: normal;
+    overflow: hidden;
+  }
 }

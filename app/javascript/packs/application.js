@@ -23,6 +23,7 @@ import "bootstrap";
 import "@fortawesome/fontawesome-free/js/all";
 import "../stylesheets/application";
 
+// Fullcalendar
 document.addEventListener('DOMContentLoaded', function() {
   var calendarEl = document.getElementById('calendar');
   
@@ -30,7 +31,48 @@ document.addEventListener('DOMContentLoaded', function() {
     var calendar = new Calendar(calendarEl, {
       plugins: [ dayGridPlugin ],
       locale: jaLocale,
-      events: 'calendar.json',
+      eventSources: [
+        {
+          url: 'calendar.json',
+          color: '#2C3E50',
+          textColor: 'white'
+        },
+        {
+          url: 'mon_menus.json',
+          color: 'transparent',
+          textColor: 'black'
+        },
+        {
+          url: 'tue_menus.json',
+          color: 'transparent',
+          textColor: 'black'
+        },
+        {
+          url: 'wed_menus.json',
+          color: 'transparent',
+          textColor: 'black'
+        },
+        {
+          url: 'thu_menus.json',
+          color: 'transparent',
+          textColor: 'black'
+        },
+        {
+          url: 'fri_menus.json',
+          color: 'transparent',
+          textColor: 'black'
+        },
+        {
+          url: 'sat_menus.json',
+          color: 'transparent',
+          textColor: 'black'
+        },
+        {
+          url: 'sun_menus.json',
+          color: 'transparent',
+          textColor: 'black'
+        }
+      ]
     });
   
     calendar.render();

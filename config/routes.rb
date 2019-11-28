@@ -12,6 +12,13 @@ Rails.application.routes.draw do
     get '/next_day', to: 'static_pages#next_day'
     get '/previous_day', to: 'static_pages#previous_day'
     get '/calendar', to: 'static_pages#calendar'
+    get '/mon_menus', to: 'static_pages#mon_menus'
+    get '/tue_menus', to: 'static_pages#tue_menus'
+    get '/wed_menus', to: 'static_pages#wed_menus'
+    get '/thu_menus', to: 'static_pages#thu_menus'
+    get '/fri_menus', to: 'static_pages#fri_menus'
+    get '/sat_menus', to: 'static_pages#sat_menus'
+    get '/sun_menus', to: 'static_pages#sun_menus'
     resources :items
     get '/items_search', to: 'items#search'
     resources :menus
