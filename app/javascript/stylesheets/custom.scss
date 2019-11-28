@@ -372,8 +372,10 @@ tr.thead {
   text-align: center;
   background-color: #343a40;
   color: #fff;
+  border-radius: .25rem .25rem 0 0;
   th {
     font-weight: normal;
+    border-bottom-color: #343a40;
   }
 }
 
@@ -381,11 +383,6 @@ th {
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
   border-top-color: #343a40;
-}
-
-.tbl-r05 td {
-  /* 画面幅変更時の単位の表示崩れを防ぐため */
-  text-align: right;
 }
 
 .menu-items td {
@@ -414,8 +411,8 @@ th {
     padding-right: 0.5rem;
   }
   div.items {
-    float: right;
     width: 60%;
+    float: right;
   }
   input[type="number"] {
     text-align: right;
@@ -453,10 +450,8 @@ div.menu-items-submit {
 @media (min-width: 768px) {
   /*テーブルの角に丸みをもたせる*/
   table.menu-items {
-    table-layout: auto;
     tr:first-child {
       th:first-child {
-        overflow: hidden;
         border-left-color: #343a40;
         border-top-left-radius: .25rem;
       }
@@ -491,6 +486,7 @@ div.menu-items-submit {
       border-top-width: 0;
       border-left-width: 0;
       &:first-child {
+        width: 50%;
         border-left-width: 1px;
       }
     }
@@ -515,6 +511,7 @@ div.menu-items-submit {
       width: 100%;
     }
     td {
+      text-align: right;
       display: block;
       width: 100%;
       &:first-child {
