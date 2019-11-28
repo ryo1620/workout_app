@@ -30,10 +30,6 @@ class ItemsController < ApplicationController
                 .or(Item.where(user_id: current_user.id))
                   .order("name").page(params[:page]).per(10)
     end
-    respond_to do |format|
-      format.html
-      format.js
-    end
   end
   
   def show

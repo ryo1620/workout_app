@@ -12,17 +12,15 @@
 
 <div class="parts-types select-search">
   <%=
-    form_tag(
-      user_items_search_path(current_user),
-      method: :get,
-      remote: true,
-      :class => "search-form"
-    ) do
+    form_with url: user_items_search_path(current_user),
+    method: :get,
+    class: "search-form" do |f|
   %>
     <%= 
-      select_tag "parts_types", 
-      options_for_select(@parts_types),
-      :class => "custom-select select-parts-types"
+      f.select "parts_types", 
+      @parts_types,
+      {},
+      class: "custom-select select-parts-types"
     %>
   <% end %>
 </div>

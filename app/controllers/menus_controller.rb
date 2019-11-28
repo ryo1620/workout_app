@@ -20,7 +20,7 @@ class MenusController < ApplicationController
   def create
     @menu = current_user.menus.build(menu_params)
     if @menu.save
-      user_menu_menu_items_path(current_user, @menu)
+      redirect_to user_menu_menu_items_url(current_user, @menu)
     else
       render 'new'
     end

@@ -453,8 +453,10 @@ div.menu-items-submit {
 @media (min-width: 768px) {
   /*テーブルの角に丸みをもたせる*/
   table.menu-items {
+    table-layout: auto;
     tr:first-child {
       th:first-child {
+        overflow: hidden;
         border-left-color: #343a40;
         border-top-left-radius: .25rem;
       }

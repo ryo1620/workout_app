@@ -1,5 +1,5 @@
-/* global $ */
-/* global Event */
+import $ from 'jquery';
+import Rails from '@rails/ujs';
 
 
 // 関数定義
@@ -144,8 +144,8 @@ $(function() {
 // 種目一覧のプルダウンを選択時にフォーム情報を送信
 $(function(){
   $('.select-parts-types').change(function(){
-    var form = document.querySelector('.search-form');
-    form.dispatchEvent(new Event('submit', {bubbles: true}));
+    var form = $(this).closest('.search-form');
+    Rails.fire(form[0], "submit");
   });
 });
 
