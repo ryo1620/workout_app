@@ -455,15 +455,13 @@ div.menu-items-submit {
   table.menu-items {
     tr:first-child {
       th {
-        
+        background-color: #343a40;
       }
       th:first-child {
-        background-color: #343a40;
         border-left-color: #343a40;
         border-top-left-radius: .25rem;
       }
       th:nth-child(5) {
-        background-color: #343a40;
         border-right-color: #343a40;
         border-top-right-radius: .25rem;
       }
