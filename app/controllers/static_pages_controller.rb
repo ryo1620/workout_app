@@ -14,7 +14,20 @@ class StaticPagesController < ApplicationController
   
   def one_day
     @date = params[:date].to_date
-    data_to_render
+    @cwday = @date.cwday
+    @week_menus = current_user.week_menus.where(cwday: @cwday)
+    @menu_records = current_user.menu_records.where(date: @date)
+    if @date > Date.today
+      @message = "この日はお休みです。"
+    elsif @date == Date.today
+      @message = "今日はお休みです。"
+    else
+      @message = "この日はお休みでした。"
+    end
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
   
   def calendar
@@ -106,22 +119,6 @@ class StaticPagesController < ApplicationController
             end
           end
         end
-      end
-    end
-    
-    def data_to_render
-      @cwday = @date.cwday
-      @week_menus = current_user.week_menus.where(cwday: @cwday)
-      @menu_records = current_user.menu_records.where(date: @date)
-      if @date > Date.today
-        @message = "この日はお休みです。"
-      elsif @date == Date.today
-        @message = "今日はお休みです。"
-      else
-        @message = "この日はお休みでした。"
-      end
-      respond_to do |format|
-        format.js
       end
     end
 end

@@ -75,15 +75,9 @@ document.addEventListener('DOMContentLoaded', function() {
         }
       ],
       dateClick: function(info) {
-        var xhr = new XMLHttpRequest();
-        xhr.open('GET', `one_day.js?date=${info.dateStr}`);
-        xhr.send();
-        
-        xhr.onreadystatechange = function() {
-          if(xhr.readyState === 4 && xhr.status === 200) {
-            console.log( xhr.responseText );
-          }
-        };
+        info.dayEl.style.backgroundColor = '#bce8f1';
+        info.dayEl.style.opacity = '.3';
+        window.location.href = `one_day?date=${info.dateStr}`;
       }
     });
   
