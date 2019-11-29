@@ -19,6 +19,7 @@ require("./custom");
 import { Calendar } from '@fullcalendar/core';
 import jaLocale from '@fullcalendar/core/locales/ja';
 import dayGridPlugin from '@fullcalendar/daygrid';
+import interactionPlugin from '@fullcalendar/interaction';
 import "bootstrap";
 import "@fortawesome/fontawesome-free/js/all";
 import "../stylesheets/application";
@@ -29,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   if(calendarEl){
     var calendar = new Calendar(calendarEl, {
-      plugins: [ dayGridPlugin ],
+      plugins: [ dayGridPlugin, interactionPlugin ],
       locale: jaLocale,
       eventSources: [
         {
@@ -72,7 +73,18 @@ document.addEventListener('DOMContentLoaded', function() {
           color: 'transparent',
           textColor: 'black'
         }
-      ]
+      ],
+      dateClick: function(info) {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', `one_day.js?date=${info.dateStr}`);
+        xhr.send();
+        
+        xhr.onreadystatechange = function() {
+          if(xhr.readyState === 4 && xhr.status === 200) {
+            console.log( xhr.responseText );
+          }
+        };
+      }
     });
   
     calendar.render();

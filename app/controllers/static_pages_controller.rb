@@ -1,5 +1,6 @@
 class StaticPagesController < ApplicationController
   before_action :initialize_records, only: :home
+  protect_from_forgery except: :one_day
   
   def home
     if user_signed_in?
@@ -11,13 +12,8 @@ class StaticPagesController < ApplicationController
     end
   end
   
-  def next_day
-    @date = params[:date].to_date + 1
-    data_to_render
-  end
-  
-  def previous_day
-    @date = params[:date].to_date - 1
+  def one_day
+    @date = params[:date].to_date
     data_to_render
   end
   
@@ -125,7 +121,6 @@ class StaticPagesController < ApplicationController
         @message = "この日はお休みでした。"
       end
       respond_to do |format|
-        format.html
         format.js
       end
     end

@@ -9,8 +9,7 @@ Rails.application.routes.draw do
   
   resources :users, only: [:index, :show]
   resources :users do
-    get '/next_day', to: 'static_pages#next_day'
-    get '/previous_day', to: 'static_pages#previous_day'
+    get '/one_day', to: 'static_pages#one_day'
     get '/calendar', to: 'static_pages#calendar'
     get '/mon_menus', to: 'static_pages#mon_menus'
     get '/tue_menus', to: 'static_pages#tue_menus'
