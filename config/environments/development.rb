@@ -71,7 +71,7 @@ Rails.application.configure do
     :address => "smtp.gmail.com",
     :port => 587,
     :domain => 'smtp.gmail.com',
-    :user_name => "workout11app@gmail.com",
+    :user_name => ENV['MAIL'],
     :password => ENV["MAIL_PW"],
     :authentication => 'plain',
   }

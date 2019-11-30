@@ -5,9 +5,9 @@ Rails.application.routes.draw do
   
   root 'static_pages#home'
   get '/about', to: 'static_pages#about'
-  get '/contact', to: 'static_pages#contact'
   
   resources :users, only: [:index, :show]
+  resources :contacts, only: [:new, :create]
   resources :users do
     get '/one_day', to: 'static_pages#one_day'
     get '/calendar', to: 'static_pages#calendar'

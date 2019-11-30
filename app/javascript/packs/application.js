@@ -32,6 +32,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var calendar = new Calendar(calendarEl, {
       plugins: [ dayGridPlugin, interactionPlugin ],
       locale: jaLocale,
+      contentHeight: 'auto',
       eventSources: [
         {
           url: 'calendar.json',

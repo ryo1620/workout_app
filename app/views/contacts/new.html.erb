@@ -1,0 +1,24 @@
+<% provide(:title, 'お問い合わせ') %>
+<h1 class="mb-3">お問い合わせ</h1>
+
+<div class="row row-original">
+  <div class="col-md-6 col-md-6-original">
+    
+    <%= form_for @contact do |f| %>
+    
+      <div class="form-group">
+        <%= f.label :email, '返信先メールアドレス' %>
+        <%= f.text_field :email, class: 'form-control' %>
+      </div>
+    
+     <div class="form-group">
+       <%= f.label :message, 'お問い合わせ内容' %>
+       <%= f.text_area :message, size: '10x10', class: 'form-control' %>
+     </div>
+    
+      <%= f.submit '送信', class: 'btn btn-primary' %>
+    
+    <% end %>
+
+  </div>
+</div>
