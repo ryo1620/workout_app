@@ -1,3 +1,59 @@
 <% provide(:title, @user.name) %>
-<h1><%= @user.name %></h1>
-<p><%= current_user.height %></p>
+<h1 class="mb-3"><%= @user.name %></h1>
+
+<div class="user-data">
+  <p class="text-center mb-0">Body</p>
+  <ul class="users">
+    <li>
+      <div class="list-left">身長</div>
+      <% if @user.height.present? %>
+        <div class="list-right"><%= @user.height %>cm</div>
+      <% else %>
+        <div class="list-right">未設定</div>
+      <% end %>
+    </li>
+    <li>
+      <div class="list-left">体重</div>
+      <% if @user.body_weight.present? %>
+        <div class="list-right"><%= @user.body_weight %>kg</div>
+      <% else %>
+        <div class="list-right">未設定</div>
+      <% end %>
+    </li>
+    <li>
+      <div class="list-left">体脂肪率</div>
+      <% if @user.body_fat.present? %>
+        <div class="list-right"><%= @user.body_fat %>%</div>
+      <% else %>
+        <div class="list-right">未設定</div>
+      <% end %>
+    </li>
+  </ul>
+  <p class="text-center mt-3 mb-0">Max</p>
+  <ul class="users">
+    <li>
+      <div class="list-left">ベンチプレス</div>
+      <% if @user.bench_press.present? %>
+        <div class="list-right"><%= @user.bench_press %>kg</div>
+      <% else %>
+        <div class="list-right">未設定</div>
+      <% end %>
+    </li>
+    <li>
+      <div class="list-left">スクワット</div>
+      <% if @user.squat.present? %>
+        <div class="list-right"><%= @user.squat %>kg</div>
+      <% else %>
+        <div class="list-right">未設定</div>
+      <% end %>
+    </li>
+    <li>
+      <div class="list-left">デッドリフト</div>
+      <% if @user.deadlift.present? %>
+        <div class="list-right"><%= @user.deadlift %>kg</div>
+      <% else %>
+        <div class="list-right">未設定</div>
+      <% end %>
+    </li>
+  </ul>
+</div>

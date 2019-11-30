@@ -98,12 +98,20 @@ footer {
   ul {
     float: right;
     list-style: none;
+    padding-left: 0;
     li {
       float: left;
       margin-left: 15px;
     }
   }
 }
+
+
+@media screen and (max-width: 422px) {
+  footer ul li {
+    float: none;
+  }
+} 
 
 /* miscellaneous */
 
@@ -172,13 +180,43 @@ div.form-check {
 
 /* Users index */
 
-.users {
+ul.users {
   list-style: none;
   margin: 0;
+  padding-left: 0;
   li {
     overflow: auto;
     padding: 10px 0;
     border-bottom: 1px solid $gray-200;
+  }
+}
+
+/* Users show */
+
+div.user-data {
+  width: 20%;
+  margin: auto;
+}
+
+div.list-left {
+  display: inline-block;
+  float: left;
+  text-align: left;
+}
+
+div.list-right {
+  text-align: right;
+}
+
+@media screen and (max-width: 991px) {
+  div.user-data {
+    width: 30%;
+  }
+} 
+
+@media screen and (max-width: 767px) {
+  div.user-data {
+    width: 50%;
   }
 }
 
@@ -309,15 +347,15 @@ div.form-submit input.btn {
   }
 }
 
-/* メニュー一覧 */
+/* リストの幅 */
 
-div.menu-list {
+div.list {
   width: 40%;
   margin: auto;
 }
 
 @media (max-width: 767px) {
-  div.menu-list {
+  div.list {
     width: 100%;
   }
 }
@@ -629,10 +667,6 @@ div {
     text-align: center;
     margin-bottom: 1rem;
   }
-  .item-list {
-    width: 40%;
-    margin: auto;
-  }
   &.select-search {
     text-align: center;
     margin-bottom: 1rem;
@@ -644,9 +678,6 @@ div {
 
 @media (max-width: 767px) {
   div {
-    .item-list {
-      width: 100%;
-    }
     &.select-search select.select-parts-types {
       width: 100%;
     }
@@ -959,3 +990,122 @@ div#calendar {
     pointer-events: none;
   }
 }
+
+/* WorkOut!!について */
+
+div.showcase {
+  width: 100%;
+  height: 740px;
+  position: relative;
+  a {
+    width: 50px;
+    padding-top: 60px;
+    position: absolute;
+    bottom: 20px;
+    left: calc(50% - 25px);
+    z-index: 2;
+    display: inline-block;
+    -webkit-transform: translate(0, calc(-50% - 25px));
+    transform: translate(0, calc(-50% - 25px));
+    text-decoration: none;
+    transition: opacity .3s;
+    &:hover {
+      opacity: .5;
+    }
+  }
+  a span {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 24px;
+    height: 24px;
+    margin-left: -12px;
+    border-left: 1px solid #212529;;
+    border-bottom: 1px solid #212529;;
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    -webkit-animation: sdb 2s infinite;
+    animation: sdb 2s infinite;
+    box-sizing: border-box;
+  }
+  @-webkit-keyframes sdb {
+    0% {
+      -webkit-transform: rotate(-45deg) translate(0, 0);
+    }
+    20% {
+      -webkit-transform: rotate(-45deg) translate(-10px, 10px);
+    }
+    40% {
+      -webkit-transform: rotate(-45deg) translate(0, 0);
+    }
+  }
+  @keyframes sdb {
+    0% {
+      transform: rotate(-45deg) translate(0, 0);
+    }
+    20% {
+      transform: rotate(-45deg) translate(-10px, 10px);
+    }
+    40% {
+      transform: rotate(-45deg) translate(0, 0);
+    }
+  }
+}
+
+div.section-content {
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateY(-50%) translateX(-50%);
+  -webkit-transform: translateY(-50%) translateX(-50%);
+  h1 {
+    line-height: 1.2;
+  }
+}
+
+span.display-large {
+  font-size: 4rem;
+}
+
+span.display-medium {
+  font-size: 2.4rem;
+}
+
+@media screen and (max-width: 991px) {
+  span.display-large {
+    font-size: 3rem;
+  }
+  span.display-medium {
+    font-size: 1.8rem;
+  }
+} 
+
+@media screen and (max-width: 767px) {
+  div.showcase {
+    height: 100vh;
+    &:first-child {
+      height: calc(100vh - 56px);
+      div.section-content {
+        top: calc(50% - 28px);
+        transform: translateY(calc(-50% - 28px)) translateX(-50%);
+        -webkit-transform: translateY(calc(-50% - 28px)) translateX(-50%);
+      }
+    }
+  }
+  span.display-large {
+    font-size: 2rem;
+  }
+  span.display-medium {
+    font-size: 1.2rem;
+  }
+} 
+
+@media screen and (max-width: 478px) {
+  span.display-large {
+    font-size: 1.6rem;
+  }
+  span.display-medium {
+    font-size: 1rem;
+  }
+} 

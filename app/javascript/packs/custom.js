@@ -1,5 +1,9 @@
 import $ from 'jquery';
 import Rails from '@rails/ujs';
+import smoothscroll from 'smoothscroll-polyfill';
+
+// kick off the polyfill!
+smoothscroll.polyfill();
 
 
 // 関数定義
@@ -220,4 +224,25 @@ $(function(){
     $(this).closest('.check-uncheck').find('.all-check').show();
     calculateRate();
   });
+});
+
+// スムーススクロール
+document.addEventListener("click", e => {
+  const target = e.target;
+  // clickした要素がclass属性、js-smooth-scrollを含まない場合は処理を中断
+  if (!target.classList.contains("js-smooth-scroll")) return;
+  e.preventDefault();
+  if (target.tagName == 'SPAN'){
+    const targetId = target.closest('a').hash;
+    document.querySelector(targetId).scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+  } else if (target.tagName == 'A'){
+    const targetId = target.hash;
+    document.querySelector(targetId).scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+  }
 });
