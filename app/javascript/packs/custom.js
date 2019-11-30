@@ -44,7 +44,7 @@ function calculateRate() {
   
 // フラッシュメッセージをフェードアウトさせる
 $(function(){
-  setTimeout("$('.alert').fadeOut('slow')", 3000);
+  setTimeout("$('.alert-success').fadeOut('slow')", 3000);
 });
 
 // メニュー種目10件分の表示・非表示をボタンで切り替える
@@ -207,27 +207,17 @@ $(function(){
   $('.all-check').click(function(){
     var $checkBoxes = $(this).closest('.top-menu')
                       .find('input[type="checkbox"]:not(:checked)');
-    $checkBoxes.each(function(index, checkBox){
-      setTimeout(function(){
-        $(checkBox).prop('checked', true);
-        $(checkBox).closest('form').submit();
-        calculateRate();
-      }, 50 * ++index);
-    });
+    $checkBoxes.prop('checked', true);
     $(this).hide();
     $(this).closest('.check-uncheck').find('.all-uncheck').show();
+    calculateRate();
   });
   $('.all-uncheck').click(function(){
     var $checkBoxes = $(this).closest('.top-menu')
                       .find('input[type="checkbox"]:checked');
-    $checkBoxes.each(function(index, checkBox){
-      setTimeout(function(){
-        $(checkBox).prop('checked', false);
-        $(checkBox).closest('form').submit();
-        calculateRate();
-      }, 50 * ++index);
-    });
+    $checkBoxes.prop('checked', false);
     $(this).hide();
     $(this).closest('.check-uncheck').find('.all-check').show();
+    calculateRate();
   });
 });

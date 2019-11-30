@@ -61,4 +61,16 @@ Rails.application.configure do
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
   
   config.hosts << "2dafe6be79a54fd08740e6b5c812c0bf.vfs.cloud9.ap-northeast-1.amazonaws.com"
+  
+  # deviseのメール認証用
+  config.action_mailer.default_url_options = { host: "2dafe6be79a54fd08740e6b5c812c0bf.vfs.cloud9.ap-northeast-1.amazonaws.com"}
+  config.action_mailer.smtp_settings = {
+    :enable_starttls_auto => true,
+    :address => "smtp.gmail.com",
+    :port => 587,
+    :domain => 'smtp.gmail.com',
+    :user_name => "workout11app@gmail.com",
+    :password => ENV["MAIL_PW"],
+    :authentication => 'login',
+  }
 end

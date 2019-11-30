@@ -109,4 +109,16 @@ Rails.application.configure do
   # config.active_record.database_selector = { delay: 2.seconds }
   # config.active_record.database_resolver = ActiveRecord::Middleware::DatabaseSelector::Resolver
   # config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
+  
+  # deviseのメール認証用
+  config.action_mailer.default_url_options = { host: "https://workout11-app.herokuapp.com/"}
+  config.action_mailer.smtp_settings = {
+    :enable_starttls_auto => true,
+    :address => "smtp.gmail.com",
+    :port => 587,
+    :domain => 'smtp.gmail.com',
+    :user_name => "workout11app@gmail.com",
+    :password => ENV["MAIL_PW"],
+    :authentication => 'login',
+  }
 end

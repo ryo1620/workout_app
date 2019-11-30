@@ -63,6 +63,10 @@ h2 {
   color: $gray-700;
 }
 
+h4 {
+  font-size: 1em;
+}
+
 p {
   line-height: 1.7em;
 }
@@ -606,6 +610,18 @@ div.menu-items-submit {
   font-weight: 900;
 }
 
+.check::before {
+  content: "\f00c";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+}
+
+.uncheck::before {
+  content: "\f0c8";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 400;
+}
+
 /* 種目一覧 */
 
 div {
@@ -802,6 +818,7 @@ div.all-check, div.all-uncheck {
 	&:hover {
 	  background: #343a40;
 	  color: #fff;
+	  text-decoration: none;
 	}
 }
 

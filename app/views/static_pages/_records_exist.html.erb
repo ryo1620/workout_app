@@ -54,14 +54,26 @@
         </div>
         <div class="check-uncheck">
           <div class="all-check">
-            <button type="button" class="btn-outline-original btn-sm">
-              <i class="fas fa-check"></i>&nbsp;全てチェック
-            </button>
+            <%= 
+              link_to " 全てチェック",
+              user_item_records_path(current_user,
+                                     menu_record_id: menu_record.id,
+                                     checked: "true"),
+              class: "link-center icon check btn-outline-original",
+              method: :patch,
+              remote: true
+            %>
           </div>
           <div class="all-uncheck">
-            <button type="button" class="btn-outline-original btn-sm">
-              <i class="far fa-square"></i>&nbsp;全てアンチェック
-            </button>
+            <%= 
+              link_to " 全てアンチェック",
+              user_item_records_path(current_user,
+                                     menu_record_id: menu_record.id,
+                                     checked: "false"),
+              class: "link-center icon uncheck btn-outline-original",
+              method: :patch,
+              remote: true
+            %>
           </div>
         </div>
       </div>

@@ -12,6 +12,22 @@ class ItemRecordsController < ApplicationController
     end
   end
   
+  def update_all
+    menu_record = MenuRecord.find(params[:menu_record_id])
+    @item_records = menu_record.item_records
+    if params[:checked] == "true"
+      @item_records.each do |item_record|
+        item_record.update_attribute(:checked, true)
+      end
+      menu_record.update_attribute(:checked, true)
+    elsif params[:checked] == "false"
+      @item_records.each do |item_record|
+        item_record.update_attribute(:checked, false)
+      end
+      menu_record.update_attribute(:checked, false)
+    end
+  end
+  
   private
   
     def item_record_params

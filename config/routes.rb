@@ -31,5 +31,6 @@ Rails.application.routes.draw do
     resources :menu_records, only: [:update]
     delete '/menu_records', to: 'menu_records#destroy_all'
     resources :item_records, only: [:update]
+    patch '/item_records', to: 'item_records#update_all'
   end
 end
