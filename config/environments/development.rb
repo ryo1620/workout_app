@@ -64,6 +64,7 @@ Rails.application.configure do
   
   # deviseのメール認証用
   config.action_mailer.default_url_options = { host: "2dafe6be79a54fd08740e6b5c812c0bf.vfs.cloud9.ap-northeast-1.amazonaws.com"}
+  config.action_mailer.raise_delivery_errors = true
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
     :enable_starttls_auto => true,
