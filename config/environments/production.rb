@@ -112,6 +112,7 @@ Rails.application.configure do
   
   # deviseのメール認証用
   config.action_mailer.default_url_options = { host: "https://workout11-app.herokuapp.com/"}
+  config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
     :enable_starttls_auto => true,
     :address => "smtp.gmail.com",
@@ -119,6 +120,6 @@ Rails.application.configure do
     :domain => 'smtp.gmail.com',
     :user_name => "workout11app@gmail.com",
     :password => ENV["MAIL_PW"],
-    :authentication => 'login',
+    :authentication => 'plain',
   }
 end
