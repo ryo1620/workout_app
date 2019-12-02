@@ -8,6 +8,9 @@ ja:
       menu_item: メニュー種目
       part: 部位
       type: タイプ
+      menu_record: メニュー記録
+      item_record: 種目記録
+      contact: お問い合わせ
     attributes:
       user:
         confirmation_sent_at: パスワード確認送信時刻
@@ -43,9 +46,29 @@ ja:
         deadlift: デッドリフト
       menu:
         name: メニュー名
+        user: ユーザー
+        user_id: ユーザー
+      week_menu:
+        cwday: 曜日
+        user: ユーザー
+        menu: メニュー
+        user_id: ユーザー
+        menu_id: メニュー
       item:
         name: 種目名
+        user: ユーザー
+        part: メイン部位
+        type: タイプ
+        user_id: ユーザー
+        part_id: メイン部位
+        type_id: タイプ
       menu_item:
+        user: ユーザー
+        menu: メニュー
+        item: 種目
+        user_id: ユーザー
+        menu_id: メニュー
+        item_id: 種目
         weight: 重量
         reps: 回数 
         seconds: 秒数
@@ -54,3 +77,24 @@ ja:
         name: 部位名
       type:
         name: タイプ名
+      menu_record:
+        name: メニュー名
+        checked: チェック
+        date: 日付
+        user: ユーザー
+        user_id: ユーザー
+      item_record:
+        name: 種目名
+        weight: 重量
+        reps: 回数 
+        seconds: 秒数
+        sets: セット数
+        checked: チェック
+        date: 日付
+        user: ユーザー
+        menu_record: メニュー記録
+        user_id: ユーザー
+        menu_record_id: メニュー記録
+      contact:
+        email: メールアドレス
+        message: メッセージ

@@ -50,6 +50,8 @@ class ItemsController < ApplicationController
       flash[:success] = "種目を作成しました。"
       redirect_to user_item_url(current_user, @item)
     else
+      @parts = Part.all
+      @types = Type.all
       render 'new'
     end
   end
