@@ -5,21 +5,15 @@ RSpec.describe MenuItem, type: :model do
   # メニュー種目作成に必要なデータを作成
   before do
     create(:admin)
-    create(:example)
     create(:pectoralis)
     create(:bodyweight)
     create(:pushup)
-    create(:udetate)
     create(:munetore)
   end
   
   # factory_botが有効かどうかを検査
   it "has a valid factory of menu_item" do
     menu_item = create(:menu_pushup)
-    expect(menu_item).to be_valid
-  end
-  it "has a valid factory of another_menu_item" do
-    menu_item = create(:menu_udetate)
     expect(menu_item).to be_valid
   end
   
