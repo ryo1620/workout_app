@@ -14,22 +14,22 @@ RSpec.describe User, type: :model do
   
   # name, email, passwordが無ければ無効
   it "is invalid without name" do
-    user = User.new(name: nil)
+    user = User.new(name: " ")
     user.valid?
     expect(user.errors[:name]).to include("を入力してください")
   end
   it "is invalid without name" do
-    user = User.new(name: nil)
+    user = User.new(name: " ")
     user.valid?
     expect(user.errors[:name]).to include("を入力してください")
   end
   it "is invalid without email" do
-    user = User.new(email: nil)
+    user = User.new(email: " ")
     user.valid?
     expect(user.errors[:email]).to include("を入力してください")
   end
   it "is invalid without password" do
-    user = User.new(password: nil)
+    user = User.new(password: " ")
     user.valid?
     expect(user.errors[:password]).to include("を入力してください")
   end

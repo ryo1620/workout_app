@@ -1,5 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe Type, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  
+  # factory_botが有効かどうかを検査
+  it "has a valid factory of type" do
+    type = create(:bodyweight)
+    expect(type).to be_valid
+  end
 end
