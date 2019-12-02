@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "StaticPages", type: :request do
+RSpec.xdescribe "StaticPages", type: :request do
   include ApplicationHelper
 
   describe "GET /" do

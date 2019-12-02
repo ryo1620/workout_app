@@ -18,31 +18,31 @@ User.create!(name: "Example User",
              email: "example@example.com",
              password: "password",
              confirmed_at: Time.now)
-             
+
 #メニュー
 Menu.create!(name: "胸トレ",
-             user_id: 1)
+             user_id: 2)
 Menu.create!(name: "脚トレ",
-             user_id: 1)
+             user_id: 2)
 Menu.create!(name: "背中トレ",
-             user_id: 1)
+             user_id: 2)
 Menu.create!(name: "腹トレ",
-             user_id: 1)
+             user_id: 2)
 Menu.create!(name: "上腕トレ",
-             user_id: 1)
+             user_id: 2)
 Menu.create!(name: "肩トレ",
-             user_id: 1)
+             user_id: 2)
 Menu.create!(name: "前腕トレ",
-             user_id: 1) 
+             user_id: 2) 
 Menu.create!(name: "ふくらはぎトレ",
-             user_id: 1)   
+             user_id: 2)   
 Menu.create!(name: "僧帽トレ",
-             user_id: 1)               
+             user_id: 2)               
 Menu.create!(name: "自重トレ",
-             user_id: 1)
+             user_id: 2)
 Menu.create!(name: "ダンベルトレ",
-             user_id: 1)  
-             
+             user_id: 2)
+
 Menu.create!(name: "胸トレ",
              user_id: 1)
 Menu.create!(name: "脚トレ",
@@ -65,30 +65,7 @@ Menu.create!(name: "自重トレ",
              user_id: 1)
 Menu.create!(name: "ダンベルトレ",
              user_id: 1)  
-             
-Menu.create!(name: "胸トレ",
-             user_id: 1)
-Menu.create!(name: "脚トレ",
-             user_id: 1)
-Menu.create!(name: "背中トレ",
-             user_id: 1)
-Menu.create!(name: "腹トレ",
-             user_id: 1)
-Menu.create!(name: "上腕トレ",
-             user_id: 1)
-Menu.create!(name: "肩トレ",
-             user_id: 1)
-Menu.create!(name: "前腕トレ",
-             user_id: 1) 
-Menu.create!(name: "ふくらはぎトレ",
-             user_id: 1)   
-Menu.create!(name: "僧帽トレ",
-             user_id: 1)               
-Menu.create!(name: "自重トレ",
-             user_id: 1)
-Menu.create!(name: "ダンベルトレ",
-             user_id: 1)               
-             
+
 #部位
 Part.create!(name: "僧帽筋") #1 
 Part.create!(name: "三角筋") #2
@@ -186,3 +163,92 @@ Item.create!(name: "ダンベルリバースリストカール", default: true, 
 Item.create!(name: "スタンディングカーフレイズ", default: true, user_id: 1, part_id: 13, type_id: 5)
 Item.create!(name: "シーテッドカーフレイズ", default: true, user_id: 1, part_id: 13, type_id: 5)
 Item.create!(name: "ドンキーカーフレイズ", default: true, user_id: 1, part_id: 13, type_id: 5)
+
+#メニュー種目
+MenuItem.create!(user_id: 2, menu_id: 1, item_id: 1, weight: 50, reps: 10, sets: 3)
+MenuItem.create!(user_id: 2, menu_id: 1, item_id: 2, weight: 15, reps: 15, sets: 3)
+MenuItem.create!(user_id: 2, menu_id: 1, item_id: 3, weight: 50, reps: 8, sets: 2)
+MenuItem.create!(user_id: 2, menu_id: 1, item_id: 4, weight: 10, reps: 10, sets: 3)
+MenuItem.create!(user_id: 2, menu_id: 1, item_id: 5, weight: 8, reps: 12, sets: 4)
+MenuItem.create!(user_id: 2, menu_id: 1, item_id: 6, weight: 30, reps: 15, sets: 3)
+MenuItem.create!(user_id: 2, menu_id: 1, item_id: 7, weight: 10, reps: 15, sets: 3)
+MenuItem.create!(user_id: 2, menu_id: 1, item_id: 8, reps: 20, sets: 1)
+MenuItem.create!(user_id: 2, menu_id: 1, item_id: 9, reps: 10, sets: 3)
+MenuItem.create!(user_id: 2, menu_id: 1, item_id: 10, weight: 5, reps: 15, sets: 4)
+
+MenuItem.create!(user_id: 2, menu_id: 2, item_id: 11, reps: 20, sets: 1)
+MenuItem.create!(user_id: 2, menu_id: 2, item_id: 12, weight: 70, reps: 10, sets: 3)
+MenuItem.create!(user_id: 2, menu_id: 2, item_id: 13, weight: 20, reps: 15, sets: 2)
+MenuItem.create!(user_id: 2, menu_id: 2, item_id: 14, reps: 10, sets: 4)
+MenuItem.create!(user_id: 2, menu_id: 2, item_id: 15, reps: 8, sets: 2)
+MenuItem.create!(user_id: 2, menu_id: 2, item_id: 16, weight: 100, reps: 10, sets: 2)
+MenuItem.create!(user_id: 2, menu_id: 2, item_id: 17, weight: 30, reps: 12, sets: 3)
+MenuItem.create!(user_id: 2, menu_id: 2, item_id: 18, weight: 60, reps: 8, sets: 3)
+MenuItem.create!(user_id: 2, menu_id: 2, item_id: 19, weight: 20, reps: 15, sets: 3)
+
+MenuItem.create!(user_id: 2, menu_id: 3, item_id: 20, weight: 100, reps: 10, sets: 3)
+MenuItem.create!(user_id: 2, menu_id: 3, item_id: 21, weight: 30, reps: 12, sets: 3)
+MenuItem.create!(user_id: 2, menu_id: 3, item_id: 22, reps: 8, sets: 3)
+MenuItem.create!(user_id: 2, menu_id: 3, item_id: 23, weight: 30, reps: 12, sets: 3)
+MenuItem.create!(user_id: 2, menu_id: 3, item_id: 24, weight: 20, reps: 10, sets: 4)
+MenuItem.create!(user_id: 2, menu_id: 3, item_id: 25, weight: 40, reps: 10, sets: 3)
+MenuItem.create!(user_id: 2, menu_id: 3, item_id: 26, weight: 35, reps: 15, sets: 3)
+MenuItem.create!(user_id: 2, menu_id: 3, item_id: 27, reps: 15, sets: 4)
+
+MenuItem.create!(user_id: 2, menu_id: 4, item_id: 28, reps: 30, sets: 5)
+MenuItem.create!(user_id: 2, menu_id: 4, item_id: 29, reps: 15, sets: 4)
+MenuItem.create!(user_id: 2, menu_id: 4, item_id: 30, reps: 20, sets: 3)
+MenuItem.create!(user_id: 2, menu_id: 4, item_id: 31, reps: 10, sets: 3)
+MenuItem.create!(user_id: 2, menu_id: 4, item_id: 32, seconds: 60, sets: 1)
+MenuItem.create!(user_id: 2, menu_id: 4, item_id: 33, reps: 3, sets: 2)
+MenuItem.create!(user_id: 2, menu_id: 4, item_id: 34, weight: 30, reps: 10, sets: 3)
+MenuItem.create!(user_id: 2, menu_id: 4, item_id: 35, reps: 15, sets: 3)
+
+MenuItem.create!(user_id: 2, menu_id: 5, item_id: 36, weight: 25, reps: 8, sets: 2)
+MenuItem.create!(user_id: 2, menu_id: 5, item_id: 37, weight: 10, reps: 15, sets: 4)
+MenuItem.create!(user_id: 2, menu_id: 5, item_id: 38, weight: 8, reps: 12, sets: 4)
+MenuItem.create!(user_id: 2, menu_id: 5, item_id: 39, weight: 20, reps: 12, sets: 3)
+MenuItem.create!(user_id: 2, menu_id: 5, item_id: 40, weight: 15, reps: 15, sets: 3)
+MenuItem.create!(user_id: 2, menu_id: 5, item_id: 41, reps: 8, sets: 3)
+
+MenuItem.create!(user_id: 2, menu_id: 6, item_id: 42, weight: 15, reps: 12, sets: 4)
+MenuItem.create!(user_id: 2, menu_id: 6, item_id: 43, weight: 25, reps: 15, sets: 3)
+MenuItem.create!(user_id: 2, menu_id: 6, item_id: 44, weight: 25, reps: 10, sets: 3)
+
+MenuItem.create!(user_id: 2, menu_id: 7, item_id: 45, weight: 3, reps: 100, sets: 1)
+MenuItem.create!(user_id: 2, menu_id: 7, item_id: 46, weight: 5, reps: 100, sets: 1)
+MenuItem.create!(user_id: 2, menu_id: 7, item_id: 47, weight: 4, reps: 100, sets: 1)
+MenuItem.create!(user_id: 2, menu_id: 7, item_id: 48, weight: 30, reps: 10, sets: 3)
+MenuItem.create!(user_id: 2, menu_id: 7, item_id: 49, weight: 15, reps: 12, sets: 4)
+MenuItem.create!(user_id: 2, menu_id: 7, item_id: 50, weight: 25, reps: 15, sets: 3)
+
+MenuItem.create!(user_id: 2, menu_id: 8, item_id: 51, weight: 40, reps: 8, sets: 3)
+MenuItem.create!(user_id: 2, menu_id: 8, item_id: 52, weight: 20, reps: 12, sets: 4)
+MenuItem.create!(user_id: 2, menu_id: 8, item_id: 53, weight: 30, reps: 15, sets: 3)
+
+MenuItem.create!(user_id: 2, menu_id: 9, item_id: 54, weight: 35, reps: 12, sets: 4)
+MenuItem.create!(user_id: 2, menu_id: 9, item_id: 55, reps: 15, sets: 5)
+MenuItem.create!(user_id: 2, menu_id: 9, item_id: 56, reps: 20, sets: 5)
+
+MenuItem.create!(user_id: 2, menu_id: 10, item_id: 57, weight: 20, reps: 8, sets: 3)
+MenuItem.create!(user_id: 2, menu_id: 10, item_id: 58, weight: 10, reps: 12, sets: 4)
+MenuItem.create!(user_id: 2, menu_id: 10, item_id: 59, weight: 15, reps: 8, sets: 3)
+MenuItem.create!(user_id: 2, menu_id: 10, item_id: 60, weight: 6, reps: 12, sets: 4)
+
+MenuItem.create!(user_id: 2, menu_id: 11, item_id: 61, reps: 30, sets: 5)
+MenuItem.create!(user_id: 2, menu_id: 11, item_id: 62, reps: 30, sets: 5)
+MenuItem.create!(user_id: 2, menu_id: 11, item_id: 63, reps: 30, sets: 5)
+
+#曜日メニュー
+WeekMenu.create!(cwday: 2, user_id: 2, menu_id: 1)
+WeekMenu.create!(cwday: 2, user_id: 2, menu_id: 5)
+
+WeekMenu.create!(cwday: 4, user_id: 2, menu_id: 3)
+WeekMenu.create!(cwday: 4, user_id: 2, menu_id: 7)
+WeekMenu.create!(cwday: 4, user_id: 2, menu_id: 9)
+
+WeekMenu.create!(cwday: 6, user_id: 2, menu_id: 2)
+WeekMenu.create!(cwday: 6, user_id: 2, menu_id: 8)
+WeekMenu.create!(cwday: 6, user_id: 2, menu_id: 4)
+
+WeekMenu.create!(cwday: 7, user_id: 2, menu_id: 6)
