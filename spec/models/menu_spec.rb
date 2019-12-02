@@ -11,20 +11,22 @@ RSpec.describe Menu, type: :model do
     expect(menu).to be_valid
   end
   
+  let(:menu) { create(:munetore) }
+  
   # name, user_idが無ければ無効
   it "is invalid without name" do
-    menu = Menu.new(name: " ")
+    menu.name = " "
     menu.valid?
     expect(menu.errors[:name]).to include("を入力してください")
   end
   it "is invalid without user_id" do
-    menu = Menu.new(user_id: " ")
+    menu.user_id = " "
     expect(menu).to be_invalid
   end
   
   # nameが長すぎると無効
   it "is invalid with too long name" do
-    menu = Menu.new(name: "a" * 16)
+    menu.name = "a" * 16
     menu.valid?
     expect(menu.errors[:name]).to include("は15文字以内で入力してください")
   end
