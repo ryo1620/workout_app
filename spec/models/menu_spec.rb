@@ -5,13 +5,12 @@ RSpec.describe Menu, type: :model do
   # メニュー作成に必要なデータを作成
   before { create(:admin) }
   
+  let(:menu) { create(:munetore) }
+  
   # factory_botが有効かどうかを検査
   it "has a valid factory of menu" do
-    menu = create(:munetore)
     expect(menu).to be_valid
   end
-  
-  let(:menu) { create(:munetore) }
   
   # name, user_idが無ければ無効
   it "is invalid without name" do

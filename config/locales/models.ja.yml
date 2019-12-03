@@ -96,5 +96,5 @@ ja:
         user_id: ユーザー
         menu_record_id: メニュー記録
       contact:
-        email: メールアドレス
-        message: メッセージ
+        email: 返信先メールアドレス
+        message: お問い合わせ内容

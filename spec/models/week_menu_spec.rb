@@ -11,13 +11,12 @@ RSpec.describe WeekMenu, type: :model do
     create(:munetore)
   end
   
+  let(:week_menu) { create(:sunday_menu) }
+  
   # factory_botが有効かどうかを検査
   it "has a valid factory of week_menu" do
-    week_menu = create(:sunday_menu)
     expect(week_menu).to be_valid
   end
-  
-  let(:week_menu) { create(:sunday_menu) }
   
   # cwday, user_id, menu_idが無ければ無効
   it "is invalid without cwday" do

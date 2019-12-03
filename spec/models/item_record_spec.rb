@@ -8,13 +8,12 @@ RSpec.describe ItemRecord, type: :model do
     create(:munetore_record)
   end
   
+  let(:item_record) { create(:pushup_record) }
+  
   # factory_botが有効かどうかを検査
   it "has a valid factory of item_record" do
-    item_record = create(:pushup_record)
     expect(item_record).to be_valid
   end
-  
-  let(:item_record) { create(:pushup_record) }
   
   # name, date, user_id, menu_record_idが無ければ無効
   it "is invalid without name" do

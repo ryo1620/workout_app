@@ -11,13 +11,12 @@ RSpec.describe MenuItem, type: :model do
     create(:munetore)
   end
   
+  let(:menu_item) { create(:menu_pushup) }
+  
   # factory_botが有効かどうかを検査
   it "has a valid factory of menu_item" do
-    menu_item = create(:menu_pushup)
     expect(menu_item).to be_valid
   end
-  
-  let(:menu_item) { create(:menu_pushup) }
   
   # user_id, menu_id, item_idが無ければ無効
   it "is invalid without user_id" do

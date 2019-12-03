@@ -7,13 +7,12 @@ RSpec.describe MenuRecord, type: :model do
     create(:admin)
   end
   
+  let(:menu_record) { create(:munetore_record) }
+  
   # factory_botが有効かどうかを検査
   it "has a valid factory of menu_record" do
-    menu_record = create(:munetore_record)
     expect(menu_record).to be_valid
   end
-  
-  let(:menu_record) { create(:munetore_record) }
   
   # name, date, user_idが無ければ無効
   it "is invalid without name" do
