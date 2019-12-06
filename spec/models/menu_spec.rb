@@ -29,4 +29,36 @@ RSpec.describe Menu, type: :model do
     menu.valid?
     expect(menu.errors[:name]).to include("は15文字以内で入力してください")
   end
+  
+  describe "association" do
+    
+    context "with week_menu" do
+      let(:week_menu) { create(:sunday_menu) }
+      it "should destroy week_menu (depend on menu destroyed)" do
+        menu
+        week_menu
+        my_week_menu = menu.week_menus
+        expect(my_week_menu).not_to be_empty
+        menu.destroy
+        expect(WeekMenu.where(id: week_menu.id)).to be_empty
+      end
+    end
+    
+    context "with menu_item" do
+      before do
+        create(:pectoralis)
+        create(:bodyweight)
+        create(:pushup)
+      end
+      let(:menu_item) { create(:menu_pushup) }
+      it "should destroy menu_item (depend on menu destroyed)" do
+        menu
+        menu_item
+        my_menu_item = menu.menu_items
+        expect(my_menu_item).not_to be_empty
+        menu.destroy
+        expect(MenuItem.where(id: menu_item.id)).to be_empty
+      end
+    end
+  end
 end

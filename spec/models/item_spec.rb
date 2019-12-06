@@ -49,4 +49,17 @@ RSpec.describe Item, type: :model do
     item.valid?
     expect(item.errors[:name]).to include("は30文字以内で入力してください")
   end
+  
+  describe "association with menu_item" do
+    before { create(:munetore) }
+    let(:menu_item) { create(:menu_pushup) }
+    it "should destroy menu_item (depend on item destroyed)" do
+      item
+      menu_item
+      my_menu_item = item.menu_items
+      expect(my_menu_item).not_to be_empty
+      item.destroy
+      expect(MenuItem.where(id: menu_item.id)).to be_empty
+    end
+  end
 end

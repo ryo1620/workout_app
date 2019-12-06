@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   
   root 'static_pages#home'
   get '/about', to: 'static_pages#about'
+  get '/contact', to: 'contacts#new'
   
   resources :users, only: [:index, :show]
   resources :contacts, only: [:new, :create]

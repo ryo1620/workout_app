@@ -11,7 +11,7 @@ RSpec.describe "SiteLayout", type: :system do
       it { is_expected.to have_link "アカウント作成", href: new_user_registration_path }
       it { is_expected.to have_link "ログイン", href: new_user_session_path }
       it { is_expected.to have_link "WorkOut!!について", href: about_path }
-      it { is_expected.to have_link "お問い合わせ", href: new_contact_path }
+      it { is_expected.to have_link "お問い合わせ", href: contact_path }
     end
     
     context "when signed in (not admin)" do
@@ -31,7 +31,7 @@ RSpec.describe "SiteLayout", type: :system do
       it { is_expected.to have_link "アカウントの編集", href: edit_user_registration_path(user) }
       it { is_expected.to have_link "ログアウト", href: destroy_user_session_path }
       it { is_expected.to have_link "WorkOut!!について", href: about_path }
-      it { is_expected.to have_link "お問い合わせ", href: new_contact_path }
+      it { is_expected.to have_link "お問い合わせ", href: contact_path }
     end
     
     context "when signed in (admin)" do
