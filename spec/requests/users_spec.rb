@@ -1,9 +1,9 @@
 require 'rails_helper'
 
-RSpec.describe "StaticPages", type: :request do
+RSpec.describe "Users", type: :request do
   include ApplicationHelper
   
-  let(:user) { create(:example) }
+  let(:user) { create(:admin) }
   
   describe "GET /users/sign_in" do
     before { get '/users/sign_in' }
@@ -60,8 +60,7 @@ RSpec.describe "StaticPages", type: :request do
   
   describe "GET /users" do
     before do
-      admin = create(:admin)
-      login_as(admin)
+      login_as(user)
       get '/users'
     end
     it "should get /users" do
