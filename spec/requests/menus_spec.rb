@@ -17,16 +17,6 @@ RSpec.describe "Menus", type: :request do
     end
   end
   
-  describe "GET /menus" do
-    before { get user_menus_path(user) }
-    it "should get /menus" do
-      expect(response).to have_http_status(:success)
-    end
-    it "has title 'メニュー一覧 | WorkOut!!'" do
-      expect(response.body).to include full_title('メニュー一覧')
-    end
-  end
-  
   describe "GET /menus/new" do
     before { get new_user_menu_path(user) }
     it "should get /menus/new" do
