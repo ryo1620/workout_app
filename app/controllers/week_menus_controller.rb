@@ -27,14 +27,14 @@ class WeekMenusController < ApplicationController
       end
     end
     @week_menus.save
-    flash[:success] = "更新しました。"
+    flash[:success] = "スケジュールを更新しました。"
     redirect_to user_week_menus_url(current_user)
   end
   
   def destroy_all
     week_menus = current_user.week_menus
     week_menus.destroy_all if week_menus.any? 
-    flash[:success] = "リセットしました。"
+    flash[:success] = "スケジュールをリセットしました。"
     redirect_to user_week_menus_url(current_user)
   end
   

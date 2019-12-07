@@ -6,7 +6,7 @@
     user_week_menus_path(current_user),
     class: "link-center icon-reset",
     method: :delete,
-    data: { confirm: "本当にリセットしますか？" }
+    data: { confirm: "本当にスケジュールをリセットしますか？" }
   %>
 </div>
 
@@ -23,17 +23,17 @@
       <% if count <= 5 %>
         <div class="item">
           <p class="weekday text-white mb-3"><%= day[(count - 1)] %></p>
-          <%= render 'week_menu_form', day_menus: day_menus %>
+          <%= render 'week_menu_form', day_menus: day_menus, count: count %>
         </div>
       <% elsif count == 6 %>
         <div class="item">
           <p class="saturday text-white mb-3"><%= day[(count - 1)] %></p>
-          <%= render 'week_menu_form', day_menus: day_menus %>
+          <%= render 'week_menu_form', day_menus: day_menus, count: count %>
         </div>
       <% else %>
         <div class="item">
           <p class="sunday text-white mb-3"><%= day[(count - 1)] %></p>
-          <%= render 'week_menu_form', day_menus: day_menus %>
+          <%= render 'week_menu_form', day_menus: day_menus, count: count %>
         </div>
       <% end %>
     <% end %>
