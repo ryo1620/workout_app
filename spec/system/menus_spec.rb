@@ -15,10 +15,11 @@ RSpec.describe "Menus", type: :system do
     expect(page).not_to have_css '.list-group-item'
     
     click_link '新規作成'
+    fill_in 'メニュー名', with: ' '
     expect { click_button '次へ' }.not_to change { user.menus.count }
     expect(page).to have_content 'メニュー名を入力してください'
     fill_in 'メニュー名', with: '胸トレ'
-    expect { click_button '次へ' }.to change { user.menus.count }.by(1)
+    click_button '次へ'
     
     click_link 'メニューへ戻る'
     expect(page).to have_content '胸トレ'

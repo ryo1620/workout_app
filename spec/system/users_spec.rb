@@ -43,7 +43,7 @@ RSpec.describe "Users", type: :system do
   it 'registers as a user without filling all input forms and' do
     visit root_path
     click_link 'アカウント作成'
-    fill_in 'ユーザー名', with: ''
+    fill_in 'ユーザー名', with: ' '
     fill_in 'メールアドレス', with: 'foo@example.com'
     fill_in 'パスワード', with: 'password'
     fill_in 'パスワード（確認用）', with: 'password'
@@ -51,7 +51,7 @@ RSpec.describe "Users", type: :system do
     expect(page).to have_content 'ユーザー名を入力してください'
     
     fill_in 'ユーザー名', with: 'foobar'
-    fill_in 'メールアドレス', with: ''
+    fill_in 'メールアドレス', with: ' '
     fill_in 'パスワード', with: 'password'
     fill_in 'パスワード（確認用）', with: 'password'
     expect { click_button 'アカウント作成' }.not_to change { ActionMailer::Base.deliveries.size }
@@ -59,7 +59,7 @@ RSpec.describe "Users", type: :system do
     
     fill_in 'ユーザー名', with: 'foobar'
     fill_in 'メールアドレス', with: 'foo@example.com'
-    fill_in 'パスワード', with: ''
+    fill_in 'パスワード', with: ' '
     fill_in 'パスワード（確認用）', with: 'password'
     expect { click_button 'アカウント作成' }.not_to change { ActionMailer::Base.deliveries.size }
     expect(page).to have_content 'パスワードを入力してください'
@@ -67,7 +67,7 @@ RSpec.describe "Users", type: :system do
     fill_in 'ユーザー名', with: 'foobar'
     fill_in 'メールアドレス', with: 'foo@example.com'
     fill_in 'パスワード', with: 'password'
-    fill_in 'パスワード（確認用）', with: ''
+    fill_in 'パスワード（確認用）', with: ' '
     expect { click_button 'アカウント作成' }.not_to change { ActionMailer::Base.deliveries.size }
     expect(page).to have_content 'パスワード（確認用）とパスワードの入力が一致しません'
   end

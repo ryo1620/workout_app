@@ -19,7 +19,7 @@
         %>
       </div>
       <div class="form-group">
-        <%= f.label "メイン部位" %>
+        <%= f.label "メイン部位", for: 'item_part_id' %>
         <%= 
           f.collection_select :part_id, @parts, :id, :name,
           {:include_blank => true},
@@ -27,7 +27,7 @@
         %>
       </div>
       <div class="form-group">
-        <%= f.label "タイプ" %>
+        <%= f.label "タイプ", for: 'item_type_id' %>
         <%= 
           f.collection_select :type_id, @types, :id, :name,
           {:include_blank => true},
