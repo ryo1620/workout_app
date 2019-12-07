@@ -1,15 +1,5 @@
 <% provide(:title, "メニュー名の編集") %>
 <h1 class="mb-3">メニュー名の編集</h1>
-<div class="link-center">
-  <i class="far fa-minus-square"></i>
-  <%= 
-    link_to "メニューを削除",
-    user_menu_path(current_user, @menu),
-    class: "link-center icon-reset",
-    method: :delete,
-    data: { confirm: "本当にメニューを削除しますか？" }
-  %>
-</div>
 
 <div class="row row-original">
   <div class="col-md-6 col-md-6-original">

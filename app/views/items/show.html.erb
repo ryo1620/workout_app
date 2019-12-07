@@ -7,6 +7,13 @@
     <%= link_to "編集",
       edit_user_item_path(current_user, @item),
       class: "link-center icon-edit"
+    %>&nbsp;&nbsp;/&nbsp;<i class="far fa-minus-square"></i>
+    <%= 
+      link_to "種目を削除",
+      user_item_path(current_user, @item),
+      class: "link-center icon-reset",
+      method: :delete,
+      data: { confirm: "本当に種目を削除しますか？" }
     %>
   </div>
 <% end %>

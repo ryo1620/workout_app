@@ -11,6 +11,13 @@
     link_to "メニュー内容を編集",
     user_menu_menu_items_path(current_user, @menu),
     class: "link-center icon-reset"
+  %>&nbsp;&nbsp;/&nbsp;<i class="far fa-minus-square"></i>
+  <%= 
+    link_to "メニューを削除",
+    user_menu_path(current_user, @menu),
+    class: "link-center icon-reset",
+    method: :delete,
+    data: { confirm: "本当にメニューを削除しますか？" }
   %>
 </div>
 

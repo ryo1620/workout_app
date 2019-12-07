@@ -1,15 +1,5 @@
 <% provide(:title, "種目の編集") %>
 <h1 class="mb-3 text-center">種目の編集</h1>
-<div class="link-center">
-  <i class="far fa-minus-square"></i>
-  <%= 
-    link_to "種目を削除",
-    user_item_path(current_user, @item),
-    class: "link-center icon-reset",
-    method: :delete,
-    data: { confirm: "本当に種目を削除しますか？" }
-  %>
-</div>
 
 <div class="row row-original">
   <div class="col-md-6 col-md-6-original">
