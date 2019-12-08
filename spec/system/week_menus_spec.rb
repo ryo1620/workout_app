@@ -27,11 +27,9 @@ RSpec.describe "WeekMenus", type: :system do
     expect(page).to have_select('week_menus1_2', selected: '脚トレ')
     expect(page).to have_select('week_menus1_3', selected: '背中トレ')
     expect(page).to have_select('week_menus7_1', selected: '胸トレ')
-    click_link 'リセット'
-    expect(page.driver.browser.switch_to.alert.text).to eq "本当にスケジュールをリセットしますか？"
-    page.driver.browser.switch_to.alert.dismiss
     
     click_link 'リセット'
+    expect(page.driver.browser.switch_to.alert.text).to eq "本当にスケジュールをリセットしますか？"
     page.driver.browser.switch_to.alert.accept
     expect(page).to have_content 'スケジュールをリセットしました。'
     expect(page).to have_select('week_menus1_1', selected: '')

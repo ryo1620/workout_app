@@ -39,7 +39,8 @@
               render 'menu_item_form',
               parts_types: @parts_types,
               field: field,
-              items: @items
+              items: @items,
+              count: count
             %>
           </tr>
         <% elsif count == 10 %>
@@ -48,7 +49,8 @@
               render 'menu_item_form',
               parts_types: @parts_types,
               field: field,
-              items: @items
+              items: @items,
+              count: count
             %>
           </tr>
         <% else %>
@@ -57,7 +59,8 @@
               render 'menu_item_form',
               parts_types: @parts_types,
               field: field,
-              items: @items
+              items: @items,
+              count: count
             %>
           </tr>
         <% end %>
