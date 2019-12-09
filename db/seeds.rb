@@ -17,7 +17,13 @@ User.create!(name: "Admin User",
 User.create!(name: "Example User",
              email: "example@example.com",
              password: "password",
-             confirmed_at: Time.now)
+             confirmed_at: Time.now,
+             height: 170.0,
+             body_weight: 60.0,
+             body_fat: 15.0,
+             bench_press: 80,
+             squat: 100,
+             deadlift: 120)
 
 #メニュー
 Menu.create!(name: "胸トレ",

@@ -40,11 +40,11 @@
                 サンプルページ
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <%= link_to "スケジュール管理", "#", class: "dropdown-item" %>
+                <%= link_to "スケジュール管理", week_menus_path, class: "dropdown-item" %>
                 <%= link_to "カレンダー", calendar_path, class: "dropdown-item" %>
-                <%= link_to "メニュー一覧", "#", class: "dropdown-item" %>
-                <%= link_to "種目一覧", "#", class: "dropdown-item" %>
-                <%= link_to "マイページ", "#", class: "dropdown-item" %>
+                <%= link_to "メニュー一覧", menus_path, class: "dropdown-item" %>
+                <%= link_to "種目一覧", items_path, class: "dropdown-item" %>
+                <%= link_to "マイページ", sample_user_path, class: "dropdown-item" %>
               </div>
             </li>
           <% end %>

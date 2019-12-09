@@ -9,9 +9,10 @@ class StaticPagesController < ApplicationController
       @message = "今日はお休みです。"
     else
       # サンプル用の一時的な処理
-      @user = User.find(2)
       @date = Date.today
-      @menu_records = @user.menu_records.where(date: @date)
+      if @user = User.find_by(id: 2)
+        @menu_records = @user.menu_records.where(date: @date)
+      end
       @message = "今日はお休みです。"
     end
   end

@@ -1,0 +1,42 @@
+<% provide(:title, @item.name) %>
+<h1 class="mb-3 text-center"><%= @item.name %>（サンプル）</h1>
+
+<% if @item.user_id == @user.id %>
+  <div class="link-center">
+    <i class="fas fa-pencil-alt"></i>
+    <%= link_to "編集",
+      edit_item_path(item_id: @item.id),
+      class: "link-center icon-edit"
+    %>&nbsp;&nbsp;/&nbsp;<i class="far fa-minus-square"></i>
+    <%= 
+      link_to "種目を削除（要ログイン）",
+      "#",
+      class: "link-center icon-reset",
+      data: { confirm: "本当に種目を削除しますか？" }
+    %>
+  </div>
+<% end %>
+
+<table class="tbl-r02">
+  <tr>
+    <th>種目名</th>
+    <td><%= @item.name %></td>
+  </tr>
+  <tr>
+    <th>メイン部位</th>
+    <td><%= @part.name %></td>
+  </tr>
+  <tr class="last">
+    <th>タイプ</th>
+    <td><%= @type.name %></td>
+  </tr>
+</table>
+
+<div class="link-center">
+  <i class="fas fa-angle-double-left"></i>
+  <%= 
+    link_to "種目一覧へ戻る",
+    items_path,
+    class: "link-center icon-edit"
+  %>
+</div>

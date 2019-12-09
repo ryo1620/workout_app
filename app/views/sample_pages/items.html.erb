@@ -1,0 +1,38 @@
+<% provide(:title, "種目一覧") %>
+<h1 class="mb-3">種目一覧（サンプル）</h1>
+
+<div class="link-center mb-3">
+  <i class="far fa-plus-square"></i>
+  <%= 
+    link_to "新規作成",
+    new_item_path,
+    class: "link-center icon-edit"
+  %>
+</div>
+
+<div class="parts-types select-search">
+  <%=
+    form_with url: items_search_path,
+    method: :get,
+    class: "search-form" do |f|
+  %>
+    <%= 
+      f.select "parts_types", 
+      @parts_types,
+      {},
+      class: "custom-select select-parts-types"
+    %>
+  <% end %>
+</div>
+
+<div id="items">
+<div class="list-group list">
+  <% @items.each do |item| %>
+   <%= link_to item.name,
+     item_path(item_id: item.id),
+     class: "list-group-item list-group-item-action"
+   %>
+  <% end %>
+</div>
+<%= paginate @items, remote: true %>
+</div>

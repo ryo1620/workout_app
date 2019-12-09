@@ -1,0 +1,48 @@
+<% provide(:title, "種目の編集") %>
+<h1 class="mb-3 text-center">種目の編集（サンプル）</h1>
+
+<div class="row row-original">
+  <div class="col-md-6 col-md-6-original">
+    <%= 
+      form_with url: "#" do |f|
+    %>
+      <div class="form-group">
+        <%= f.label "種目名" %>
+        <%= 
+          f.text_field :name,
+          autofocus: true,
+          autocomplete: 'name',
+          class: 'form-control'
+        %>
+      </div>
+      <div class="form-group">
+        <%= f.label "メイン部位", for: 'item_part_id' %>
+        <%= 
+          f.collection_select :part_id, @parts, :id, :name,
+          {:include_blank => true},
+          {:class => "custom-select"}
+        %>
+      </div>
+      <div class="form-group">
+        <%= f.label "タイプ", for: 'item_type_id' %>
+        <%= 
+          f.collection_select :type_id, @types, :id, :name,
+          {:include_blank => true},
+          {:class => "custom-select"}
+        %>
+      </div>
+      <div class="form-group pt-3 mb-0">
+        <%= f.submit "更新（要ログイン）", class: 'btn btn-primary' %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<div class="link-center mt-2rem">
+  <i class="fas fa-angle-double-left"></i>
+  <%= 
+    link_to "種目へ戻る",
+    item_path(item_id: @item.id),
+    class: "link-center icon-edit"
+  %>
+</div>

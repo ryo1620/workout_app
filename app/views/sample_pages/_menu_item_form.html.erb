@@ -1,0 +1,65 @@
+<td>
+  <div class="parts-types">
+    <%= 
+      select_tag "parts_types",
+      options_for_select(parts_types),
+      :class => "custom-select select-parent",
+      :id => "parts_types#{count}"
+    %>
+  </div>
+  <div class="items">
+    <%=
+      field.collection_select :item_id,
+      items,
+      :id,
+      :name,
+      {:include_blank => true},
+      :class => "custom-select select-children",
+      :id => "menu_items_item_id#{count}"
+    %>
+  </div>
+</td>
+<td class="relative" data-label="重量">
+  <%=
+    field.number_field :weight,
+    min: '1',
+    max: '999',
+    class: 'form-control',
+    id: "menu_items_weight#{count}"
+  %>
+  <small class="unit"><b>kg</b></small>
+</td>
+<td class="relative" data-label="回数">
+  <%=
+    field.number_field :reps,
+    min: '1',
+    max: '999',
+    class: 'form-control',
+    id: "menu_items_reps#{count}"
+  %>
+  <small class="unit"><b>回</b></small>
+</td>
+<td class="relative" data-label="秒数">
+  <%=
+    field.number_field :seconds,
+    min: '1',
+    max: '999',
+    class: 'form-control',
+    id: "menu_items_seconds#{count}"
+  %>
+  <small class="unit"><b>秒</b></small>
+<td class="relative" data-label="セット数">
+  <%=
+    field.number_field :sets,
+    min: '1',
+    max: '999',
+    class: 'form-control',
+    id: "menu_items_sets#{count}"
+  %>
+  <small class="unit"><b>セット</b></small>
+</td>
+<td>
+  <button type="button" class="btn btn-link btn-reset" style="display: none;">
+    <i class="fas fa-times"></i>
+  </button>
+</td>

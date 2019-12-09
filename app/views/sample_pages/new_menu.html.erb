@@ -1,0 +1,26 @@
+<% provide(:title, "メニュー作成") %>
+<h1 class="mb-3">メニュー作成（サンプル）</h1>
+
+<div class="row row-original">
+  <div class="col-md-6 col-md-6-original">
+    <p class="text-center">まずはメニュー名を決めてください。</p>
+    <%= form_with url: "#" do |f| %>
+      <div class="form-group">
+        <%= f.label "メニュー名" %>
+        <%= f.text_field :name, autofocus: true, autocomplete: 'name', class: 'form-control' %>
+      </div>
+      <div class="form-group pt-3 mb-0">
+        <%= f.submit "次へ（要ログイン）", class: 'btn btn-primary' %>
+      </div>
+    <% end %>
+  </div>
+</div>    
+
+<div class="link-center mt-2rem">
+  <i class="fas fa-angle-double-left"></i>
+  <%= 
+    link_to "メニュー一覧へ戻る",
+    menus_path,
+    class: "link-center icon-edit"
+  %>
+</div>

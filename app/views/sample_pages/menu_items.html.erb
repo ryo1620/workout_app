@@ -1,0 +1,85 @@
+<% provide(:title, @menu.name) %>
+<h1 class="mb-3 text-center"><%= @menu.name %>（サンプル）</h1>
+<div class="link-center">
+  <i class="fas fa-pencil-alt"></i>
+  <%= 
+    link_to "メニュー名を変更",
+    edit_menu_path(menu_id: @menu.id),
+    class: "link-center icon-edit"
+  %>&nbsp;&nbsp;/&nbsp;<i class="fas fa-eraser"></i>
+  <%= 
+    link_to "メニュー内容をリセット（要ログイン）",
+    "#",
+    class: "link-center icon-reset",
+    data: { confirm: "本当にメニュー内容をリセットしますか？" }
+  %>
+</div>
+
+<%= 
+  form_with url: "#" do |f|
+%>
+  <table class="tbl-r05 menu-items">
+    <tr class="thead">
+      <th>種目</th>
+      <th>重量</th>
+      <th>回数</th>
+      <th>秒数</th>
+      <th>セット数</th>
+    </tr>
+    <% count = 0 %>
+    <% @menu_items.collection.each do |menu_item|%>
+      <%= fields_for 'menu_items[]', menu_item do |field| %>
+        <% count += 1 %>
+        <% if count <= 9 %>
+          <tr>
+            <%= 
+              render 'menu_item_form',
+              parts_types: @parts_types,
+              field: field,
+              items: @items,
+              count: count
+            %>
+          </tr>
+        <% elsif count == 10 %>
+          <tr class="toggle-radius">
+            <%= 
+              render 'menu_item_form',
+              parts_types: @parts_types,
+              field: field,
+              items: @items,
+              count: count
+            %>
+          </tr>
+        <% else %>
+          <tr class="toggle-show">
+            <%= 
+              render 'menu_item_form',
+              parts_types: @parts_types,
+              field: field,
+              items: @items,
+              count: count
+            %>
+          </tr>
+        <% end %>
+      <% end %>
+    <% end %>
+  </table>
+  <div class="toggle-button">
+    <button type="button" class="btn-outline-original btn-sm">
+      <span class="toggle-hide icon plus">&nbsp;次の10件を表示</span>
+      <span class="toggle-show icon minus">&nbsp;10件を非表示</span>
+    </button>
+  </div>
+  <div class="form-submit menu-items-submit">
+    <%= f.submit "保存（要ログイン）", class: 'btn btn-primary' %>
+  </div>
+<% end %>
+
+<div class="link-center">
+  <i class="fas fa-angle-double-left"></i>
+  <%= 
+    link_to "メニューへ戻る",
+    menu_path(menu_id: @menu.id),
+    class: "link-center icon-edit"
+  %>
+</div>
