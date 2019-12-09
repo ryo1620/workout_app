@@ -2,7 +2,7 @@ class ItemRecordsController < ApplicationController
   
   def update
     @item_record = ItemRecord.find(params[:id])
-    @item_record.update_attributes(item_record_params)
+    @item_record.update(item_record_params)
     menu_record = @item_record.menu_record
     item_records = menu_record.item_records
     if item_records.count == item_records.where(checked: true).count

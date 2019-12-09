@@ -2,7 +2,7 @@ class MenuRecordsController < ApplicationController
   
   def update
     @menu_record = MenuRecord.find(params[:id])
-    @menu_record.update_attributes(menu_record_params)
+    @menu_record.update(menu_record_params)
   end
   
   def destroy_all

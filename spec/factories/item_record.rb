@@ -6,4 +6,24 @@ FactoryBot.define do
     user_id { 1 }
     menu_record_id { 1 }
   end
+  
+  factory :pushup_record_yesterday, class: ItemRecord do
+    name { "プッシュアップ" }
+    reps { 20 }
+    sets { 5 }
+    checked { true }
+    date { Date.today - 1}
+    user_id { 1 }
+    menu_record_id { 1 }
+  end
+  
+  factory :dips_record_yesterday, class: ItemRecord do
+    name { "ディップス" }
+    weight { 10 }
+    seconds { 30 }
+    checked { true }
+    date { Date.today - 1}
+    user_id { 1 }
+    menu_record_id { 1 }
+  end
 end

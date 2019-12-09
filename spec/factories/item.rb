@@ -8,6 +8,14 @@ FactoryBot.define do
     type_id { 1 }
   end
   
+  factory :dips, class: Item do
+    name { "ディップス" }
+    default { true }
+    user_id { 1 }
+    part_id { 1 }
+    type_id { 1 }
+  end
+  
   factory :udetate, class: Item do
     name { "腕立て伏せ" }
     default { false }

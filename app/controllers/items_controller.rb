@@ -64,7 +64,7 @@ class ItemsController < ApplicationController
   
   def update
     @item = Item.find(params[:id])
-    if @item.update_attributes(item_params)
+    if @item.update(item_params)
       flash[:success] = "種目を更新しました。"
       redirect_to user_item_url(current_user)
     else
