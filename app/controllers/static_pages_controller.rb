@@ -8,7 +8,11 @@ class StaticPagesController < ApplicationController
       @menu_records = current_user.menu_records.where(date: @date)
       @message = "今日はお休みです。"
     else
-      
+      # サンプル用の一時的な処理
+      @user = User.find(2)
+      @date = Date.today
+      @menu_records = @user.menu_records.where(date: @date)
+      @message = "今日はお休みです。"
     end
   end
   

@@ -34,4 +34,15 @@ Rails.application.routes.draw do
     resources :item_records, only: [:update]
     patch '/item_records', to: 'item_records#update_all'
   end
+  
+  # サンプル用の一時的なルーティング
+  get '/one_day', to: 'sample_pages#one_day'
+  get '/calendar', to: 'sample_pages#calendar'
+  get '/mon_menus', to: 'sample_pages#mon_menus'
+  get '/tue_menus', to: 'sample_pages#tue_menus'
+  get '/wed_menus', to: 'sample_pages#wed_menus'
+  get '/thu_menus', to: 'sample_pages#thu_menus'
+  get '/fri_menus', to: 'sample_pages#fri_menus'
+  get '/sat_menus', to: 'sample_pages#sat_menus'
+  get '/sun_menus', to: 'sample_pages#sun_menus'
 end

@@ -1,0 +1,55 @@
+<div class="one-day">
+  
+  <h1 class="mb-2 text-center">
+    <%= 
+      link_to "",
+      one_day_path(date: @date - 1),
+      class: "link-center icon-reset left fa-lg mr-3",
+      remote: true
+    %>
+    <% if @date == Date.today %>
+      今日のメニュー（サンプル）
+    <% else %>
+      <%= 
+        @date.strftime("%-m月%-d日") +
+        "(#{%w(日 月 火 水 木 金 土)[@date.wday]})"
+      %>のメニュー（サンプル）
+    <% end %>
+    <%= 
+      link_to "",
+      one_day_path(date: @date + 1),
+      class: "link-center icon-reset right fa-lg ml-3",
+      remote: true
+    %>
+  </h1>
+  
+  <% if @date > Date.today && @week_menus.any? %>
+    <%= render 'sample_pages/future_menus' %>
+  <% elsif @date <= Date.today && @menu_records.any? %>
+    <%= render 'sample_pages/records_exist' %>
+  <% else %>
+    <p class="text-center mt-2rem"><%= @message %></p>
+  <% end %>
+  
+  <% if @date == Date.today %>
+    <div class="col- update-schedule">
+      <i class="fas fa-sync-alt"></i>
+      <%= 
+        link_to "現在のスケジュールで上書き（要ログイン）",
+        "#",
+        class: "link-center icon-edit",
+        data: { confirm: "本当にメニューを上書きしますか？" }
+      %>
+    </div>
+  <% else %>
+    <div class="link-center mt-2rem">
+      <i class="fas fa-angle-double-left"></i>
+      <%= 
+        link_to "今日のメニューへ戻る",
+        root_path,
+        class: "link-center icon-edit"
+      %>
+    </div>
+  <% end %>
+  
+</div>

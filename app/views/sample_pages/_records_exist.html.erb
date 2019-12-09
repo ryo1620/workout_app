@@ -1,0 +1,102 @@
+<p class="text-center mb-2rem">達成率： <span id="rate">0</span>%</p>
+
+<div class="records row justify-content-center">
+  <% menu_count = 0 %>
+  <% item_count = 0 %>
+  <% @menu_records.each do |menu_record| %>
+    <% menu_count += 1 %>
+    <% if (item_records = menu_record.item_records).present? %>
+      <div class="top-menu col-sm-12 col-md-4">
+        <h2 class="mb-2"><%= menu_record.name %></h2>
+        <div class="top-itembox">
+          <div class="top-itemlist">
+            <% item_records.each do |item_record| %>
+              <% item_count += 1 %>
+              <%= 
+                form_with url: "#" do |f|
+              %>
+                <%=
+                  f.check_box :checked,
+                  id: "customCheck#{menu_count}_#{item_count}",
+                  :as => :boolean
+                %>
+                <%=
+                  f.label item_record.name,
+                  for: "customCheck#{menu_count}_#{item_count}"
+                %>
+                <div class="item-details">
+                  <% if item_record.weight.present? %>
+                    <span>
+                      <%= item_record.weight %><small class="unit">kg</small>
+                    </span>
+                  <% end %>
+                  <% if item_record.reps.present? %>
+                    <span>
+                      <%= item_record.reps %><small class="unit">回</small>
+                    </span>
+                  <% end %>
+                  <% if item_record.seconds.present? %>
+                    <span>
+                      <%= item_record.seconds %><small class="unit">秒</small>
+                    </span>
+                  <% end %>
+                  <% if item_record.sets.present? %>
+                    <span>
+                      <%= item_record.sets %><small class="unit">セット</small>
+                    </span>
+                  <% end %>
+                </div>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+        <div class="check-uncheck">
+          <div class="all-check">
+            <%= 
+              link_to " 全てチェック",
+              "#",
+              class: "link-center icon check btn-outline-original",
+              remote: true
+            %>
+          </div>
+          <div class="all-uncheck">
+            <%= 
+              link_to " 全てアンチェック",
+              "#",
+              class: "link-center icon uncheck btn-outline-original",
+              remote: true
+            %>
+          </div>
+        </div>
+      </div>
+    <% else %>
+      <div class="col-sm-12 col-md-4">
+        <div class="menu-only">
+          <div class="menu-label">
+            <%= 
+              form_with url: "#" do |f|
+            %>
+              <%=
+                f.check_box :checked,
+                id: "customCheck#{menu_count}",
+                :as => :boolean
+              %>
+              <%=
+                f.label :checked,
+                class: "menu-only-label",
+                for: "customCheck#{menu_count}" do
+              %>
+                <span><%= menu_record.name %></span>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+        <div class="top-itembox message-box">
+          <div class="menu-message">
+            <span>メニュー内容は未登録です。</span>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>

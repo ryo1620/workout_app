@@ -246,3 +246,27 @@ document.addEventListener("click", e => {
     });
   }
 });
+
+
+// サンプル用の一時的なスクリプト
+
+// チェックの操作時にボタンの表示・非表示を切り替え、達成率を計算する
+$(function(){
+  $('form[action="#"]').find('input[type="checkbox"]').click(function(){
+    calculateRate();
+    var checkCount = $(this).closest('.top-menu').find('form :checked').length;
+    var formCount = $(this).closest('.top-menu').find('form').length;
+    var $allCheck = $(this).closest('.top-menu').find('.all-check');
+    var $allUncheck = $(this).closest('.top-menu').find('.all-uncheck');
+    if(checkCount == formCount){
+      $allCheck.hide();
+    }
+    else if(checkCount == 0){
+      $allUncheck.hide();
+    }
+    else{
+      $allCheck.show();
+      $allUncheck.show();
+    }
+  });
+});

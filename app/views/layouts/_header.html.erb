@@ -35,6 +35,18 @@
             <li class="nav-item">
               <%= link_to "ログイン", new_user_session_path, class: "nav-link" %>
             </li>
+            <li class="nav-item dropdown">
+              <a href="#" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                サンプルページ
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <%= link_to "スケジュール管理", "#", class: "dropdown-item" %>
+                <%= link_to "カレンダー", calendar_path, class: "dropdown-item" %>
+                <%= link_to "メニュー一覧", "#", class: "dropdown-item" %>
+                <%= link_to "種目一覧", "#", class: "dropdown-item" %>
+                <%= link_to "マイページ", "#", class: "dropdown-item" %>
+              </div>
+            </li>
           <% end %>
         </ul>
       </div><!-- /.navbar-collapse -->

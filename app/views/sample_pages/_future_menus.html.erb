@@ -1,0 +1,48 @@
+<div class="row justify-content-center mt-2rem">
+  <% @week_menus.each do |week_menu| %>
+    <% if (menu_items = week_menu.menu.menu_items).present? %>
+      <div class="top-menu col-sm-12 col-md-4">
+        <h2 class="mb-2"><%= week_menu.menu.name %></h2>
+        <div class="top-itembox pr-4 mb-2rem">
+          <ul>
+          <% menu_items.each do |menu_item| %>
+            <li><%= menu_item.item.name %>
+              <div class="item-details">
+                <% if menu_item.weight.present? %>
+                  <span>
+                    <%= menu_item.weight %><small class="unit">kg</small>
+                  </span>
+                <% end %>
+                <% if menu_item.reps.present? %>
+                  <span>
+                    <%= menu_item.reps %><small class="unit">回</small>
+                  </span>
+                <% end %>
+                <% if menu_item.seconds.present? %>
+                  <span>
+                    <%= menu_item.seconds %><small class="unit">秒</small>
+                  </span>
+                <% end %>
+                <% if menu_item.sets.present? %>
+                  <span>
+                    <%= menu_item.sets %><small class="unit">セット</small>
+                  </span>
+                <% end %>
+              </div>
+            </li>
+          <% end %>
+          </ul>
+        </div>
+      </div>
+    <% else %>
+      <div class="col-sm-12 col-md-4">
+        <h2 class="mb-2"><%= week_menu.menu.name %></h2>
+        <div class="top-itembox mb-2rem">
+          <div class="menu-message">
+            <span>メニュー内容は未登録です。</span>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>
