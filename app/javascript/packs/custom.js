@@ -48,7 +48,7 @@ function calculateRate() {
   
 // フラッシュメッセージをフェードアウトさせる
 $(function(){
-  setTimeout("$('.alert-success').fadeOut('slow')", 3000);
+  setTimeout("$('.alert').fadeOut('slow')", 3000);
 });
 
 // メニュー種目10件分の表示・非表示をボタンで切り替える

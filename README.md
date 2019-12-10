@@ -1,24 +1,31 @@
-# README
+## 概要
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+WorkOut!!はトレーニングメニュー管理アプリケーションです。
 
-Things you may want to cover:
+## 機能・使用している技術の一覧
 
-* Ruby version
+* トレーニングのメニューや種目を作成する機能
 
-* System dependencies
+* 一週間のスケジュールを曜日ごとに管理する機能
 
-* Configuration
+* スケジュール管理やメニュー内容編集において、モデルを一括登録する機能
 
-* Database creation
+* メニュー内容編集において、Ajaxでセレクトボックスの中身を動的に変更する機能
 
-* Database initialization
+* 種目一覧において、ドロップダウン検索により表示内容を絞り込む機能
 
-* How to run the test suite
+* トップページに当日のメニューを表示し、チェックすることで記録を保存する機能
+ 
+* カレンダーに過去の記録と未来のメニューを表示し、日付をクリックすることでその日のメニュー詳細を確認できる機能(FullCalendar)
 
-* Services (job queues, cache servers, search engines, etc.)
+* ユーザー作成・ログイン・認証機能(devise)
 
-* Deployment instructions
+* ページネーション機能(kaminari)
 
-* ...
+* RSpec(モデル&コントローラテスト・E2Eテスト)
+
+* Webpacker
+
+* Bootstrap4
+
+* SQLite(テスト&開発環境)・PostgreSQL(本番環境)
