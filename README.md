@@ -31,3 +31,5 @@ WorkOut!!はトレーニングメニュー管理アプリケーションです�
 * SQLite(テスト&開発環境)・PostgreSQL(本番環境)
 
 * AWS Cloud9
+
+* Amazon EC2(Amazon Linux 2)
