@@ -21,5 +21,11 @@ test:
   database: db/test.sqlite3
 
 production:
-  <<: *default
-  database: db/production.sqlite3
+  adapter: postgresql
+  encoding: utf8
+  pool: 5
+  database: workout_production
+  username: workout
+  password: <%= ENV['WORKOUT_DATABASE_PASSWORD'] %>
+  host: localhost
+  timeout: 5000
