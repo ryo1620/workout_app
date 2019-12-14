@@ -21,6 +21,8 @@ WorkOut!!はトレーニングメニュー管理アプリケーションです�
 * ユーザー作成・ログイン・認証機能(devise)
 
 * ページネーション機能(kaminari)
+ 
+* Ruby(ver2.6.3)・Ruby on Rails(ver6.0.1)
 
 * RSpec(モデル&コントローラテスト・E2Eテスト)
 
