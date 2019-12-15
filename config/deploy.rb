@@ -77,7 +77,7 @@ namespace :deploy do
   end
   
   before :starting,     :confirm
-  after  :migrate,      :seed
+  after  :migrate,      :db_seed
   after  :finishing,    :compile_assets
   after  :finishing,    :cleanup
 end
