@@ -1,8 +1,12 @@
 # EC2サーバーのIP、EC2サーバーにログインするユーザー名、サーバーのロールを記述
-server 'workout11.com', user: 'ryo', roles: %w{app db web} 
+server '18.176.75.37', user: 'ryo', roles: %w{app db web} 
 
 #デプロイするサーバーにsshログインする鍵の情報を記述
-set :ssh_options, keys: '~/.ssh/workout_ec2_rsa' 
+set :ssh_options, {
+  keys: %w(~/.ssh/id_rsa),
+  forward_agent: true,
+  auth_methods: %w(publickey)
+}
 
 # server-based syntax
 # ======================

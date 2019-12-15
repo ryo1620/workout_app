@@ -2,7 +2,7 @@
 lock "~> 3.11.2"
 
 set :application, "workout_app"
-set :repo_url, "git@github.com:ryo1620/workout_app.git"
+set :repo_url, "github:ryo1620/workout_app.git"
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
