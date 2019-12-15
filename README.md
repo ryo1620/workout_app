@@ -20,7 +20,7 @@ WorkOut!!はトレーニングメニュー管理アプリケーションです�
 
 * ユーザー作成・ログイン・認証機能(devise)
 
-* ページネーション機能(kaminari)
+* 非同期ページネーション機能(kaminari)
  
 * Ruby(ver2.6.3)・Ruby on Rails(ver6.0.1)
 
@@ -34,4 +34,4 @@ WorkOut!!はトレーニングメニュー管理アプリケーションです�
 
 * AWS Cloud9
 
-* Amazon EC2(Amazon Linux 2)
+* Amazon EC2(Amazon Linux 2 + Nginx + Puma + Capistrano)
