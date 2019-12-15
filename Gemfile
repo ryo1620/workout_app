@@ -6,7 +6,7 @@ ruby '2.6.3'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.0.0'
 # Use Puma as the app server
-gem 'puma', '~> 3.11'
+gem 'puma', '~> 4.3', '>= 4.3.1'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.7'
 # Use Redis adapter to run Action Cable in production
@@ -51,6 +51,7 @@ group :development do
   gem 'capistrano-bundler', '~> 1.6'
   gem 'capistrano-rbenv', '~> 2.1', '>= 2.1.4'
   gem 'capistrano-rbenv-vars', '~> 0.1.0'
+  gem 'capistrano3-puma', '~> 4.0'
 end
 
 group :test do
