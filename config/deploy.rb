@@ -26,11 +26,6 @@ set :rbenv_ruby, '2.6.3'
 set :log_level, :debug
 
 namespace :deploy do
-  desc 'Restart application'
-  task :restart do
-    invoke 'puma:restart'
-  end
-
   desc 'Create database'
   task :db_create do
     on roles(:db) do |host|
