@@ -25,25 +25,27 @@ set :rbenv_ruby, '2.6.3'
 # 出力するログのレベル
 set :log_level, :debug
 
-namespace :deploy do
-  desc 'Create database'
-  task :db_create do
-    on roles(:db) do |host|
-      with rails_env: fetch(:rails_env) do
-        within current_path do
-          execute :bundle, :exec, :rake, 'db:create'
-        end
-      end
+namespace :puma do
+  desc 'Create Directories for Puma Pids and Socket'
+  task :make_dirs do
+    on roles(:app) do
+      execute "mkdir #{shared_path}/tmp/sockets -p"
+      execute "mkdir #{shared_path}/tmp/pids -p"
     end
   end
+  before :start, :make_dirs
+end
 
-  desc 'Run seed'
-  task :seed do
+namespace :deploy do
+  desc "Make sure local git is in sync with remote."
+  task :confirm do
     on roles(:app) do
-      with rails_env: fetch(:rails_env) do
-        within current_path do
-          execute :bundle, :exec, :rake, 'db:seed'
-        end
+      puts "This stage is '#{fetch(:stage)}'. Deploying branch is '#{fetch(:branch)}'."
+      puts 'Are you sure? [y/n]'
+      ask :answer, 'n'
+      if fetch(:answer) != 'y'
+        puts 'deploy stopped'
+        exit
       end
     end
   end
@@ -62,13 +64,22 @@ namespace :deploy do
       invoke 'puma:restart'
     end
   end
-
-  after :publishing, :restart
-
-  after :restart, :clear_cache do
-    on roles(:web), in: :groups, limit: 3, wait: 10 do
+  
+  desc 'db:seed'
+  task :db_seed do
+    on roles(:db) do |host|
+      with rails_env: fetch(:rails_env) do
+        within current_path do
+          execute :bundle, :exec, :rake, 'db:seed'
+        end
+      end
     end
   end
+  
+  before :starting,     :confirm
+  after  :migrate,      :seed
+  after  :finishing,    :compile_assets
+  after  :finishing,    :cleanup
 end
 
 # Default value for :format is :airbrussh.

@@ -1,5 +1,3 @@
-set :rails_env, 'production'
-
 # EC2サーバーのIP、EC2サーバーにログインするユーザー名、サーバーのロールを記述
 server '18.176.75.37', user: 'ryo', roles: %w{app db web} 
 
