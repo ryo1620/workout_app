@@ -30,8 +30,6 @@ WorkOut!!はトレーニングメニュー管理アプリケーションです�
 
 * Bootstrap4
 
-* SQLite(テスト&開発環境)・PostgreSQL(本番環境)
-
 * AWS Cloud9
 
-* Amazon EC2(Amazon Linux 2 + Nginx + Puma + Capistrano)
+* Amazon EC2(Amazon Linux 2 + Nginx + Puma + PostgreSQL + Capistrano)

@@ -1059,9 +1059,8 @@ div.section-content {
   width: 100%;
   position: absolute;
   top: 50%;
-  left: 50%;
-  transform: translateY(-50%) translateX(-50%);
-  -webkit-transform: translateY(-50%) translateX(-50%);
+  transform: translate(0, -50%);
+  -webkit-transform: translate(0, -50%);
   h1 {
     line-height: 1.2;
   }
@@ -1091,8 +1090,8 @@ span.display-medium {
       height: calc(100vh - 72px);
       div.section-content {
         top: calc(50% - 28px);
-        transform: translateY(calc(-50% - 28px)) translateX(-50%);
-        -webkit-transform: translateY(calc(-50% - 28px)) translateX(-50%);
+        transform: translate(0, calc(-50% - 28px));
+        -webkit-transform: translate(0, calc(-50% - 28px));
       }
     }
   }
