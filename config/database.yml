@@ -24,8 +24,8 @@ production:
   adapter: postgresql
   encoding: utf8
   pool: 5
-  database: workout_production
-  username: workout
-  password: <%= ENV['WORKOUT_DATABASE_PASSWORD'] %>
+  database: <%= Rails.application.credentials.postgresql[:database] %>
+  username: <%= Rails.application.credentials.postgresql[:user_name] %>
+  password: <%= Rails.application.credentials.postgresql[:password] %>
   host: localhost
   timeout: 5000
