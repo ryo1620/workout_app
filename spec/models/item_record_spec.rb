@@ -4,11 +4,11 @@ RSpec.describe ItemRecord, type: :model do
   
   # 種目記録作成に必要なデータを作成
   before do
-    create(:admin)
-    create(:munetore_record)
+    @admin = create(:admin)
+    @munetore_record = create(:munetore_record, user: @admin)
   end
   
-  let(:item_record) { create(:pushup_record) }
+  let(:item_record) { create(:pushup_record, user: @admin, menu_record: @munetore_record) }
   
   # factory_botが有効かどうかを検査
   it "has a valid factory of item_record" do

@@ -5,10 +5,10 @@ RSpec.describe "Items", type: :system do
   let(:user) { create(:example) }
   
   before do
-    create(:admin)
-    create(:pectoralis)
-    create(:bodyweight)
-    create(:pushup)
+    admin = create(:admin)
+    @pectoralis = create(:pectoralis)
+    @bodyweight = create(:bodyweight)
+    create(:pushup, user: admin, part: @pectoralis, type: @bodyweight)
     login_as(user)
     visit root_path
   end
@@ -43,7 +43,7 @@ RSpec.describe "Items", type: :system do
   end
   
   it 'edits a item' do
-    create(:udetate)
+    create(:udetate, user: user, part: @pectoralis, type: @bodyweight)
     click_link user.name
     click_link '種目一覧'
     click_link 'プッシュアップ'
@@ -59,7 +59,7 @@ RSpec.describe "Items", type: :system do
   end
   
   it 'destroys a item' do
-    create(:udetate)
+    create(:udetate, user: user, part: @pectoralis, type: @bodyweight)
     click_link user.name
     click_link '種目一覧'
     click_link 'プッシュアップ'

@@ -5,12 +5,12 @@ RSpec.describe "MenuItems", type: :system do
   let(:user) { create(:example) }
   
   before do
-    create(:admin)
-    create(:pectoralis)
-    create(:bodyweight)
-    create(:pushup)
+    admin = create(:admin)
+    pectoralis = create(:pectoralis)
+    bodyweight = create(:bodyweight)
+    create(:pushup, user: admin, part: pectoralis, type: bodyweight)
+    create(:udetate, user: user, part: pectoralis, type: bodyweight)
     login_as(user)
-    create(:udetate)
     visit root_path
   end
   

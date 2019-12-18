@@ -4,23 +4,23 @@ RSpec.describe Item, type: :model do
   
   # 種目作成に必要なデータを作成
   before do
-    create(:admin)
-    create(:example)
-    create(:pectoralis)
-    create(:bodyweight)
+    @admin = create(:admin)
+    @example = create(:example)
+    @pectoralis = create(:pectoralis)
+    @bodyweight = create(:bodyweight)
   end
   
   # factory_botが有効かどうかを検査
   it "has a valid factory of item" do
-    item = create(:pushup)
+    item = create(:pushup, user: @admin, part: @pectoralis, type: @bodyweight)
     expect(item).to be_valid
   end
   it "has a valid factory of another_item" do
-    item = create(:udetate)
+    item = create(:udetate, user: @example, part: @pectoralis, type: @bodyweight)
     expect(item).to be_valid
   end
   
-  let(:item) { create(:pushup) }
+  let(:item) { create(:pushup, user: @admin, part: @pectoralis, type: @bodyweight) }
   
   # name, user_id, part_id, type_idが無ければ無効
   it "is invalid without name" do
@@ -51,8 +51,8 @@ RSpec.describe Item, type: :model do
   end
   
   describe "association with menu_item" do
-    before { create(:munetore) }
-    let(:menu_item) { create(:menu_pushup) }
+    before { @munetore = create(:munetore, user: @example) }
+    let(:menu_item) { create(:menu_pushup, user: @example, menu: @munetore, item: item) }
     it "should destroy menu_item (depend on item destroyed)" do
       item
       menu_item

@@ -10,9 +10,9 @@ RSpec.describe "WeekMenus", type: :system do
   end
   
   it 'edits and resets week_menus' do
-    create(:munetore)
-    create(:ashitore)
-    create(:senakatore)
+    create(:munetore, user: user)
+    create(:ashitore, user: user)
+    create(:senakatore, user: user)
     click_link user.name
     click_link 'スケジュール管理'
     

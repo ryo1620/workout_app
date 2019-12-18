@@ -3,8 +3,6 @@ FactoryBot.define do
   factory :pushup_record, class: ItemRecord do
     name { "プッシュアップ" }
     date { Date.today }
-    user_id { 1 }
-    menu_record_id { 1 }
   end
   
   factory :pushup_record_yesterday, class: ItemRecord do
@@ -13,8 +11,6 @@ FactoryBot.define do
     sets { 5 }
     checked { true }
     date { Date.today - 1}
-    user_id { 1 }
-    menu_record_id { 1 }
   end
   
   factory :dips_record_yesterday, class: ItemRecord do
@@ -23,7 +19,5 @@ FactoryBot.define do
     seconds { 30 }
     checked { true }
     date { Date.today - 1}
-    user_id { 1 }
-    menu_record_id { 1 }
   end
 end

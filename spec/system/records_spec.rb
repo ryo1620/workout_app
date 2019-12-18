@@ -5,23 +5,23 @@ RSpec.describe "Records", type: :system do
   let(:user) { create(:example) }
   
   before do
-    create(:pectoralis)
-    create(:bodyweight)
     login_as(user)
-    create(:munetore)
-    create(:ashitore)
-    create(:senakatore)
-    create(:pushup)
-    create(:dips)
-    create(:menu_pushup)
-    create(:menu_dips)
-    create(:today_menu1)
-    create(:today_menu2)
-    create(:tomorrow_menu1)
-    create(:munetore_record_yesterday)
-    create(:ashitore_record_yesterday)
-    create(:pushup_record_yesterday)
-    create(:dips_record_yesterday)
+    pectoralis = create(:pectoralis)
+    bodyweight = create(:bodyweight)
+    munetore = create(:munetore, user: user)
+    ashitore = create(:ashitore, user: user)
+    @senakatore = create(:senakatore, user: user)
+    pushup = create(:pushup, user: user, part: pectoralis, type: bodyweight)
+    dips = create(:dips, user: user, part: pectoralis, type: bodyweight)
+    create(:menu_pushup, user: user, menu: munetore, item: pushup)
+    create(:menu_dips, user: user, menu: munetore, item: dips)
+    create(:today_menu1, user: user, menu: munetore)
+    create(:today_menu2, user: user, menu: ashitore)
+    create(:tomorrow_menu1, user: user, menu: @senakatore)
+    munetore_record_yesterday = create(:munetore_record_yesterday, user: user)
+    create(:ashitore_record_yesterday, user: user)
+    create(:pushup_record_yesterday, user: user, menu_record: munetore_record_yesterday)
+    create(:dips_record_yesterday, user: user, menu_record: munetore_record_yesterday)
   end
   
   it 'creates records once a day when a user visits root_path' do
@@ -62,7 +62,7 @@ RSpec.describe "Records", type: :system do
     expect(user.item_records.find_by(name: "ディップス", date: Date.today).checked).to be false
     expect(user.menu_records.find_by(name: "脚トレ", date: Date.today).checked).to be false
     
-    create(:today_menu3)
+    create(:today_menu3, user: user, menu: @senakatore)
     click_link '現在のスケジュールで上書き'
     expect(page.driver.browser.switch_to.alert.text).to eq "本当にメニューを上書きしますか？"
     page.driver.browser.switch_to.alert.accept

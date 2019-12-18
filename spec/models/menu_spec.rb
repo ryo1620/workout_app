@@ -3,9 +3,9 @@ require 'rails_helper'
 RSpec.describe Menu, type: :model do
   
   # メニュー作成に必要なデータを作成
-  before { create(:admin) }
+  before { @admin = create(:admin) }
   
-  let(:menu) { create(:munetore) }
+  let(:menu) { create(:munetore, user: @admin) }
   
   # factory_botが有効かどうかを検査
   it "has a valid factory of menu" do
@@ -33,7 +33,7 @@ RSpec.describe Menu, type: :model do
   describe "association" do
     
     context "with week_menu" do
-      let(:week_menu) { create(:sunday_menu) }
+      let(:week_menu) { create(:sunday_menu, user: @admin, menu: menu) }
       it "should destroy week_menu (depend on menu destroyed)" do
         menu
         week_menu
@@ -46,11 +46,11 @@ RSpec.describe Menu, type: :model do
     
     context "with menu_item" do
       before do
-        create(:pectoralis)
-        create(:bodyweight)
-        create(:pushup)
+        pectoralis = create(:pectoralis)
+        bodyweight = create(:bodyweight)
+        @pushup = create(:pushup, user: @admin, part: pectoralis, type: bodyweight)
       end
-      let(:menu_item) { create(:menu_pushup) }
+      let(:menu_item) { create(:menu_pushup, user: @admin, menu: menu, item: @pushup) }
       it "should destroy menu_item (depend on menu destroyed)" do
         menu
         menu_item

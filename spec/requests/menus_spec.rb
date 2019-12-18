@@ -4,7 +4,7 @@ RSpec.describe "Menus", type: :request do
   include ApplicationHelper
   
   let(:user) { create(:admin) }
-  let(:menu) { create(:munetore) }
+  let(:menu) { create(:munetore, user: user) }
   before { login_as(user) }
   
   describe "GET /menus" do

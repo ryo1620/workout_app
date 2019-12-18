@@ -4,10 +4,10 @@ RSpec.describe MenuRecord, type: :model do
   
   # メニュー記録作成に必要なデータを作成
   before do
-    create(:admin)
+    @admin = create(:admin)
   end
   
-  let(:menu_record) { create(:munetore_record) }
+  let(:menu_record) { create(:munetore_record, user: @admin) }
   
   # factory_botが有効かどうかを検査
   it "has a valid factory of menu_record" do

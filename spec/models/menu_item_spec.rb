@@ -4,14 +4,14 @@ RSpec.describe MenuItem, type: :model do
   
   # メニュー種目作成に必要なデータを作成
   before do
-    create(:admin)
-    create(:pectoralis)
-    create(:bodyweight)
-    create(:pushup)
-    create(:munetore)
+    @admin = create(:admin)
+    pectoralis = create(:pectoralis)
+    bodyweight = create(:bodyweight)
+    @munetore = create(:munetore, user: @admin)
+    @pushup = create(:pushup, user: @admin, part: pectoralis, type: bodyweight)
   end
   
-  let(:menu_item) { create(:menu_pushup) }
+  let(:menu_item) { create(:menu_pushup, user: @admin, menu: @munetore, item: @pushup) }
   
   # factory_botが有効かどうかを検査
   it "has a valid factory of menu_item" do

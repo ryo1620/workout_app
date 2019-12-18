@@ -95,7 +95,7 @@ RSpec.describe User, type: :model do
   describe "association" do
     
     context "with menu" do
-      let(:menu) { create(:munetore) }
+      let(:menu) { create(:munetore, user: user) }
       it "should destroy menu (depend on user destroyed)" do
         user
         menu
@@ -108,10 +108,10 @@ RSpec.describe User, type: :model do
     
     context "with item" do
       before do
-        create(:pectoralis)
-        create(:bodyweight)
+        @pectoralis = create(:pectoralis)
+        @bodyweight = create(:bodyweight)
       end
-      let(:item) { create(:pushup) }
+      let(:item) { create(:pushup, user: user, part: @pectoralis, type: @bodyweight) }
       it "should destroy item (depend on user destroyed)" do
         user
         item
@@ -125,9 +125,9 @@ RSpec.describe User, type: :model do
     context "with week_menu" do
       before do
         user
-        create(:munetore)
+        @munetore = create(:munetore, user: user)
       end
-      let(:week_menu) { create(:sunday_menu) }
+      let(:week_menu) { create(:sunday_menu, user: user, menu: @munetore) }
       it "should destroy week_menu (depend on user destroyed)" do
         week_menu
         my_week_menu = user.week_menus
@@ -140,12 +140,12 @@ RSpec.describe User, type: :model do
     context "with menu_item" do
       before do
         user
-        create(:munetore)
-        create(:pectoralis)
-        create(:bodyweight)
-        create(:pushup)
+        @munetore = create(:munetore, user: user)
+        pectoralis = create(:pectoralis)
+        bodyweight = create(:bodyweight)
+        @pushup = create(:pushup, user: user, part: pectoralis, type: bodyweight)
       end
-      let(:menu_item) { create(:menu_pushup) }
+      let(:menu_item) { create(:menu_pushup, user: user, menu: @munetore, item: @pushup) }
       it "should destroy menu_item (depend on user destroyed)" do
         menu_item
         my_menu_item = user.menu_items
@@ -156,9 +156,8 @@ RSpec.describe User, type: :model do
     end
     
     context "with menu_record" do
-      let(:menu_record) { create(:munetore_record) }
+      let(:menu_record) { create(:munetore_record, user: user) }
       it "should destroy menu_record (depend on user destroyed)" do
-        user
         menu_record
         my_menu_record = user.menu_records
         expect(my_menu_record).not_to be_empty
@@ -169,10 +168,9 @@ RSpec.describe User, type: :model do
     
     context "with item_record" do
       before do
-        user
-        create(:munetore_record)
+        @munetore_record = create(:munetore_record, user: user)
       end
-      let(:item_record) { create(:pushup_record) }
+      let(:item_record) { create(:pushup_record, user: user, menu_record: @munetore_record) }
       it "should destroy item_record (depend on user destroyed)" do
         item_record
         my_item_record = user.item_records

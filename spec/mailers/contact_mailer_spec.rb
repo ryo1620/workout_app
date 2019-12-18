@@ -7,7 +7,7 @@ RSpec.describe ContactMailer, type: :mailer do
 
     it "renders the headers" do
       expect(mail.subject).to eq("お問い合わせ")
-      expect(mail.to).to eq([ENV['MAIL']])
+      expect(mail.to).to eq([Rails.application.credentials.gmail[:user_name]])
       expect(mail.from).to eq(["from@example.com"])
     end
 

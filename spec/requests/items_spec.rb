@@ -4,10 +4,10 @@ RSpec.describe "Items", type: :request do
   include ApplicationHelper
   
   let(:user) { create(:admin) }
-  let(:item) { create(:pushup) }
+  let(:item) { create(:pushup, user: user, part: @pectoralis, type: @bodyweight) }
   before do
-    create(:pectoralis)
-    create(:bodyweight)
+    @pectoralis = create(:pectoralis)
+    @bodyweight = create(:bodyweight)
     login_as(user)
   end
   

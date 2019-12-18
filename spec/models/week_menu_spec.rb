@@ -4,14 +4,11 @@ RSpec.describe WeekMenu, type: :model do
   
   # 曜日メニュー作成に必要なデータを作成
   before do
-    create(:admin)
-    create(:pectoralis)
-    create(:bodyweight)
-    create(:pushup)
-    create(:munetore)
+    @admin = create(:admin)
+    @munetore = create(:munetore, user: @admin)
   end
   
-  let(:week_menu) { create(:sunday_menu) }
+  let(:week_menu) { create(:sunday_menu, user: @admin, menu: @munetore) }
   
   # factory_botが有効かどうかを検査
   it "has a valid factory of week_menu" do

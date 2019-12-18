@@ -31,7 +31,7 @@ RSpec.describe "Menus", type: :system do
   end
   
   it 'edits a menu name' do
-    create(:munetore)
+    create(:munetore, user: user)
     click_link user.name
     click_link 'メニュー一覧'
     click_link '胸トレ'
@@ -43,7 +43,7 @@ RSpec.describe "Menus", type: :system do
   end
   
   it 'destroys a menu' do
-    create(:munetore)
+    create(:munetore, user: user)
     click_link user.name
     click_link 'メニュー一覧'
     click_link '胸トレ'
