@@ -12,6 +12,9 @@
 
 ActiveRecord::Schema.define(version: 2019_11_30_105358) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "contacts", force: :cascade do |t|
     t.string "email", null: false
     t.text "message", null: false
@@ -27,8 +30,8 @@ ActiveRecord::Schema.define(version: 2019_11_30_105358) do
     t.integer "sets"
     t.boolean "checked", default: false
     t.date "date", null: false
-    t.integer "user_id", null: false
-    t.integer "menu_record_id", null: false
+    t.bigint "user_id", null: false
+    t.bigint "menu_record_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["menu_record_id"], name: "index_item_records_on_menu_record_id"
@@ -38,9 +41,9 @@ ActiveRecord::Schema.define(version: 2019_11_30_105358) do
   create_table "items", force: :cascade do |t|
     t.string "name", null: false
     t.boolean "default", default: false
-    t.integer "user_id", null: false
-    t.integer "part_id", null: false
-    t.integer "type_id", null: false
+    t.bigint "user_id", null: false
+    t.bigint "part_id", null: false
+    t.bigint "type_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["part_id"], name: "index_items_on_part_id"
@@ -49,9 +52,9 @@ ActiveRecord::Schema.define(version: 2019_11_30_105358) do
   end
 
   create_table "menu_items", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "menu_id", null: false
-    t.integer "item_id", null: false
+    t.bigint "user_id", null: false
+    t.bigint "menu_id", null: false
+    t.bigint "item_id", null: false
     t.integer "weight"
     t.integer "reps"
     t.integer "seconds"
@@ -67,7 +70,7 @@ ActiveRecord::Schema.define(version: 2019_11_30_105358) do
     t.string "name", null: false
     t.boolean "checked", default: false
     t.date "date", null: false
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_menu_records_on_user_id"
@@ -75,7 +78,7 @@ ActiveRecord::Schema.define(version: 2019_11_30_105358) do
 
   create_table "menus", force: :cascade do |t|
     t.string "name", null: false
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_menus_on_user_id"
@@ -120,8 +123,8 @@ ActiveRecord::Schema.define(version: 2019_11_30_105358) do
 
   create_table "week_menus", force: :cascade do |t|
     t.integer "cwday", null: false
-    t.integer "user_id", null: false
-    t.integer "menu_id", null: false
+    t.bigint "user_id", null: false
+    t.bigint "menu_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["menu_id"], name: "index_week_menus_on_menu_id"
