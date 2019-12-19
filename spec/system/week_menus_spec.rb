@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "WeekMenus", type: :system do
+RSpec.describe "WeekMenus", type: :system, js: true do
   
   let(:user) { create(:example) }
   

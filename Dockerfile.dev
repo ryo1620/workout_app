@@ -34,6 +34,9 @@ WORKDIR $APP_ROOT
 
 RUN bundle config build.nokogiri --use-system-libraries
 
+RUN mkdir -p tmp/sockets \
+    && mkdir -p tmp/pids
+
 ENTRYPOINT [ \
     "prehook", "ruby -v", "--", \
     "prehook", "bundle install -j3 --quiet", "--"]

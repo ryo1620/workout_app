@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Items", type: :system do
+RSpec.describe "Items", type: :system, js: true do
   
   let(:user) { create(:example) }
   

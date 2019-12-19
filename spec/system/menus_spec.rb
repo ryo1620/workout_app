@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Menus", type: :system do
+RSpec.describe "Menus", type: :system, js: true do
   
   let(:user) { create(:example) }
   

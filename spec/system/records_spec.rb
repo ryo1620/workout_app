@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Records", type: :system do
+RSpec.describe "Records", type: :system, js: true do
   
   let(:user) { create(:example) }
   
