@@ -16,22 +16,24 @@ WorkOut!!はトレーニングメニュー管理アプリケーションです�
 
 * トップページに当日のメニューを表示し、チェックすることで記録を保存する機能
  
-* カレンダーにメニューを表示し、日付をクリックすることで詳細を確認できる機能(FullCalendar)
+* カレンダーにメニューを表示し、日付をクリックすることで詳細を確認できる機能（FullCalendar）
 
-* ユーザー作成・ログイン・認証機能(devise)
+* ユーザー作成・ログイン・認証機能（devise）
 
-* 非同期ページネーション機能(kaminari)
+* 非同期ページネーション機能（kaminari）
 
-* お問い合わせ(メール送信)機能
+* お問い合わせ（メール送信）機能
  
-* Ruby(ver2.6.3)・Ruby on Rails(ver6.0.2)
+* Ruby（ver2.6.3）・Ruby on Rails（ver6.0.2）
 
-* RSpec(モデル&コントローラテスト・E2Eテスト)
+* RSpec（モデル&コントローラテスト・E2Eテスト）
 
 * Webpacker
 
 * Bootstrap4
 
-* AWS Cloud9
+* Capistrano
 
-* Amazon EC2(Amazon Linux 2 + Nginx + Puma + PostgreSQL + Capistrano)
+* 開発環境: Docker Compose（Nginx + Puma + PostgreSQL）
+
+* 本番環境: Amazon EC2（Nginx + Puma + PostgreSQL）
