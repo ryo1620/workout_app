@@ -22,7 +22,6 @@ RSpec.describe "MenuItems", type: :system, js: true do
     fill_in 'メニュー名', with: '胸トレ'
     click_button '次へ'
     
-    select '大胸筋', from: 'parts_types1'
     select 'プッシュアップ', from: 'menu_items_item_id1'
     fill_in 'menu_items_reps1', with: '20'
     fill_in 'menu_items_sets1', with: '5'

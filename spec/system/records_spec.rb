@@ -95,9 +95,12 @@ RSpec.describe "Records", type: :system, js: true do
     visit root_path
     click_link user.name
     click_link 'カレンダー'
-    expect(page).to have_content '胸トレ'
-    expect(page).to have_content '脚トレ'
-    expect(page).to have_content '背中トレ'
+    # メニュー名が属するcssが表示されるまで待機する
+    wait_for_css_appear('span.fc-title', 5) do
+      expect(page).to have_content '胸トレ'
+      expect(page).to have_content '脚トレ'
+      expect(page).to have_content '背中トレ'
+    end
     
     # カレンダーの前日部分をクリックし、前日のメニュー表示に切り替わることを確認
     first("td[data-date='#{(Date.today - 1).to_s}']").click
