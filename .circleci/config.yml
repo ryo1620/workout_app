@@ -7,7 +7,7 @@ references:
       BUNDLE_JOBS: 3
       BUNDLE_RETRY: 3
       BUNDLE_PATH: vendor/bundle
-      DATABASE_HOST: 127.0.0.1
+      DATABASE_HOST: localhost
       DATABASE_USER: postgres
       DATABASE_PASSWORD: password
       RAILS_ENV: test
