@@ -21,4 +21,6 @@ test:
 
 production:
   <<: *default
-  database: workout_production
+  database: <%= Rails.application.credentials.postgresql[:database] %>
+  username: <%= Rails.application.credentials.postgresql[:user_name] %>
+  password: <%= Rails.application.credentials.postgresql[:password] %>
