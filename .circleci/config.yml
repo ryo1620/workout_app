@@ -7,9 +7,9 @@ references:
       BUNDLE_JOBS: 3
       BUNDLE_RETRY: 3
       BUNDLE_PATH: vendor/bundle
-      PGHOST: 127.0.0.1
-      PGUSER: postgres
-      PGPASSWORD: password
+      DATABASE_HOST: 127.0.0.1
+      DATABASE_USER: postgres
+      DATABASE_PASSWORD: password
       RAILS_ENV: test
       SELENIUM_REMOTE_URL: http://localhost:4444/wd/hub
   postgres: &postgres
