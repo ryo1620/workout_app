@@ -59,8 +59,8 @@ group :test do
   gem 'selenium-webdriver'
   # Easy installation and use of web drivers to run system tests with browsers
   gem 'webdrivers', require: !ENV['SELENIUM_REMOTE_URL']
-  
   gem 'factory_bot_rails', '~> 5.1', '>= 5.1.1'
+  gem 'rspec_junit_formatter', '~> 0.4.1'
 end
 
 group :production do
