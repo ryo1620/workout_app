@@ -70,7 +70,7 @@ jobs:
           paths:
             - public/packs-test
             - tmp/cache/webpacker
-  test:
+  test_deploy:
     parallelism: 3
     docker:
       - *default_docker_ruby_executor
@@ -111,13 +111,21 @@ jobs:
       - store_artifacts:
           path: /tmp/test-results
           destination: test-results
-
+      - add_ssh_keys:
+          fingerprints:
+            - {{d4:aa:a1:98:8d:60:cb:9d:96:b6:99:b2:16:57:1a:76}}
+      - run:
+          name: Deploy to AWS if tests pass and branch is Master
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              bundle exec cap production deploy
+            fi
 
 workflows:
   version: 2
   build_test_deploy:
     jobs:
       - build
-      - test:
+      - test_deploy:
           requires:
             - build
