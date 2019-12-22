@@ -103,7 +103,6 @@ jobs:
             - v1-asset-cache-
       - run:
           command: |
-            bundle exec rake assets:precompile
             mkdir /tmp/test-results
             TESTFILES=$(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
             bundle exec rspec $TESTFILES --profile 10 --format RspecJunitFormatter --out /tmp/test-results/rspec.xml --format progress
@@ -112,12 +111,36 @@ jobs:
       - store_artifacts:
           path: /tmp/test-results
           destination: test-results
+  deploy:
+    docker:
+      - *default_docker_ruby_executor
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-workout_app-bundle-{{ checksum "Gemfile.lock" }}
+            - v1-workout_app-bundle-
+      - run:
+          name: Bundle Install
+          command: bundle check || bundle install
+      - add_ssh_keys:
+          fingerprints:
+            - "d4:aa:a1:98:8d:60:cb:9d:96:b6:99:b2:16:57:1a:76"
+      - run:
+          name: Deploy to AWS if tests pass and branch is Master
+          command: bundle exec cap production deploy
 
 workflows:
   version: 2
-  build_and_test:
+  build_test_deploy:
     jobs:
       - build
       - test:
           requires:
             - build
+      - deploy:
+          requires:
+            - test
+          filters:
+            branches:
+              only: master            

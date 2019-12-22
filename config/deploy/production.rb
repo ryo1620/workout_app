@@ -3,7 +3,7 @@ server '18.176.75.37', user: 'ryo', roles: %w{app db web}
 
 #デプロイするサーバーにsshログインする鍵の情報を記述
 set :ssh_options, {
-  keys: %w(~/.ssh/id_rsa),
+  keys: %w(~/.ssh/id_rsa ~/.ssh/id_rsa_d4aaa1988d60cb9d96b699b216571a76),
   forward_agent: true,
   auth_methods: %w(publickey)
 }
