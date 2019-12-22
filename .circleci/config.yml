@@ -120,7 +120,6 @@ jobs:
       - *default_docker_ruby_executor
       - *python
       - *buildpack
-    working_directory: ~/
     steps:
       - checkout
       - restore_cache:
