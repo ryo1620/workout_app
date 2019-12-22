@@ -20,6 +20,8 @@ references:
       POSTGRES_PASSWORD: password
   chrome: &chrome
     image: selenium/standalone-chrome
+  python: &python
+    image: circleci/python
     
 jobs:
   build:
@@ -114,7 +116,7 @@ jobs:
   deploy:
     docker:
       - *default_docker_ruby_executor
-      - image: circleci/python:latest
+      - *python
     steps:
       - checkout
       - restore_cache:
