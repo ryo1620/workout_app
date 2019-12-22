@@ -37,19 +37,6 @@ namespace :puma do
 end
 
 namespace :deploy do
-  desc "Make sure local git is in sync with remote."
-  task :confirm do
-    on roles(:app) do
-      puts "This stage is '#{fetch(:stage)}'. Deploying branch is '#{fetch(:branch)}'."
-      puts 'Are you sure? [y/n]'
-      ask :answer, 'n'
-      if fetch(:answer) != 'y'
-        puts 'deploy stopped'
-        exit
-      end
-    end
-  end
-  
   desc "Initial Deploy"
   task :initial do
     on roles(:app) do
@@ -65,7 +52,6 @@ namespace :deploy do
     end
   end
   
-  before :starting,     :confirm
   after  :finishing,    :compile_assets
   after  :finishing,    :cleanup
 end
