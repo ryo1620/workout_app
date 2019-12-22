@@ -1,4 +1,4 @@
-version: 2.1
+version: 2
 
 references:
   default_docker_ruby_executor: &default_docker_ruby_executor
@@ -20,9 +20,6 @@ references:
       POSTGRES_PASSWORD: password
   chrome: &chrome
     image: selenium/standalone-chrome
-
-orbs:
-  aws-cli: circleci/aws-cli@0.1.19    
     
 jobs:
   build:
@@ -117,7 +114,6 @@ jobs:
   deploy:
     docker:
       - *default_docker_ruby_executor
-    executor: aws-cli/default
     steps:
       - checkout
       - restore_cache:
@@ -127,6 +123,12 @@ jobs:
       - run:
           name: Bundle Install
           command: bundle check || bundle install
+      - run:
+          name: Install awscli
+          command |
+            sudo apt-get update
+            sudo apt-get install python3-pip groff-base
+            sudo pip3 install awscli --ignore-installed six
       - add_ssh_keys:
           fingerprints:
             - "d4:aa:a1:98:8d:60:cb:9d:96:b6:99:b2:16:57:1a:76"
