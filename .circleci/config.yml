@@ -34,29 +34,40 @@ jobs:
       # bundle cache
       - restore_cache:
           keys:
-            - workout-bundle-{{ checksum "Gemfile.lock" }}
-            - workout-bundle-
+            - v1-workout_app-bundle-{{ checksum "Gemfile.lock" }}
+            - v1-workout_app-bundle-
       - run:
           name: Bundle Install
           command: bundle check || bundle install
       # Store bundle cache
       - save_cache:
-          key: workout-bundle-{{ checksum "Gemfile.lock" }}
+          key: v1-workout_app-bundle-{{ checksum "Gemfile.lock" }}
           paths:
             - vendor/bundle
       # Only necessary if app uses webpacker or yarn in some other way
       - restore_cache:
           keys:
-            - workout-yarn-{{ checksum "yarn.lock" }}
-            - workout-yarn-
+            - v1-workout_app-yarn-{{ checksum "yarn.lock" }}
+            - v1-workout_app-yarn-
       - run:
           name: Yarn Install
           command: yarn install --cache-folder ~/.cache/yarn
       # Store yarn / webpacker cache
       - save_cache:
-          key: workout-yarn-{{ checksum "yarn.lock" }}
+          key: v1-workout_app-yarn-{{ checksum "yarn.lock" }}
           paths:
             - ~/.cache/yarn
+      - restore_cache:
+          keys:
+            - v1-asset-cache-{{ arch }}-{{ .Branch }}-{{ .Environment.CIRCLE_SHA1 }}
+            - v1-asset-cache-{{ arch }}-{{ .Branch }}
+            - v1-asset-cache-
+      - run: bundle exec rake assets:precompile
+      - save_cache:
+          key: v1-asset-cache-{{ arch }}-{{ .Branch }}-{{ .Environment.CIRCLE_SHA1 }}
+          paths:
+            - public/packs
+            - tmp/cache/webpacker
   test:
     parallelism: 3
     docker:
@@ -67,15 +78,20 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - workout-bundle-{{ checksum "Gemfile.lock" }}
-            - workout-bundle-
+            - v1-workout_app-bundle-{{ checksum "Gemfile.lock" }}
+            - v1-workout_app-bundle-
       - run:
           name: Bundle Install
           command: bundle check || bundle install
       - restore_cache:
           keys:
-            - workout-yarn-{{ checksum "yarn.lock" }}
-            - workout-yarn-
+            - v1-workout_app-yarn-{{ checksum "yarn.lock" }}
+            - v1-workout_app-yarn-
+      - restore_cache:
+          keys:
+            - v1-asset-cache-{{ arch }}-{{ .Branch }}-{{ .Environment.CIRCLE_SHA1 }}
+            - v1-asset-cache-{{ arch }}-{{ .Branch }}
+            - v1-asset-cache-
       - run:
           name: Wait for DB
           command: dockerize -wait tcp://localhost:5432 -timeout 1m
