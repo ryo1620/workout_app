@@ -1,4 +1,4 @@
-version: 2
+version: 2.1
 
 references:
   default_docker_ruby_executor: &default_docker_ruby_executor
@@ -20,10 +20,9 @@ references:
       POSTGRES_PASSWORD: password
   chrome: &chrome
     image: selenium/standalone-chrome
-  python: &python
-    image: circleci/python:3.6-jessie
-  buildpack: &buildpack
-    image: buildpack-deps:trusty
+
+orbs:
+  aws-cli: circleci/aws-cli@0.1.19    
     
 jobs:
   build:
@@ -118,8 +117,7 @@ jobs:
   deploy:
     docker:
       - *default_docker_ruby_executor
-      - *python
-      - *buildpack
+    executor: aws-cli/default
     steps:
       - checkout
       - restore_cache:
@@ -132,9 +130,6 @@ jobs:
       - add_ssh_keys:
           fingerprints:
             - "d4:aa:a1:98:8d:60:cb:9d:96:b6:99:b2:16:57:1a:76"
-      - run:
-          name: Install awscli
-          command: sudo pip install awscli
       - run:
           name: Deploy to AWS if tests pass and branch is Master
           command: sh script/deploy_production.sh
