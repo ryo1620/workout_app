@@ -125,7 +125,7 @@ jobs:
           command: bundle check || bundle install
       - run:
           name: Install awscli
-          command |
+          command: |
             sudo apt-get update
             sudo apt-get install python3-pip groff-base
             sudo pip3 install awscli --ignore-installed six
