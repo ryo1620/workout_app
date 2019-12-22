@@ -123,6 +123,12 @@ jobs:
       - run:
           name: Bundle Install
           command: bundle check || bundle install
+      - run:
+          name: Install awscli
+          command: |
+            sudo apt-get update
+            sudo apt-get install python3-pip groff-base
+            sudo pip3 install awscli --ignore-installed six
       - add_ssh_keys:
           fingerprints:
             - "d4:aa:a1:98:8d:60:cb:9d:96:b6:99:b2:16:57:1a:76"
