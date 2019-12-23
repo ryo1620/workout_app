@@ -34,6 +34,8 @@ WorkOut!!はトレーニングメニュー管理アプリケーションです�
 
 * Capistrano
 
+* CircleCI（自動ビルド&テスト&デプロイ）
+
 * 開発環境：Docker Compose（Nginx + Puma + Webpack + PostgreSQL）
 
 * 本番環境：Amazon EC2（Nginx + Puma + PostgreSQL）
