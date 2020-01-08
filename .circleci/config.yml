@@ -1,4 +1,4 @@
-version: 2
+version: 2.1
 
 references:
   default_docker_ruby_executor: &default_docker_ruby_executor
@@ -13,16 +13,34 @@ references:
       RAILS_ENV: test
       SELENIUM_REMOTE_URL: http://localhost:4444/wd/hub
   postgres: &postgres
-    image: circleci/postgres:12-alpine
+    image: circleci/postgres:11.5-alpine
     environment:
       POSTGRES_USER: postgres
       POSTGRES_DB: psql_test
       POSTGRES_PASSWORD: password
   chrome: &chrome
     image: selenium/standalone-chrome
+  terraform: &terraform
+    image: hashicorp/terraform:0.12.18
+  docker: &docker
+    image: docker:18.06.3-ce-git
+    environment:
+      AWS_DEFAULT_REGION: ap-northeast-1
+  kubectl: &kubectl
+    image: $AWS_ACCOUNT_ID.dkr.ecr.ap-northeast-1.amazonaws.com/workout11-repo:e0d36207102ba8b7dbf664d7055d48c6864b9bd0
+
+commands:
+  setup_aws_credentials:
+    steps:
+      - run:
+          name: setup aws credentials
+          command: |
+            echo "export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID" >> $BASH_ENV
+            echo "export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY" >> $BASH_ENV
     
 jobs:
   build:
+    working_directory: ~/workout_app
     docker:
       - *default_docker_ruby_executor
     steps:
@@ -71,6 +89,7 @@ jobs:
             - public/packs-test
             - tmp/cache/webpacker
   test:
+    working_directory: ~/workout_app
     parallelism: 3
     docker:
       - *default_docker_ruby_executor
@@ -111,31 +130,88 @@ jobs:
       - store_artifacts:
           path: /tmp/test-results
           destination: test-results
-  deploy:
+  terraform-plan:
+    working_directory: ~/workout_app
     docker:
-      - *default_docker_ruby_executor
+      - *terraform
     steps:
       - checkout
+      - setup_aws_credentials
+      - run:
+          name: terraform plan and notify
+          command: |
+            cd terraform_eks
+            terraform init
+            terraform plan | ../.circleci/bin/tfnotify plan
+      - save_cache:
+          key: terraform-{{ .Environment.CIRCLE_SHA1 }}
+          paths:
+            - ~/workout_app
+  terraform-apply:
+    working_directory: ~/workout_app
+    docker:
+      - *terraform
+    steps:
       - restore_cache:
           keys:
-            - v1-workout_app-bundle-{{ checksum "Gemfile.lock" }}
-            - v1-workout_app-bundle-
+            - terraform-{{ .Environment.CIRCLE_SHA1 }}
+      - setup_aws_credentials
       - run:
-          name: Bundle Install
-          command: bundle check || bundle install
-      - run:
-          name: Install awscli
+          name: terraform apply
           command: |
-            sudo apt-get update
-            sudo apt-get install python3-pip groff-base
-            sudo pip3 install awscli --ignore-installed six
-      - add_ssh_keys:
-          fingerprints:
-            - "d4:aa:a1:98:8d:60:cb:9d:96:b6:99:b2:16:57:1a:76"
+            cd terraform_eks
+            terraform apply -auto-approve
+  build-push:
+    working_directory: ~/workout_app
+    docker:
+      - *docker
+    steps:
+      - checkout
+      - setup_remote_docker
+      - setup_aws_credentials
       - run:
-          name: Deploy to AWS if tests pass and branch is Master
-          command: sh script/deploy_production.sh
-
+          name: login to ECR
+          command: |
+            apk add --no-cache \
+              py-pip=9.0.0-r1
+            pip install \
+              docker-compose==1.25.1 \
+              awscli==1.16.310
+            eval $(aws ecr get-login --no-include-email)
+      - run:
+          name: build and push image
+          command: |
+            IMAGE_NAME=$AWS_ACCOUNT_ID.dkr.ecr.ap-northeast-1.amazonaws.com/workout11-repo:$(git rev-parse HEAD)
+            docker build -t $IMAGE_NAME .
+            docker push $IMAGE_NAME
+  k8s-deploy:
+    working_directory: ~/workout_app
+    docker:
+      - *kubectl
+    steps:
+      - checkout
+      - run:
+          name: setup kubectl
+          command: |
+            aws eks --region ap-northeast-1 update-kubeconfig --name workout11-eks
+      - run:
+          name: kubectl apply
+          command: |
+            curl -sSL https://github.com/shyiko/kubesec/releases/download/0.9.2/kubesec-0.9.2-linux-amd64 \
+            -o kubesec && chmod a+x kubesec && sudo mv kubesec /usr/local/bin/
+            
+            kubesec decrypt -i k8s_manifest/secret.yaml
+            
+            IMAGE_NAME=$AWS_ACCOUNT_ID.dkr.ecr.ap-northeast-1.amazonaws.com/workout11-repo:$(git rev-parse HEAD)
+            
+            cat \<<EOF >> k8s_manifest/kustomization.yaml
+            images:
+              - name: workout11
+                newName: $IMAGE_NAME
+            EOF
+            
+            kubectl apply -k k8s_manifest --prune -l prune=true
+          
 workflows:
   version: 2
   build_test_deploy:
@@ -144,9 +220,24 @@ workflows:
       - test:
           requires:
             - build
-      - deploy:
+      - terraform-plan:
+          requires:
+            - test
+      - terraform-apply:
+          requires:
+            - terraform-plan
+          filters:
+            branches:
+              only: master
+      - build-push:
           requires:
             - test
           filters:
             branches:
-              only: master            
+              only: master
+      - k8s-deploy:
+          requires:
+            - build-push
+          filters:
+            branches:
+              only: master

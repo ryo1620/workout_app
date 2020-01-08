@@ -32,3 +32,10 @@ yarn-debug.log*
 
 .env
 .env.dev
+
+# Local .terraform directories
+**/.terraform/*
+
+# .tfstate files
+*.tfstate
+*.tfstate.*

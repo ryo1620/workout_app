@@ -1,0 +1,9 @@
+commonLabels:
+  prune: true
+
+resources:
+  - alb-ingress-controller.yaml
+  - external-dns.yaml
+  - configmap.yaml
+  - secret.yaml
+  - ingress-app.yaml

@@ -1,0 +1,12 @@
+.bundle
+.dockerignore
+.git
+.gitignore
+Dockerfile
+log
+node_modules
+public/packs
+README.md
+storage
+spec
+tmp

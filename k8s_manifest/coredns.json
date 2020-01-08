@@ -1,0 +1,17 @@
+{
+    "fargateProfileName": "coredns",
+    "clusterName": "workout11-eks",
+    "podExecutionRoleArn": "arn:aws:iam::012055136996:role/eks-fargate-pod-execution",
+    "subnets": [
+        "subnet-07b0e96e04014ef22",
+        "subnet-0973ce6028e73c8d7"
+    ],
+    "selectors": [
+        {
+            "namespace": "kube-system",
+            "labels": {
+                "k8s-app": "kube-dns"
+            }
+        }
+    ]
+}
