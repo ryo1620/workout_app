@@ -4,7 +4,7 @@ ARG CLI_VERSION=1.16.310
 ARG KUBECTL_VERSION=1.17.0
 
 # add aws-cli
-RUN apk -uv add --no-cache groff jq less && \
+RUN apk -uv add --no-cache groff jq less curl git && \
     pip install --no-cache-dir awscli==$CLI_VERSION
 
 # add kubectl

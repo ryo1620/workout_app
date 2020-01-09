@@ -27,7 +27,7 @@ references:
     environment:
       AWS_DEFAULT_REGION: ap-northeast-1
   kubectl: &kubectl
-    image: $AWS_ACCOUNT_ID.dkr.ecr.ap-northeast-1.amazonaws.com/workout11-repo:e0d36207102ba8b7dbf664d7055d48c6864b9bd0
+    image: $AWS_ACCOUNT_ID.dkr.ecr.ap-northeast-1.amazonaws.com/awscli-kubectl:c1c2201e893e370792a1d037185848ce36f23b6b
 
 commands:
   setup_aws_credentials:
@@ -202,8 +202,6 @@ jobs:
       - run:
           name: kubectl apply
           command: |
-            apk add --no-cache curl git
-          
             curl -sSL https://github.com/shyiko/kubesec/releases/download/0.9.2/kubesec-0.9.2-linux-amd64 \
             -o kubesec && chmod a+x kubesec && mv kubesec /usr/local/bin/
             
