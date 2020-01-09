@@ -24,18 +24,19 @@ WorkOut!!はトレーニングメニュー管理アプリケーションです�
 
 * お問い合わせ（メール送信）機能
  
-* Ruby（ver2.6.3）・Ruby on Rails（ver6.0.2）
+* Ruby（ver2.6.3）, Ruby on Rails（ver6.0.2）
 
-* RSpec（モデル&コントローラテスト・E2Eテスト）
+* RSpec（モデルテスト + コントローラテスト + E2Eテスト）
 
-* Webpacker
+* Webpacker, Bootstrap4
 
-* Bootstrap4
+* Terraform
+ 
+  EKSCluster, FargateProfile, RDS, DynamoDB, S3, ECR, CloudWatch, KMS, Route53, ACM, IAMPolicy&Role, VPC, Subnet,
+  InternetGateway, NATGateway, ElasticIP, SecurityGroup, RouteTable
 
-* Capistrano
-
-* CircleCI（自動ビルド&テスト&デプロイ）
+* CircleCI（ビルド + テスト + デプロイ）
 
 * 開発環境：Docker Compose（Nginx + Puma + Webpack + PostgreSQL）
 
-* 本番環境：Amazon EC2（Nginx + Puma + PostgreSQL）
+* 本番環境：Amazon Fargate for Amazon EKS（ALB + Nginx + Puma + Amazon RDS for PostgreSQL）
