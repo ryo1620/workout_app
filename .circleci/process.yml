@@ -1,0 +1,492 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/workout_app
+    docker:
+    - image: circleci/ruby:2.6.3-stretch-node
+      environment:
+        BUNDLE_JOBS: 3
+        BUNDLE_RETRY: 3
+        BUNDLE_PATH: vendor/bundle
+        DATABASE_HOST: 127.0.0.1
+        DATABASE_USER: postgres
+        DATABASE_PASSWORD: password
+        RAILS_ENV: test
+        SELENIUM_REMOTE_URL: http://localhost:4444/wd/hub
+    steps:
+    - checkout
+    - run:
+        name: Which bundler?
+        command: bundle -v
+    - restore_cache:
+        keys:
+        - v1-workout_app-bundle-{{ checksum "Gemfile.lock" }}
+        - v1-workout_app-bundle-
+    - run:
+        name: Bundle Install
+        command: bundle check || bundle install
+    - save_cache:
+        key: v1-workout_app-bundle-{{ checksum "Gemfile.lock" }}
+        paths:
+        - vendor/bundle
+    - restore_cache:
+        keys:
+        - v1-workout_app-yarn-{{ checksum "yarn.lock" }}
+        - v1-workout_app-yarn-
+    - run:
+        name: Yarn Install
+        command: yarn install --cache-folder ~/.cache/yarn
+    - save_cache:
+        key: v1-workout_app-yarn-{{ checksum "yarn.lock" }}
+        paths:
+        - ~/.cache/yarn
+    - restore_cache:
+        keys:
+        - v1-asset-cache-{{ arch }}-{{ .Branch }}-{{ .Environment.CIRCLE_SHA1 }}
+        - v1-asset-cache-{{ arch }}-{{ .Branch }}
+        - v1-asset-cache-
+    - run:
+        name: Precompile Assets
+        command: bundle exec rake assets:precompile
+    - save_cache:
+        key: v1-asset-cache-{{ arch }}-{{ .Branch }}-{{ .Environment.CIRCLE_SHA1 }}
+        paths:
+        - public/packs-test
+        - tmp/cache/webpacker
+  test:
+    working_directory: ~/workout_app
+    parallelism: 3
+    docker:
+    - image: circleci/ruby:2.6.3-stretch-node
+      environment:
+        BUNDLE_JOBS: 3
+        BUNDLE_RETRY: 3
+        BUNDLE_PATH: vendor/bundle
+        DATABASE_HOST: 127.0.0.1
+        DATABASE_USER: postgres
+        DATABASE_PASSWORD: password
+        RAILS_ENV: test
+        SELENIUM_REMOTE_URL: http://localhost:4444/wd/hub
+    - image: circleci/postgres:11.5-alpine
+      environment:
+        POSTGRES_USER: postgres
+        POSTGRES_DB: psql_test
+        POSTGRES_PASSWORD: password
+    - image: selenium/standalone-chrome
+    steps:
+    - checkout
+    - restore_cache:
+        keys:
+        - v1-workout_app-bundle-{{ checksum "Gemfile.lock" }}
+        - v1-workout_app-bundle-
+    - run:
+        name: Bundle Install
+        command: bundle check || bundle install
+    - restore_cache:
+        keys:
+        - v1-workout_app-yarn-{{ checksum "yarn.lock" }}
+        - v1-workout_app-yarn-
+    - run:
+        name: Wait for DB
+        command: dockerize -wait tcp://localhost:5432 -timeout 1m
+    - run:
+        name: Database setup
+        command: bundle exec rails db:schema:load --trace
+    - restore_cache:
+        keys:
+        - v1-asset-cache-{{ arch }}-{{ .Branch }}-{{ .Environment.CIRCLE_SHA1 }}
+        - v1-asset-cache-{{ arch }}-{{ .Branch }}
+        - v1-asset-cache-
+    - run:
+        command: |
+          mkdir /tmp/test-results
+          TESTFILES=$(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
+          bundle exec rspec $TESTFILES --profile 10 --format RspecJunitFormatter --out /tmp/test-results/rspec.xml --format progress
+    - store_test_results:
+        path: /tmp/test-results
+    - store_artifacts:
+        path: /tmp/test-results
+        destination: test-results
+  terraform-plan:
+    working_directory: ~/workout_app
+    docker:
+    - image: hashicorp/terraform:0.12.18
+    steps:
+    - checkout
+    - run:
+        name: setup aws credentials
+        command: |
+          echo "export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID" >> $BASH_ENV
+          echo "export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY" >> $BASH_ENV
+    - run:
+        name: terraform plan and notify
+        command: |
+          cd terraform_eks
+          terraform init
+          terraform plan | ../.circleci/bin/tfnotify plan
+    - save_cache:
+        key: terraform-{{ .Environment.CIRCLE_SHA1 }}
+        paths:
+        - ~/workout_app
+  terraform-apply:
+    working_directory: ~/workout_app
+    docker:
+    - image: hashicorp/terraform:0.12.18
+    steps:
+    - restore_cache:
+        keys:
+        - terraform-{{ .Environment.CIRCLE_SHA1 }}
+    - run:
+        name: setup aws credentials
+        command: |
+          echo "export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID" >> $BASH_ENV
+          echo "export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY" >> $BASH_ENV
+    - run:
+        name: terraform apply
+        command: |
+          cd terraform_eks
+          terraform apply -auto-approve
+  build-push:
+    working_directory: ~/workout_app
+    docker:
+    - image: docker:18.06.3-ce-git
+      environment:
+        AWS_DEFAULT_REGION: ap-northeast-1
+    steps:
+    - checkout
+    - setup_remote_docker
+    - run:
+        name: setup aws credentials
+        command: |
+          echo "export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID" >> $BASH_ENV
+          echo "export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY" >> $BASH_ENV
+    - run:
+        name: login to ECR
+        command: |
+          apk add --no-cache \
+            python3-dev \
+            gcc \
+            g++ \
+            libffi-dev \
+            make \
+            openssl-dev
+          pip3 install \
+            docker-compose==1.25.1 \
+            awscli==1.16.310
+          eval $(aws ecr get-login --no-include-email)
+    - run:
+        name: build and push image
+        command: |
+          IMAGE_NAME=$AWS_ACCOUNT_ID.dkr.ecr.ap-northeast-1.amazonaws.com/workout11-repo:$(git rev-parse HEAD)
+          docker build -t $IMAGE_NAME .
+          docker push $IMAGE_NAME
+  k8s-deploy:
+    working_directory: ~/workout_app
+    docker:
+    - image: $AWS_ACCOUNT_ID.dkr.ecr.ap-northeast-1.amazonaws.com/workout11-repo:e0d36207102ba8b7dbf664d7055d48c6864b9bd0
+    steps:
+    - checkout
+    - run:
+        name: setup kubectl
+        command: |
+          aws eks --region ap-northeast-1 update-kubeconfig --name workout11-eks
+    - run:
+        name: kubectl apply
+        command: |
+          apk add --no-cache curl git
+
+          curl -sSL https://github.com/shyiko/kubesec/releases/download/0.9.2/kubesec-0.9.2-linux-amd64 \
+          -o kubesec && chmod a+x kubesec && mv kubesec /usr/local/bin/
+
+          kubesec decrypt -i k8s_manifest/secret.yaml
+
+          IMAGE_NAME=$AWS_ACCOUNT_ID.dkr.ecr.ap-northeast-1.amazonaws.com/workout11-repo:$(git rev-parse HEAD)
+
+          cat <<EOF >> k8s_manifest/kustomization.yaml
+          images:
+            - name: workout11
+              newName: $IMAGE_NAME
+          EOF
+
+          kubectl apply -k k8s_manifest
+workflows:
+  version: 2
+  build_test_deploy:
+    jobs:
+    - build
+    - test:
+        requires:
+        - build
+    - terraform-plan:
+        requires:
+        - test
+    - terraform-apply:
+        filters:
+          branches:
+            only: master
+        requires:
+        - terraform-plan
+    - build-push:
+        filters:
+          branches:
+            only: master
+        requires:
+        - test
+    - k8s-deploy:
+        filters:
+          branches:
+            only: master
+        requires:
+        - build-push
+
+# Original config.yml file:
+# version: 2.1
+# 
+# references:
+#   default_docker_ruby_executor: &default_docker_ruby_executor
+#     image: circleci/ruby:2.6.3-stretch-node
+#     environment:
+#       BUNDLE_JOBS: 3
+#       BUNDLE_RETRY: 3
+#       BUNDLE_PATH: vendor/bundle
+#       DATABASE_HOST: 127.0.0.1
+#       DATABASE_USER: postgres
+#       DATABASE_PASSWORD: password
+#       RAILS_ENV: test
+#       SELENIUM_REMOTE_URL: http://localhost:4444/wd/hub
+#   postgres: &postgres
+#     image: circleci/postgres:11.5-alpine
+#     environment:
+#       POSTGRES_USER: postgres
+#       POSTGRES_DB: psql_test
+#       POSTGRES_PASSWORD: password
+#   chrome: &chrome
+#     image: selenium/standalone-chrome
+#   terraform: &terraform
+#     image: hashicorp/terraform:0.12.18
+#   docker: &docker
+#     image: docker:18.06.3-ce-git
+#     environment:
+#       AWS_DEFAULT_REGION: ap-northeast-1
+#   kubectl: &kubectl
+#     image: $AWS_ACCOUNT_ID.dkr.ecr.ap-northeast-1.amazonaws.com/workout11-repo:e0d36207102ba8b7dbf664d7055d48c6864b9bd0
+# 
+# commands:
+#   setup_aws_credentials:
+#     steps:
+#       - run:
+#           name: setup aws credentials
+#           command: |
+#             echo \"export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID\" >> $BASH_ENV
+#             echo \"export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY\" >> $BASH_ENV
+#     
+# jobs:
+#   build:
+#     working_directory: ~/workout_app
+#     docker:
+#       - *default_docker_ruby_executor
+#     steps:
+#       - checkout
+#       # Which version of bundler?
+#       - run:
+#           name: Which bundler?
+#           command: bundle -v
+#       # bundle cache
+#       - restore_cache:
+#           keys:
+#             - v1-workout_app-bundle-{{ checksum \"Gemfile.lock\" }}
+#             - v1-workout_app-bundle-
+#       - run:
+#           name: Bundle Install
+#           command: bundle check || bundle install
+#       # Store bundle cache
+#       - save_cache:
+#           key: v1-workout_app-bundle-{{ checksum \"Gemfile.lock\" }}
+#           paths:
+#             - vendor/bundle
+#       # Only necessary if app uses webpacker or yarn in some other way
+#       - restore_cache:
+#           keys:
+#             - v1-workout_app-yarn-{{ checksum \"yarn.lock\" }}
+#             - v1-workout_app-yarn-
+#       - run:
+#           name: Yarn Install
+#           command: yarn install --cache-folder ~/.cache/yarn
+#       # Store yarn / webpacker cache
+#       - save_cache:
+#           key: v1-workout_app-yarn-{{ checksum \"yarn.lock\" }}
+#           paths:
+#             - ~/.cache/yarn
+#       - restore_cache:
+#           keys:
+#             - v1-asset-cache-{{ arch }}-{{ .Branch }}-{{ .Environment.CIRCLE_SHA1 }}
+#             - v1-asset-cache-{{ arch }}-{{ .Branch }}
+#             - v1-asset-cache-
+#       - run:
+#           name: Precompile Assets
+#           command: bundle exec rake assets:precompile
+#       - save_cache:
+#           key: v1-asset-cache-{{ arch }}-{{ .Branch }}-{{ .Environment.CIRCLE_SHA1 }}
+#           paths:
+#             - public/packs-test
+#             - tmp/cache/webpacker
+#   test:
+#     working_directory: ~/workout_app
+#     parallelism: 3
+#     docker:
+#       - *default_docker_ruby_executor
+#       - *postgres
+#       - *chrome
+#     steps:
+#       - checkout
+#       - restore_cache:
+#           keys:
+#             - v1-workout_app-bundle-{{ checksum \"Gemfile.lock\" }}
+#             - v1-workout_app-bundle-
+#       - run:
+#           name: Bundle Install
+#           command: bundle check || bundle install
+#       - restore_cache:
+#           keys:
+#             - v1-workout_app-yarn-{{ checksum \"yarn.lock\" }}
+#             - v1-workout_app-yarn-
+#       - run:
+#           name: Wait for DB
+#           command: dockerize -wait tcp://localhost:5432 -timeout 1m
+#       - run:
+#           name: Database setup
+#           command: bundle exec rails db:schema:load --trace
+#       # Run rspec in parallel
+#       - restore_cache:
+#           keys:
+#             - v1-asset-cache-{{ arch }}-{{ .Branch }}-{{ .Environment.CIRCLE_SHA1 }}
+#             - v1-asset-cache-{{ arch }}-{{ .Branch }}
+#             - v1-asset-cache-
+#       - run:
+#           command: |
+#             mkdir /tmp/test-results
+#             TESTFILES=$(circleci tests glob \"spec/**/*_spec.rb\" | circleci tests split --split-by=timings)
+#             bundle exec rspec $TESTFILES --profile 10 --format RspecJunitFormatter --out /tmp/test-results/rspec.xml --format progress
+#       - store_test_results:
+#           path: /tmp/test-results
+#       - store_artifacts:
+#           path: /tmp/test-results
+#           destination: test-results
+#   terraform-plan:
+#     working_directory: ~/workout_app
+#     docker:
+#       - *terraform
+#     steps:
+#       - checkout
+#       - setup_aws_credentials
+#       - run:
+#           name: terraform plan and notify
+#           command: |
+#             cd terraform_eks
+#             terraform init
+#             terraform plan | ../.circleci/bin/tfnotify plan
+#       - save_cache:
+#           key: terraform-{{ .Environment.CIRCLE_SHA1 }}
+#           paths:
+#             - ~/workout_app
+#   terraform-apply:
+#     working_directory: ~/workout_app
+#     docker:
+#       - *terraform
+#     steps:
+#       - restore_cache:
+#           keys:
+#             - terraform-{{ .Environment.CIRCLE_SHA1 }}
+#       - setup_aws_credentials
+#       - run:
+#           name: terraform apply
+#           command: |
+#             cd terraform_eks
+#             terraform apply -auto-approve
+#   build-push:
+#     working_directory: ~/workout_app
+#     docker:
+#       - *docker
+#     steps:
+#       - checkout
+#       - setup_remote_docker
+#       - setup_aws_credentials
+#       - run:
+#           name: login to ECR
+#           command: |
+#             apk add --no-cache \\
+#               python3-dev \\
+#               gcc \\
+#               g++ \\
+#               libffi-dev \\
+#               make \\
+#               openssl-dev
+#             pip3 install \\
+#               docker-compose==1.25.1 \\
+#               awscli==1.16.310
+#             eval $(aws ecr get-login --no-include-email)
+#       - run:
+#           name: build and push image
+#           command: |
+#             IMAGE_NAME=$AWS_ACCOUNT_ID.dkr.ecr.ap-northeast-1.amazonaws.com/workout11-repo:$(git rev-parse HEAD)
+#             docker build -t $IMAGE_NAME .
+#             docker push $IMAGE_NAME
+#   k8s-deploy:
+#     working_directory: ~/workout_app
+#     docker:
+#       - *kubectl
+#     steps:
+#       - checkout
+#       - run:
+#           name: setup kubectl
+#           command: |
+#             aws eks --region ap-northeast-1 update-kubeconfig --name workout11-eks
+#       - run:
+#           name: kubectl apply
+#           command: |
+#             apk add --no-cache curl git
+#           
+#             curl -sSL https://github.com/shyiko/kubesec/releases/download/0.9.2/kubesec-0.9.2-linux-amd64 \\
+#             -o kubesec && chmod a+x kubesec && mv kubesec /usr/local/bin/
+#             
+#             kubesec decrypt -i k8s_manifest/secret.yaml
+#             
+#             IMAGE_NAME=$AWS_ACCOUNT_ID.dkr.ecr.ap-northeast-1.amazonaws.com/workout11-repo:$(git rev-parse HEAD)
+#             
+#             cat \\<<EOF >> k8s_manifest/kustomization.yaml
+#             images:
+#               - name: workout11
+#                 newName: $IMAGE_NAME
+#             EOF
+#             
+#             kubectl apply -k k8s_manifest
+#           
+# workflows:
+#   version: 2
+#   build_test_deploy:
+#     jobs:
+#       - build
+#       - test:
+#           requires:
+#             - build
+#       - terraform-plan:
+#           requires:
+#             - test
+#       - terraform-apply:
+#           requires:
+#             - terraform-plan
+#           filters:
+#             branches:
+#               only: master
+#       - build-push:
+#           requires:
+#             - test
+#           filters:
+#             branches:
+#               only: master
+#       - k8s-deploy:
+#           requires:
+#             - build-push
+#           filters:
+#             branches:
+#               only: master

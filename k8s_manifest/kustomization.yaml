@@ -1,0 +1,8 @@
+resources:
+- alb-ingress-controller.yaml
+- external-dns.yaml
+- configmap.yaml
+- secret.yaml
+- ingress-app.yaml
+
+# catコマンドでファイルの末尾に書き込みをするため、空白行を入れる

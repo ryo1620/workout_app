@@ -20,7 +20,7 @@ Rails.application.configure do
 
   # Disable serving static files from the `/public` folder by default since
   # Apache or NGINX already handles this.
-  config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?
+  config.public_file_server.enabled = true
 
   # Compress CSS using a preprocessor.
   # config.assets.css_compressor = :sass
@@ -115,13 +115,16 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :smtp
   host = 'https://workout11.com'
   config.action_mailer.default_url_options = { host: host }
-  ActionMailer::Base.smtp_settings = {
-    :enable_starttls_auto => true,
-    :address => "smtp.gmail.com",
-    :port => 587,
-    :domain => 'gmail.com',
-    :user_name => Rails.application.credentials.gmail[:user_name],
-    :password => Rails.application.credentials.gmail[:password],
-    :authentication => 'login'
-  }
+  # コンテナ内などcredentials.yml.encが読めない状況だとエラーが発生するためif文を追加
+  if Rails.application.credentials.gmail
+    ActionMailer::Base.smtp_settings = {
+      :enable_starttls_auto => true,
+      :address => "smtp.gmail.com",
+      :port => 587,
+      :domain => 'gmail.com',
+      :user_name => Rails.application.credentials.gmail[:user_name],
+      :password => Rails.application.credentials.gmail[:password],
+      :authentication => 'login'
+    }
+  end
 end

@@ -1,12 +1,12 @@
 default: &default
-  adapter: postgresql
+  adapter:  postgresql
   encoding: utf8
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  pool:     <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   username: <%= ENV.fetch('DATABASE_USER') { 'root' } %>
   password: <%= ENV.fetch('DATABASE_PASSWORD') { 'password' } %>
-  host: <%= ENV.fetch('DATABASE_HOST') { 'localhost' } %>
-  port: <%= ENV.fetch('DATABASE_PORT') { 5432 } %>
-  timeout: 5000
+  host:     <%= ENV.fetch('DATABASE_HOST') { 'localhost' } %>
+  port:     <%= ENV.fetch('DATABASE_PORT') { 5432 } %>
+  timeout:  5000
 
 development:
   <<: *default
@@ -21,6 +21,10 @@ test:
 
 production:
   <<: *default
+# コンテナ内などcredentials.yml.encが読めない状況だとエラーが発生するためif文を追加  
+<% if Rails.application.credentials.postgresql %>
   database: <%= Rails.application.credentials.postgresql[:database] %>
   username: <%= Rails.application.credentials.postgresql[:user_name] %>
   password: <%= Rails.application.credentials.postgresql[:password] %>
+  host:     <%= Rails.application.credentials.postgresql[:host] %>
+<% end %>

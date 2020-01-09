@@ -1,0 +1,152 @@
+version: 2
+
+references:
+  default_docker_ruby_executor: &default_docker_ruby_executor
+    image: circleci/ruby:2.6.3-stretch-node
+    environment:
+      BUNDLE_JOBS: 3
+      BUNDLE_RETRY: 3
+      BUNDLE_PATH: vendor/bundle
+      DATABASE_HOST: 127.0.0.1
+      DATABASE_USER: postgres
+      DATABASE_PASSWORD: password
+      RAILS_ENV: test
+      SELENIUM_REMOTE_URL: http://localhost:4444/wd/hub
+  postgres: &postgres
+    image: circleci/postgres:12-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_DB: psql_test
+      POSTGRES_PASSWORD: password
+  chrome: &chrome
+    image: selenium/standalone-chrome
+    
+jobs:
+  build:
+    docker:
+      - *default_docker_ruby_executor
+    steps:
+      - checkout
+      # Which version of bundler?
+      - run:
+          name: Which bundler?
+          command: bundle -v
+      # bundle cache
+      - restore_cache:
+          keys:
+            - v1-workout_app-bundle-{{ checksum "Gemfile.lock" }}
+            - v1-workout_app-bundle-
+      - run:
+          name: Bundle Install
+          command: bundle check || bundle install
+      # Store bundle cache
+      - save_cache:
+          key: v1-workout_app-bundle-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
+      # Only necessary if app uses webpacker or yarn in some other way
+      - restore_cache:
+          keys:
+            - v1-workout_app-yarn-{{ checksum "yarn.lock" }}
+            - v1-workout_app-yarn-
+      - run:
+          name: Yarn Install
+          command: yarn install --cache-folder ~/.cache/yarn
+      # Store yarn / webpacker cache
+      - save_cache:
+          key: v1-workout_app-yarn-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.cache/yarn
+      - restore_cache:
+          keys:
+            - v1-asset-cache-{{ arch }}-{{ .Branch }}-{{ .Environment.CIRCLE_SHA1 }}
+            - v1-asset-cache-{{ arch }}-{{ .Branch }}
+            - v1-asset-cache-
+      - run:
+          name: Precompile Assets
+          command: bundle exec rake assets:precompile
+      - save_cache:
+          key: v1-asset-cache-{{ arch }}-{{ .Branch }}-{{ .Environment.CIRCLE_SHA1 }}
+          paths:
+            - public/packs-test
+            - tmp/cache/webpacker
+  test:
+    parallelism: 3
+    docker:
+      - *default_docker_ruby_executor
+      - *postgres
+      - *chrome
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-workout_app-bundle-{{ checksum "Gemfile.lock" }}
+            - v1-workout_app-bundle-
+      - run:
+          name: Bundle Install
+          command: bundle check || bundle install
+      - restore_cache:
+          keys:
+            - v1-workout_app-yarn-{{ checksum "yarn.lock" }}
+            - v1-workout_app-yarn-
+      - run:
+          name: Wait for DB
+          command: dockerize -wait tcp://localhost:5432 -timeout 1m
+      - run:
+          name: Database setup
+          command: bundle exec rails db:schema:load --trace
+      # Run rspec in parallel
+      - restore_cache:
+          keys:
+            - v1-asset-cache-{{ arch }}-{{ .Branch }}-{{ .Environment.CIRCLE_SHA1 }}
+            - v1-asset-cache-{{ arch }}-{{ .Branch }}
+            - v1-asset-cache-
+      - run:
+          command: |
+            mkdir /tmp/test-results
+            TESTFILES=$(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
+            bundle exec rspec $TESTFILES --profile 10 --format RspecJunitFormatter --out /tmp/test-results/rspec.xml --format progress
+      - store_test_results:
+          path: /tmp/test-results
+      - store_artifacts:
+          path: /tmp/test-results
+          destination: test-results
+  deploy:
+    docker:
+      - *default_docker_ruby_executor
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-workout_app-bundle-{{ checksum "Gemfile.lock" }}
+            - v1-workout_app-bundle-
+      - run:
+          name: Bundle Install
+          command: bundle check || bundle install
+      - run:
+          name: Install awscli
+          command: |
+            sudo apt-get update
+            sudo apt-get install python3-pip groff-base
+            sudo pip3 install awscli --ignore-installed six
+      - add_ssh_keys:
+          fingerprints:
+            - "d4:aa:a1:98:8d:60:cb:9d:96:b6:99:b2:16:57:1a:76"
+      - run:
+          name: Deploy to AWS if tests pass and branch is Master
+          command: sh script/deploy_production.sh
+
+workflows:
+  version: 2
+  build_test_deploy:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
+      - deploy:
+          requires:
+            - test
+          filters:
+            branches:
+              only: master            
