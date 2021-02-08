@@ -20,7 +20,7 @@ gem 'bcrypt', '~> 3.1.7'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
 
-gem 'carrierwave', '~> 2.0', '>= 2.0.2'
+gem 'carrierwave', '~> 2.1'
 gem 'mini_magick', '~> 4.9', '>= 4.9.5'
 gem 'kaminari', '~> 1.1', '>= 1.1.1'
 gem 'devise', '~> 4.7', '>= 4.7.1'
